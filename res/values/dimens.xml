@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="sliding_menu_offset">58dp</dimen>
+    <dimen name="sliding_menu_shadow_width">15dp</dimen>
+    
+    <!-- Life total Text View dimensions -->
+    <dimen name="life_total_size">120sp</dimen>
+    <dimen name="life_total_mod_size">42sp</dimen>
+
+</resources>

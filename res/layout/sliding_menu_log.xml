@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!-- List of player two's previous life totals -->
+
+    <com.brstf.magiclife.widgets.LifeLogUd
+        android:id="@+id/log2"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"
+        android:orientation="vertical" />
+
+    <!-- Separator -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@drawable/gray"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_p1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:text="Player 1"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/arrow_down"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/tv_p1"
+            android:background="@drawable/arrow"
+            android:gravity="center_vertical"
+            android:rotation="180.0" />
+
+        <com.brstf.magiclife.widgets.UpsideDownText
+            android:id="@+id/tv_p2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:text="Player 2"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/tv_p2"
+            android:background="@drawable/arrow"
+            android:gravity="center_vertical" />
+
+        <ImageButton
+            android:id="@+id/but_reset"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/transparent_button"
+            android:contentDescription="@string/reset_button"
+            android:gravity="center_vertical|center_horizontal"
+            android:src="@android:drawable/ic_menu_rotate" />
+    </RelativeLayout>
+
+    <!-- List of player one's previous life totals -->
+
+    <com.brstf.magiclife.widgets.LifeLog
+        android:id="@+id/log1"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"
+        android:orientation="vertical" />
+
+</LinearLayout>

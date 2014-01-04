@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal" >
+
+    <!-- TextView for the life modification -->
+
+    <com.brstf.magiclife.widgets.UpsideDownText
+        android:id="@+id/row_lifemod"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/empty_string"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+
+    <!-- TextView for the life total -->
+
+    <com.brstf.magiclife.widgets.UpsideDownText
+        android:id="@+id/row_total"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/empty_string"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+
+</LinearLayout>
