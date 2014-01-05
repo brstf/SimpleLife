@@ -1,10 +1,10 @@
-package com.brstf.magiclife;
+package com.brstf.simplelife;
 
-import com.brstf.magiclife.controls.LifeController;
-import com.brstf.magiclife.data.HistoryInt;
-import com.brstf.magiclife.menu.LifeLogMenuBuilder;
-import com.brstf.magiclife.widgets.LifeView;
-import com.example.magiclife.R;
+import com.brstf.simplelife.controls.LifeController;
+import com.brstf.simplelife.data.HistoryInt;
+import com.brstf.simplelife.menu.LifeLogMenuBuilder;
+import com.brstf.simplelife.widgets.LifeView;
+import com.brstf.simplelife.R;
 
 import android.os.Bundle;
 import android.app.Activity;

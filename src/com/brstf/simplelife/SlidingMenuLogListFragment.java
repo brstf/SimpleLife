@@ -1,8 +1,8 @@
-package com.brstf.magiclife;
+package com.brstf.simplelife;
 
-import com.brstf.magiclife.controls.LifeController;
-import com.brstf.magiclife.widgets.LifeLog;
-import com.example.magiclife.R;
+import com.brstf.simplelife.controls.LifeController;
+import com.brstf.simplelife.widgets.LifeLog;
+import com.brstf.simplelife.R;
 
 import android.app.Fragment;
 import android.os.Bundle;

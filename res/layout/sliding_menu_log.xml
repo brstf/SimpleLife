@@ -6,7 +6,7 @@
 
     <!-- List of player two's previous life totals -->
 
-    <com.brstf.magiclife.widgets.LifeLogUd
+    <com.brstf.simplelife.widgets.LifeLogUd
         android:id="@+id/log2"
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -42,7 +42,7 @@
             android:gravity="center_vertical"
             android:rotation="180.0" />
 
-        <com.brstf.magiclife.widgets.UpsideDownText
+        <com.brstf.simplelife.widgets.UpsideDownText
             android:id="@+id/tv_p2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -75,7 +75,7 @@
 
     <!-- List of player one's previous life totals -->
 
-    <com.brstf.magiclife.widgets.LifeLog
+    <com.brstf.simplelife.widgets.LifeLog
         android:id="@+id/log1"
         android:layout_width="match_parent"
         android:layout_height="0dip"

@@ -27,7 +27,7 @@
 
     <!-- Life Total -->
 
-    <com.brstf.magiclife.widgets.UpsideDownText
+    <com.brstf.simplelife.widgets.UpsideDownText
         android:id="@+id/life_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,7 +37,7 @@
 
     <!-- Life Total Mod (Only appears when a change is made) -->
 
-    <com.brstf.magiclife.widgets.UpsideDownText
+    <com.brstf.simplelife.widgets.UpsideDownText
         android:id="@+id/life_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

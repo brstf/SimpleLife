@@ -1,6 +1,6 @@
-package com.brstf.magiclife.widgets;
+package com.brstf.simplelife.widgets;
 
-import com.example.magiclife.R;
+import com.brstf.simplelife.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

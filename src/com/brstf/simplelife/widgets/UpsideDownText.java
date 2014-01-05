@@ -1,4 +1,4 @@
-package com.brstf.magiclife.widgets;
+package com.brstf.simplelife.widgets;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,10 +1,10 @@
-package com.brstf.magiclife.widgets;
+package com.brstf.simplelife.widgets;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import com.brstf.magiclife.controls.LifeController;
-import com.example.magiclife.R;
+import com.brstf.simplelife.controls.LifeController;
+import com.brstf.simplelife.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

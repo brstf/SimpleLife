@@ -1,14 +1,19 @@
-package com.brstf.magiclife.widgets;
+package com.brstf.simplelife.widgets;
 
 import java.util.Observer;
 
-import com.brstf.magiclife.controls.LifeController;
+import com.brstf.simplelife.controls.LifeController;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+/**
+ * ObserverLayout is a simple extension of RelativeLayout that implements
+ * Observer to listen to various Observable objects. In our case, that object is
+ * the LifeController.
+ * 
+ */
 public abstract class ObserverLayout extends RelativeLayout implements Observer {
 	private LifeController m_lc;
 
@@ -28,7 +33,7 @@ public abstract class ObserverLayout extends RelativeLayout implements Observer 
 	}
 
 	/**
-	 * Initializes necessary components of the LifeLog.
+	 * Initializes necessary components of this ObserverLayout.
 	 */
 	protected void init() {
 		initView();

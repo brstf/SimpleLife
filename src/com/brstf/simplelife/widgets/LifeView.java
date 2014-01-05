@@ -1,4 +1,4 @@
-package com.brstf.magiclife.widgets;
+package com.brstf.simplelife.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.Observable;
 
-import com.brstf.magiclife.controls.LifeController;
-import com.example.magiclife.R;
+import com.brstf.simplelife.controls.LifeController;
+import com.brstf.simplelife.R;
 
 public class LifeView extends ObserverLayout {
 	private Button m_button_up;
@@ -81,6 +81,12 @@ public class LifeView extends ObserverLayout {
 		};
 	}
 
+	/**
+	 * Convenience method to add click listeners to the buttons of this view.
+	 * 
+	 * @param lc
+	 *            LifeController associated with this view
+	 */
 	private void addListeners(LifeController lc) {
 		m_button_up.setOnClickListener(createListener(lc, 1));
 		m_button_down.setOnClickListener(createListener(lc, -1));
@@ -109,8 +115,13 @@ public class LifeView extends ObserverLayout {
 			m_anim.setFillAfter(true);
 			m_mod.startAnimation(m_anim);
 		}
+
+		if (!getLifeController().isUpdating()) {
+			m_mod.setText("");
+		}
 	}
 
+	
 	private int getColorFromResource(int id) {
 		return getContext().getResources().getColor(id);
 	}

@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <com.brstf.magiclife.widgets.LifeViewUd
+        <com.brstf.simplelife.widgets.LifeViewUd
             android:id="@+id/player2_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -28,7 +28,7 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <com.brstf.magiclife.widgets.LifeView
+        <com.brstf.simplelife.widgets.LifeView
             android:id="@+id/player1_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

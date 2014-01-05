@@ -1,8 +1,8 @@
-package com.brstf.magiclife.menu;
+package com.brstf.simplelife.menu;
 
-import com.brstf.magiclife.SlidingMenuLogListFragment;
-import com.brstf.magiclife.controls.LifeController;
-import com.example.magiclife.R;
+import com.brstf.simplelife.SlidingMenuLogListFragment;
+import com.brstf.simplelife.controls.LifeController;
+import com.brstf.simplelife.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.app.Activity;

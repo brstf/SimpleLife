@@ -1,9 +1,9 @@
-package com.brstf.magiclife.controls;
+package com.brstf.simplelife.controls;
 
 import java.util.ArrayList;
 import java.util.Observable;
 
-import com.brstf.magiclife.data.HistoryInt;
+import com.brstf.simplelife.data.HistoryInt;
 
 public class LifeController extends Observable {
 	private HistoryInt life;
@@ -59,6 +59,16 @@ public class LifeController extends Observable {
 	 */
 	public ArrayList<Integer> getHistory() {
 		return this.life.getHistory();
+	}
+
+	/**
+	 * Checks whether or not the underlying HistoryInt is updating right now.
+	 * 
+	 * @return True if at the current time, the most recent HistoryInt total is
+	 *         still being modified, false otherwise
+	 */
+	public boolean isUpdating() {
+		return this.life.isUpdating(System.currentTimeMillis());
 	}
 
 	/**

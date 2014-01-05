@@ -1,10 +1,9 @@
-package com.brstf.magiclife.data;
+package com.brstf.simplelife.data;
 
 import java.util.ArrayList;
 
 public class HistoryInt {
 	private ArrayList<Integer> value_history = new ArrayList<Integer>();
-	private ArrayList<Integer> value_mods = new ArrayList<Integer>();
 	private long last_time = 0L;
 	private int initval;
 	private final long interval;
@@ -63,15 +62,6 @@ public class HistoryInt {
 	}
 
 	/**
-	 * Gets the most recent modification to the HistoryInt.
-	 * 
-	 * @return Most recent modification
-	 */
-	public int getLastMod() {
-		return value_mods.get(value_mods.size() - 1);
-	}
-
-	/**
 	 * Gets the last time (in milliseconds) that this value was updated.
 	 * 
 	 * @return Last time (in milliseconds) that this value was updated
@@ -81,14 +71,34 @@ public class HistoryInt {
 	}
 
 	/**
+	 * Gets the number of modifications made to this HistoryInt (how many
+	 * entries in the history there are).
+	 * 
+	 * @return Number of modifications made to the HistoryInt
+	 */
+	public int getSize() {
+		return this.value_history.size();
+	}
+
+	/**
+	 * Check whether the most recent HistoryInt total is being modified.
+	 * 
+	 * @param time
+	 *            Time at which this check is made
+	 * @return True if time is within the interval last_time --> last_time +
+	 *         interval_time, false otherwise
+	 */
+	public boolean isUpdating(long time) {
+		return time >= last_time && time <= last_time + interval;
+	}
+
+	/**
 	 * Resets the value to the initial value, clearing out all the logs.
 	 */
 	public void reset() {
 		this.value_history.clear();
-		this.value_mods.clear();
 		this.last_time = 0L;
 		this.value_history.add(this.initval);
-		this.value_mods.add(0);
 	}
 
 	/**
@@ -103,13 +113,16 @@ public class HistoryInt {
 	 */
 	public void setValue(int value, long time) {
 		if (time - this.last_time > this.interval) {
-			this.value_mods.add(value - getCurrentValue());
 			this.value_history.add(value);
+			last_time = time;
 		} else {
-			this.value_mods.set(this.value_history.size() - 1, value
-					- this.value_history.get(this.value_history.size() - 2));
-			this.value_history.set(this.value_history.size() - 1, value);
+			if (value == this.value_history.get(this.getSize() - 2)) {
+				this.value_history.remove(this.getSize() - 1);
+				last_time = 0;
+			} else {
+				this.value_history.set(this.getSize() - 1, value);
+				last_time = time;
+			}
 		}
-		last_time = time;
 	}
 }
