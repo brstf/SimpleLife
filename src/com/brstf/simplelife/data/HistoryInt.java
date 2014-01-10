@@ -102,6 +102,16 @@ public class HistoryInt {
 	}
 
 	/**
+	 * Sets the history of this HistoryInt to be the given history.
+	 * 
+	 * @param history
+	 *            New list of integers to use as a history for this HistoryInt
+	 */
+	public void setHistory(ArrayList<Integer> history) {
+		this.value_history = new ArrayList<Integer>(history);
+	}
+
+	/**
 	 * Sets the current value to the given value, taking into account the time
 	 * this modification is being made and the last time the value was updated.
 	 * This also appropriately updates the value modification.

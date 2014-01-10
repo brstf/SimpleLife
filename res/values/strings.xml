@@ -7,4 +7,7 @@
     
     <string name="empty_string"></string>
 	<string name="reset_button">Reset</string>
+	
+	<string name="tag_lh">tag_lh</string>
+	<string name="tag_players">tag_players</string>
 </resources>

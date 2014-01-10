@@ -1,6 +1,8 @@
 package com.brstf.simplelife.widgets;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -94,7 +96,12 @@ public class LifeView extends ObserverLayout {
 
 	@Override
 	public void update(Observable observable, Object data) {
-		m_life.setText(String.valueOf(getLifeController().getCurrentValue()));
+		int lifeTotal = getLifeController().getCurrentValue();
+		SpannableString st = new SpannableString(String.valueOf(lifeTotal));
+		if (lifeTotal == 6 || lifeTotal == 9) {
+			st.setSpan(new UnderlineSpan(), 0, st.length(), 0);
+		}
+		m_life.setText(st);
 
 		// On a life reset, we don't have a mod to set
 		if (this.getLifeController().getHistory().size() != 1) {
@@ -121,7 +128,6 @@ public class LifeView extends ObserverLayout {
 		}
 	}
 
-	
 	private int getColorFromResource(int id) {
 		return getContext().getResources().getColor(id);
 	}
