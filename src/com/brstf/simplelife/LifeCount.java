@@ -152,7 +152,10 @@ public class LifeCount extends SlidingFragmentActivity {
 			}
 			return true;
 		}
-		return super.onKeyUp(keyCode, event);
+
+		return false;
+		// TODO: Save logs on activity destroy through preferences or db
+		// return super.onKeyUp(keyCode, event);
 	}
 
 	private boolean closeOptions() {
