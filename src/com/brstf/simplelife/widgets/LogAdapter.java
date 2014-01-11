@@ -3,6 +3,7 @@ package com.brstf.simplelife.widgets;
 import java.util.List;
 
 import com.brstf.simplelife.R;
+import com.brstf.simplelife.TextUtils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -89,39 +90,8 @@ public class LogAdapter extends ArrayAdapter<Integer> {
 			mod = getItem(position) - getItem(position + mod);
 		}
 
-		setModText(h.life_mod, mod);
+		TextUtils.modTextView(h.life_mod, mod, getContext().getResources());
 
 		return v;
-	}
-
-	/**
-	 * Given a TextView and modification amount, set the text of the TextView to
-	 * be the mod amount with changes depending on positive/negative mod.
-	 * 
-	 * @param tv
-	 *            TextView to set the text of
-	 * @param mod
-	 *            Integer value to use to set the text of tv
-	 */
-	private void setModText(TextView tv, int mod) {
-		tv.setTextColor(getColorFromResource(R.color.black));
-		if (mod > 0) {
-			tv.setTextColor(getColorFromResource(R.color.green));
-		} else if (mod < 0) {
-			tv.setTextColor(getColorFromResource(R.color.red));
-		}
-		String text = (mod > 0 ? "+" : "") + String.valueOf(mod);
-		tv.setText(text);
-	}
-
-	/**
-	 * Convenience method to get color from resource id
-	 * 
-	 * @param id
-	 *            Id of the color to retrieve
-	 * @return Color specified by id
-	 */
-	private int getColorFromResource(int id) {
-		return getContext().getResources().getColor(id);
 	}
 }

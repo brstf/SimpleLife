@@ -13,6 +13,7 @@ import java.util.Observable;
 
 import com.brstf.simplelife.controls.LifeController;
 import com.brstf.simplelife.R;
+import com.brstf.simplelife.TextUtils;
 
 public class LifeView extends ObserverLayout {
 	private Button m_button_up;
@@ -96,23 +97,13 @@ public class LifeView extends ObserverLayout {
 
 	@Override
 	public void update(Observable observable, Object data) {
-		int lifeTotal = getLifeController().getCurrentValue();
-		SpannableString st = new SpannableString(String.valueOf(lifeTotal));
-		if (lifeTotal == 6 || lifeTotal == 9) {
-			st.setSpan(new UnderlineSpan(), 0, st.length(), 0);
-		}
-		m_life.setText(st);
+		m_life.setText(TextUtils.getUnambiguousText(getLifeController()
+				.getCurrentValue()));
 
 		// On a life reset, we don't have a mod to set
 		if (this.getLifeController().getHistory().size() != 1) {
 			int mod = this.getLifeController().getLastMod();
-			m_mod.setText((mod > 0 ? "+" : "") + String.valueOf(mod));
-			m_mod.setTextColor(getColorFromResource(R.color.black));
-			if (mod > 0) {
-				m_mod.setTextColor(getColorFromResource(R.color.green));
-			} else if (mod < 0) {
-				m_mod.setTextColor(getColorFromResource(R.color.red));
-			}
+			TextUtils.modTextView(m_mod, mod, getResources());
 
 			// Setup alpha animation
 			m_anim = new AlphaAnimation(1.0f, 0.0f);
@@ -126,9 +117,5 @@ public class LifeView extends ObserverLayout {
 		if (!getLifeController().isUpdating()) {
 			m_mod.setText("");
 		}
-	}
-
-	private int getColorFromResource(int id) {
-		return getContext().getResources().getColor(id);
 	}
 }
