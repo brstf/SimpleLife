@@ -21,7 +21,7 @@ public class TextUtils {
 		SpannableString st = new SpannableString(String.valueOf(num));
 
 		int copy = num;
-		boolean ambiguous = (num >= 0);
+		boolean ambiguous = (num >= 0 && num % 10 != 0);
 		while (copy > 0) {
 			int digit = copy % 10;
 			if (!(digit == 6 || digit == 8 || digit == 9 || digit == 0)) {
