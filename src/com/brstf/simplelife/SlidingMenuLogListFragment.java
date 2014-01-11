@@ -61,9 +61,9 @@ public class SlidingMenuLogListFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				m_lc1.reset();
-				m_lc2.reset();
-				// showOptions();
+				//m_lc1.reset();
+				//m_lc2.reset();
+				showOptions();
 			}
 		});
 	}

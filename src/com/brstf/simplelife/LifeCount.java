@@ -7,6 +7,7 @@ import com.brstf.simplelife.data.HistoryInt;
 import com.brstf.simplelife.widgets.LifeView;
 import com.brstf.simplelife.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.os.Bundle;
@@ -121,6 +122,12 @@ public class LifeCount extends SlidingFragmentActivity {
 		menu.setShadowDrawable(R.drawable.sliding_menu_shadow);
 		menu.setShadowWidthRes(R.dimen.sliding_menu_shadow_width);
 		menu.setMode(SlidingMenu.RIGHT);
+		menu.setOnClosedListener(new OnClosedListener() {
+			@Override
+			public void onClosed() {
+				closeOptions();
+			}
+		});
 
 		if (savedInstanceState == null) {
 			mLogFrag = new SlidingMenuLogListFragment();
@@ -138,15 +145,41 @@ public class LifeCount extends SlidingFragmentActivity {
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK
 				&& getSlidingMenu().isMenuShowing()) {
-			// Check if settings are showing, if they are just pop it off
-			if (mLogFrag.getFragmentManager().getBackStackEntryCount() > 0) {
-				mLogFrag.getFragmentManager().popBackStack();
-			} else {
+			// Try to close options before the sliding menu
+			if (!closeOptions()) {
 				// Otherwise, close the sliding menu as normal
 				showContent();
 			}
 			return true;
 		}
+		return super.onKeyUp(keyCode, event);
+	}
+
+	private boolean closeOptions() {
+		// Check if settings are showing, if they are just pop it off
+		if (mLogFrag.getFragmentManager().getBackStackEntryCount() > 0) {
+			mLogFrag.getFragmentManager().popBackStack();
+			return true;
+		}
 		return false;
+	}
+
+	/**
+	 * Resets both life totals to their starting values.
+	 */
+	public void reset() {
+		p1Controller.reset();
+		p2Controller.reset();
+	}
+
+	/**
+	 * Resets both life totals to the given value.
+	 * 
+	 * @param resetval
+	 *            Value to reset the life totals to
+	 */
+	public void reset(int resetval) {
+		p1Controller.reset(resetval);
+		p2Controller.reset(resetval);
 	}
 }

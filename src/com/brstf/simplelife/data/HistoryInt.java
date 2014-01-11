@@ -93,9 +93,20 @@ public class HistoryInt {
 	}
 
 	/**
-	 * Resets the value to the initial value, clearing out all the logs.
+	 * Resets the value to the initial value, clearing out the history.
 	 */
 	public void reset() {
+		this.reset(this.initval);
+	}
+
+	/**
+	 * Resets the value to the given reset value, clearing out the history.
+	 * 
+	 * @param resetval
+	 *            Value to reset the HistoryInt to
+	 */
+	public void reset(int resetval) {
+		this.initval = resetval;
 		this.value_history.clear();
 		this.last_time = 0L;
 		this.value_history.add(this.initval);

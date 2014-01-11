@@ -96,6 +96,17 @@ public class LifeController extends Observable {
 	}
 
 	/**
+	 * Resets the life total to the given value.
+	 * 
+	 * @param resetval
+	 *            Value to reset the Life totals to
+	 */
+	public void reset(int resetval) {
+		this.life.reset(resetval);
+		triggerObservers();
+	}
+
+	/**
 	 * Private method to update any observers that are watching this object.
 	 */
 	private void triggerObservers() {

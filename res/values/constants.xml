@@ -3,6 +3,6 @@
     <integer name="update_interval">2000</integer>
     
     <!-- Flip Animation Times -->
-    <integer name="flip_time_full">500</integer>
-    <integer name="flip_time_half">250</integer>
+    <integer name="flip_time_full">300</integer>
+    <integer name="flip_time_half">150</integer>
 </resources>

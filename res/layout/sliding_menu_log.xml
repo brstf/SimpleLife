@@ -70,9 +70,7 @@
             android:background="@drawable/transparent_button"
             android:contentDescription="@string/reset_button"
             android:gravity="center_vertical|center_horizontal"
-            android:src="@android:drawable/ic_menu_rotate" />
-
-        <!-- android:src="@drawable/ic_action_settings" /> -->
+            android:src="@drawable/ic_action_settings" />
     </RelativeLayout>
 
     <!-- List of player one's previous life totals -->

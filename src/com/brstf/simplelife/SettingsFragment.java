@@ -1,26 +1,14 @@
 package com.brstf.simplelife;
 
-import java.util.ArrayList;
-
-import com.brstf.simplelife.data.OptionsItem;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.ImageButton;
 
 public class SettingsFragment extends Fragment {
-	public SettingsFragment() {
-		// Reset to 20
-		mOptions.add(new OptionsItem(R.layout.options_icon,
-				R.drawable.round_arrow_20, R.id.icon));
-
-		// Reset to 20
-		mOptions.add(new OptionsItem(R.layout.options_icon,
-				R.drawable.round_arrow_40, R.id.icon));
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,11 +19,37 @@ public class SettingsFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		GridView optionsGrid = (GridView) this.getView().findViewById(
-				R.id.options_grid);
-		optionsGrid.setAdapter(new SettingsAdapter(this.getView().getContext(),
-				0, 0, mOptions));
+		// Add click listeners to the reset buttons
+		ImageButton reset20 = (ImageButton) getView().findViewById(
+				R.id.but_reset20);
+		reset20.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				reset(20);
+			}
+		});
+		ImageButton reset40 = (ImageButton) getView().findViewById(
+				R.id.but_reset40);
+		reset40.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				reset(40);
+			}
+		});
 	}
 
-	private ArrayList<OptionsItem> mOptions = new ArrayList<OptionsItem>();
+	/**
+	 * Resets the LifeCount and pops this fragment off the stack. Note: This
+	 * fragment should only ever be added to the back stack when adding this
+	 * fragment.
+	 * 
+	 * @param resetval
+	 *            Integer value to reset the life totals to
+	 */
+	private void reset(int resetval) {
+		((LifeCount) getActivity()).reset(resetval);
+
+		// TODO: Is this the best way of "finishing" this fragment?
+		SettingsFragment.this.getFragmentManager().popBackStack();
+	}
 }
