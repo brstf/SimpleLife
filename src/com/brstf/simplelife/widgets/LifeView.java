@@ -21,7 +21,8 @@ public class LifeView extends ObserverLayout {
 	private PoisonView m_poison;
 	private TextView m_life;
 	private TextView m_mod;
-	private AlphaAnimation m_anim;
+	private AlphaAnimation m_mod_anim;
+	private AlphaAnimation m_text_anim;
 	private boolean m_inverse = false;
 
 	public LifeView(Context context) {
@@ -105,6 +106,17 @@ public class LifeView extends ObserverLayout {
 		m_button_poison.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (m_poison.isOpaque()) {
+					m_text_anim = new AlphaAnimation(0.15f, 1.0f);
+				} else {
+					m_text_anim = new AlphaAnimation(1.0f, 0.15f);
+				}
+				m_text_anim.setDuration(getResources().getInteger(
+						R.integer.poison_reveal_time));
+				m_text_anim.setStartOffset(0L);
+				m_text_anim.setFillAfter(true);
+				m_life.startAnimation(m_text_anim);
+
 				LifeView.this.m_poison.togglePoison();
 			}
 		});
@@ -137,12 +149,12 @@ public class LifeView extends ObserverLayout {
 			TextUtils.modTextView(m_mod, mod, getResources());
 
 			// Setup alpha animation
-			m_anim = new AlphaAnimation(1.0f, 0.0f);
-			m_anim.setDuration(getResources().getInteger(
+			m_mod_anim = new AlphaAnimation(1.0f, 0.0f);
+			m_mod_anim.setDuration(getResources().getInteger(
 					R.integer.update_interval));
-			m_anim.setStartOffset(0L);
-			m_anim.setFillAfter(true);
-			m_mod.startAnimation(m_anim);
+			m_mod_anim.setStartOffset(0L);
+			m_mod_anim.setFillAfter(true);
+			m_mod.startAnimation(m_mod_anim);
 		}
 
 		if (!getLifeController().isUpdating()) {
