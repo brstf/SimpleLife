@@ -36,6 +36,8 @@ public class LifeCount extends SlidingFragmentActivity {
 		long interval = getResources().getInteger(R.integer.update_interval);
 		p1Life = new HistoryInt(start_total, interval);
 		p2Life = new HistoryInt(start_total, interval);
+		p1Controller = new LifeController(p1Life);
+		p2Controller = new LifeController(p2Life);
 		initializeLife(savedInstanceState);
 
 		// Don't turn screen off
@@ -43,13 +45,11 @@ public class LifeCount extends SlidingFragmentActivity {
 		setContentView(R.layout.life_count);
 
 		// Initialize Player 1:
-		p1Controller = new LifeController(p1Life);
 		LifeView p1 = (LifeView) findViewById(R.id.player1_lv);
 		p1.setLifeController(p1Controller);
 		p1.setInversed(false);
 
 		// Initialize Player 2:
-		p2Controller = new LifeController(p2Life);
 		LifeView p2 = (LifeView) findViewById(R.id.player2_lv);
 		p2.setInversed(mPrefs.getBoolean(getString(R.string.key_invert), true));
 		p2.setLifeController(p2Controller);
@@ -95,11 +95,22 @@ public class LifeCount extends SlidingFragmentActivity {
 		// Get the player keys
 		ArrayList<String> players = savedInstanceState
 				.getStringArrayList(getResources().getString(
-						R.string.tag_players));
+						R.string.tag_players_life));
 		if (players != null) {
 			p1Life.setHistory(savedInstanceState.getIntegerArrayList(players
 					.get(0)));
 			p2Life.setHistory(savedInstanceState.getIntegerArrayList(players
+					.get(1)));
+		}
+
+		// Get the poison amounts
+		ArrayList<String> players_poison = savedInstanceState
+				.getStringArrayList(getResources().getString(
+						R.string.tag_players_poison));
+		if (players_poison != null) {
+			p1Controller.setPoison(savedInstanceState.getInt(players_poison
+					.get(0)));
+			p2Controller.setPoison(savedInstanceState.getInt(players_poison
 					.get(1)));
 		}
 	}
@@ -109,18 +120,27 @@ public class LifeCount extends SlidingFragmentActivity {
 		super.onSaveInstanceState(outState);
 
 		// Construct a list of player tags
-		ArrayList<String> tags = new ArrayList<String>();
+		ArrayList<String> lh_tags = new ArrayList<String>();
+		ArrayList<String> p_tags = new ArrayList<String>();
 		String lh_tag = getResources().getString(R.string.tag_lh);
+		String p_tag = getResources().getString(R.string.tag_poison);
 
 		// Add a tag for each player we need to restore
-		tags.add(lh_tag + "1");
-		tags.add(lh_tag + "2");
+		lh_tags.add(lh_tag + "1");
+		lh_tags.add(lh_tag + "2");
 		outState.putStringArrayList(
-				getResources().getString(R.string.tag_players), tags);
+				getResources().getString(R.string.tag_players_life), lh_tags);
+		outState.putIntegerArrayList(lh_tags.get(0), p1Life.getHistory());
+		outState.putIntegerArrayList(lh_tags.get(1), p2Life.getHistory());
+
+		p_tags.add(p_tag + "1");
+		p_tags.add(p_tag + "2");
+		outState.putStringArrayList(
+				getResources().getString(R.string.tag_players_poison), p_tags);
 
 		// For each tag, save the history
-		outState.putIntegerArrayList(tags.get(0), p1Life.getHistory());
-		outState.putIntegerArrayList(tags.get(1), p2Life.getHistory());
+		outState.putInt(p_tags.get(0), p1Controller.getCurrentPoison());
+		outState.putInt(p_tags.get(1), p2Controller.getCurrentPoison());
 	}
 
 	@Override

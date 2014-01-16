@@ -9,7 +9,9 @@
 
     <!-- Bundle tags for reloading life logs -->
     <string name="tag_lh">tag_lh</string>
-    <string name="tag_players">tag_players</string>
+    <string name="tag_poison">tag_poison</string>
+    <string name="tag_players_life">tag_players_life</string>
+    <string name="tag_players_poison">tag_players_poison</string>
 
     <!-- Shared preference keys -->
     <string name="key_total">total</string>

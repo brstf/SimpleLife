@@ -109,8 +109,19 @@ public class LifeController extends Observable {
 	 *            Amount to modify the poison total by
 	 */
 	public void incrementPoisonBy(int mod) {
-		this.m_poison += mod;
+		this.setPoison(this.m_poison + mod);
+	}
+
+	/**
+	 * Sets the poison amount to the given value.
+	 * 
+	 * @param poison
+	 *            New poison amount
+	 */
+	public void setPoison(int poison) {
+		this.m_poison = poison;
 		this.m_poison = this.m_poison < 0 ? 0 : this.m_poison;
+		this.m_poison = this.m_poison > 10 ? 10 : this.m_poison;
 		triggerObservers();
 	}
 

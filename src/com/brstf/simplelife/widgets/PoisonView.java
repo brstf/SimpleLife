@@ -29,17 +29,7 @@ public class PoisonView extends ObserverLayout {
 
 	@Override
 	public void update(Observable observable, Object data) {
-		// Update the poison views
-		for (int i = 0; i < this.getChildCount(); ++i) {
-			if (i < getLifeController().getCurrentPoison()) {
-				((ImageView) this.getChildAt(i))
-						.setImageResource(R.drawable.black_drop);
-				this.getChildAt(i).setAlpha(1.0f);
-			} else {
-				((ImageView) this.getChildAt(i))
-						.setImageResource(R.drawable.gray_drop);
-			}
-		}
+		updatePoisonView();
 	}
 
 	@Override
@@ -63,6 +53,21 @@ public class PoisonView extends ObserverLayout {
 
 	@Override
 	protected void registerLifeController(LifeController lc) {
+		updatePoisonView();
+	}
+
+	public void updatePoisonView() {
+		// Update the poison views
+		for (int i = 0; i < this.getChildCount(); ++i) {
+			if (i < getLifeController().getCurrentPoison()) {
+				((ImageView) this.getChildAt(i))
+						.setImageResource(R.drawable.black_drop);
+				this.getChildAt(i).setAlpha(0.5f);
+			} else {
+				((ImageView) this.getChildAt(i))
+						.setImageResource(R.drawable.gray_drop);
+			}
+		}
 	}
 
 	/**
@@ -70,8 +75,8 @@ public class PoisonView extends ObserverLayout {
 	 * counters and properly changes the mode.
 	 */
 	public void togglePoison() {
-		float start = m_poison_mode ? 0.5f : 0.0f;
-		float end = m_poison_mode ? 0.0f : 0.5f;
+		float start = m_poison_mode ? 1.0f : 0.0f;
+		float end = m_poison_mode ? 0.0f : 1.0f;
 		m_PoisonAnim = new AlphaAnimation(start, end);
 		m_PoisonAnim.setDuration(getResources().getInteger(
 				R.integer.poison_reveal_time));
@@ -80,7 +85,7 @@ public class PoisonView extends ObserverLayout {
 		m_poison_mode = !m_poison_mode;
 		for (int i = 0; i < this.getChildCount(); ++i) {
 			if (i >= this.getLifeController().getCurrentPoison()) {
-				this.getChildAt(i).setAlpha(1.0f);
+				this.getChildAt(i).setAlpha(0.5f);
 				this.getChildAt(i).startAnimation(m_PoisonAnim);
 			}
 		}
