@@ -25,6 +25,19 @@
             android:background="@drawable/transparent_button" />
     </LinearLayout>
 
+    <!-- Poison Button -->
+
+    <ImageButton
+        android:id="@+id/poison_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/transparent_button"
+        android:src="@drawable/black_drop" />
+
     <!-- Life Total -->
 
     <TextView
@@ -33,7 +46,24 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text=""
+        android:textColor="@color/black"
         android:textSize="@dimen/life_total_size" />
+
+    <!-- Poison Icons -->
+
+    <LinearLayout
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true" />
+
+    <com.brstf.simplelife.widgets.PoisonView
+        android:id="@+id/poison_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spacer"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="70dp" />
 
     <!-- Life Mod (Only appears when a change is being made -->
 

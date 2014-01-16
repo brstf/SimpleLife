@@ -10,8 +10,9 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.WindowManager;
@@ -22,15 +23,19 @@ public class LifeCount extends SlidingFragmentActivity {
 	private HistoryInt p1Life;
 	private HistoryInt p2Life;
 	private SlidingMenuLogListFragment mLogFrag;
+	private SharedPreferences mPrefs;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setupPreferences();
 
 		// Restore life histories
+		int start_total = mPrefs.getInt(getString(R.string.key_total),
+				getResources().getInteger(R.integer.default_total));
 		long interval = getResources().getInteger(R.integer.update_interval);
-		p1Life = new HistoryInt(20, interval);
-		p2Life = new HistoryInt(20, interval);
+		p1Life = new HistoryInt(start_total, interval);
+		p2Life = new HistoryInt(start_total, interval);
 		initializeLife(savedInstanceState);
 
 		// Don't turn screen off
@@ -39,17 +44,40 @@ public class LifeCount extends SlidingFragmentActivity {
 
 		// Initialize Player 1:
 		p1Controller = new LifeController(p1Life);
-		((LifeView) findViewById(R.id.player1_lv))
-				.setLifeController(p1Controller);
+		LifeView p1 = (LifeView) findViewById(R.id.player1_lv);
+		p1.setLifeController(p1Controller);
+		p1.setInversed(false);
 
 		// Initialize Player 2:
 		p2Controller = new LifeController(p2Life);
-		((LifeView) findViewById(R.id.player2_lv))
-				.setLifeController(p2Controller);
+		LifeView p2 = (LifeView) findViewById(R.id.player2_lv);
+		p2.setInversed(mPrefs.getBoolean(getString(R.string.key_invert), true));
+		p2.setLifeController(p2Controller);
 
-		Log.d("LifeCount", "onCreateActivity");
 		setBehindContentView(R.layout.sliding_menu_frame);
 		createSlidingMenus(savedInstanceState);
+	}
+
+	/**
+	 * Setup a SharedPreferences with default values if it doesn't exist, then
+	 * read preferences used for setup.
+	 */
+	private void setupPreferences() {
+		mPrefs = getPreferences(Context.MODE_PRIVATE);
+
+		// Fill SharedPreferences with default information if they don't exist
+		if (mPrefs.getAll().size() == 0) {
+			SharedPreferences.Editor edit = mPrefs.edit();
+			edit.putBoolean(getString(R.string.key_invert), true);
+			edit.putInt(getString(R.string.key_total), getResources()
+					.getInteger(R.integer.default_total));
+			edit.putInt(getString(R.string.key_uppernum), getResources()
+					.getInteger(R.integer.default_upper));
+			edit.putInt(getString(R.string.key_changes), getResources()
+					.getInteger(R.integer.default_changes));
+			edit.putBoolean(getString(R.string.key_poison), false);
+			edit.commit();
+		}
 	}
 
 	/**

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/poison1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/poison1"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/poison2"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/poison3"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/poison4"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/poison1"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/poison2"
+        android:layout_toRightOf="@id/poison6"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/poison3"
+        android:layout_toRightOf="@id/poison7"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/poison4"
+        android:layout_toRightOf="@id/poison8"
+        android:src="@drawable/gray_drop" />
+
+    <ImageView
+        android:id="@+id/poison10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/poison5"
+        android:layout_toRightOf="@id/poison9"
+        android:src="@drawable/gray_drop" />
+
+</merge>

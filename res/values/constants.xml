@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <integer name="update_interval">2000</integer>
-    
+
     <!-- Flip Animation Times -->
     <integer name="flip_time_full">300</integer>
     <integer name="flip_time_half">150</integer>
+
+    <!-- Poison Animation Time -->
+    <integer name="poison_reveal_time">200</integer>
+
+    <!-- Default Preference Values -->
+    <integer name="default_total">20</integer>
+    <integer name="default_changes">0</integer>
+    <integer name="default_upper">1</integer>
+
 </resources>

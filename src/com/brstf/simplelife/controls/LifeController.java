@@ -7,6 +7,7 @@ import com.brstf.simplelife.data.HistoryInt;
 
 public class LifeController extends Observable {
 	private HistoryInt life;
+	private int m_poison = 0;
 
 	/**
 	 * Constructor that takes in a HistoryInt object for this controller to
@@ -88,10 +89,56 @@ public class LifeController extends Observable {
 	}
 
 	/**
+	 * Increments poison by 1.
+	 */
+	public void incrementPoison() {
+		this.incrementPoisonBy(1);
+	}
+
+	/**
+	 * Decrements poison by 1.
+	 */
+	public void decrementPoison() {
+		this.incrementPoisonBy(-1);
+	}
+
+	/**
+	 * Increments poison by the given amount.
+	 * 
+	 * @param mod
+	 *            Amount to modify the poison total by
+	 */
+	public void incrementPoisonBy(int mod) {
+		this.m_poison += mod;
+		this.m_poison = this.m_poison < 0 ? 0 : this.m_poison;
+		triggerObservers();
+	}
+
+	/**
+	 * Decrements poison by the given amount.
+	 * 
+	 * @param mod
+	 *            Amount to modify the poison total by
+	 */
+	public void decrementPoisonBy(int mod) {
+		this.incrementPoisonBy(-mod);
+	}
+
+	/**
+	 * Get the current poison amount.
+	 * 
+	 * @return Current poison total
+	 */
+	public int getCurrentPoison() {
+		return this.m_poison;
+	}
+
+	/**
 	 * Resets the life total.
 	 */
 	public void reset() {
 		this.life.reset();
+		this.m_poison = 0;
 		triggerObservers();
 	}
 

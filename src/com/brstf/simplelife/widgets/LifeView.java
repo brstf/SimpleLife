@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Observable;
@@ -16,9 +17,12 @@ import com.brstf.simplelife.TextUtils;
 public class LifeView extends ObserverLayout {
 	private Button m_button_up;
 	private Button m_button_down;
+	private ImageButton m_button_poison;
+	private PoisonView m_poison;
 	private TextView m_life;
 	private TextView m_mod;
 	private AlphaAnimation m_anim;
+	private boolean m_inverse = false;
 
 	public LifeView(Context context) {
 		super(context);
@@ -38,6 +42,8 @@ public class LifeView extends ObserverLayout {
 
 		m_button_up = (Button) findViewById(R.id.but_up);
 		m_button_down = (Button) findViewById(R.id.but_down);
+		m_button_poison = (ImageButton) findViewById(R.id.poison_button);
+		m_poison = (PoisonView) findViewById(R.id.poison_layout);
 		m_life = (TextView) findViewById(R.id.life_text);
 		m_mod = (TextView) findViewById(R.id.life_mod);
 	}
@@ -58,6 +64,7 @@ public class LifeView extends ObserverLayout {
 	 */
 	@Override
 	protected void registerLifeController(final LifeController lc) {
+		m_poison.setLifeController(lc);
 		addListeners(lc);
 		m_life.setText(String.valueOf(getLifeController().getCurrentValue()));
 	}
@@ -77,7 +84,11 @@ public class LifeView extends ObserverLayout {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				lc.incrementBy(modification);
+				if (m_poison.isOpaque()) {
+					lc.incrementPoisonBy(modification);
+				} else {
+					lc.incrementBy(modification);
+				}
 			}
 		};
 	}
@@ -91,6 +102,28 @@ public class LifeView extends ObserverLayout {
 	private void addListeners(LifeController lc) {
 		m_button_up.setOnClickListener(createListener(lc, 1));
 		m_button_down.setOnClickListener(createListener(lc, -1));
+		m_button_poison.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LifeView.this.m_poison.togglePoison();
+			}
+		});
+	}
+
+	/**
+	 * Sets whether or not this life view should be inversed or not.
+	 * 
+	 * @param inverse
+	 *            True if this LifeView should be inversed, which flips the
+	 *            text, poison counters, mod, etc. False otherwise.
+	 */
+	public void setInversed(boolean inverse) {
+		this.m_inverse = inverse;
+		if (this.m_inverse) {
+			this.setRotation(180.0f);
+		} else {
+			this.setRotation(0.0f);
+		}
 	}
 
 	@Override

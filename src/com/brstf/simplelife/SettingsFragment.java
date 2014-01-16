@@ -1,6 +1,7 @@
 package com.brstf.simplelife;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,8 +49,9 @@ public class SettingsFragment extends Fragment {
 	 */
 	private void reset(int resetval) {
 		((LifeCount) getActivity()).reset(resetval);
-
-		// TODO: Is this the best way of "finishing" this fragment?
+		getActivity().getPreferences(Context.MODE_PRIVATE).edit()
+				.putInt(getActivity().getString(R.string.key_total), resetval)
+				.commit();
 		SettingsFragment.this.getFragmentManager().popBackStack();
 	}
 }
