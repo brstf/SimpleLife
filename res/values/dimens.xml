@@ -5,9 +5,14 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="sliding_menu_offset">58dp</dimen>
     <dimen name="sliding_menu_shadow_width">15dp</dimen>
-    
+
     <!-- Life total Text View dimensions -->
     <dimen name="life_total_size">120sp</dimen>
     <dimen name="life_total_mod_size">42sp</dimen>
+
+    <!-- Invert Settings Dimensions -->
+    <dimen name="settings_invert_text_size">45sp</dimen>
+    <dimen name="settings_invert_padding">30dp</dimen>
+    <dimen name="settings_description_text_size">12sp</dimen>
 
 </resources>

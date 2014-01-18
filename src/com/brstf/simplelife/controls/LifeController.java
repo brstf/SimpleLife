@@ -161,6 +161,7 @@ public class LifeController extends Observable {
 	 */
 	public void reset(int resetval) {
 		this.life.reset(resetval);
+		this.setPoison(0);
 		triggerObservers();
 	}
 

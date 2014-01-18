@@ -7,9 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
-public class SettingsFragment extends Fragment {
+import com.brstf.simplelife.LifeCount;
+
+public class SettingsFragment extends Fragment implements AnimationListener {
+	private TextView m_invertText;
+	private Animation m_anim1;
+	private Animation m_anim2;
+	private CheckBox m_invert_cb;
+	private CheckBox m_poison_cb;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +51,51 @@ public class SettingsFragment extends Fragment {
 				reset(40);
 			}
 		});
+
+		// Set Poison Check Box Listener
+		m_poison_cb = (CheckBox) getView().findViewById(R.id.poison_check);
+		boolean showPoison = getActivity().getPreferences(Context.MODE_PRIVATE)
+				.getBoolean(getString(R.string.key_poison), true);
+		m_poison_cb.setChecked(showPoison);
+		m_poison_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				getActivity().getPreferences(Context.MODE_PRIVATE).edit()
+						.putBoolean(getString(R.string.key_poison), isChecked)
+						.commit();
+				((LifeCount) getActivity()).setPoisonVisible(isChecked);
+			}
+		});
+
+		// Load the flip animations
+		m_anim1 = AnimationUtils.loadAnimation(this.getActivity(),
+				R.animator.to_middle);
+		m_anim1.setAnimationListener(this);
+		m_anim2 = AnimationUtils.loadAnimation(this.getActivity(),
+				R.animator.from_middle);
+		m_anim2.setAnimationListener(this);
+
+		// Set the check button listener
+		m_invert_cb = (CheckBox) getView().findViewById(
+				R.id.settings_invert_check);
+		boolean inverted = getActivity().getPreferences(Context.MODE_PRIVATE)
+				.getBoolean(getString(R.string.key_invert), true);
+		m_invertText = (TextView) getView().findViewById(R.id.invert_tv);
+		m_invertText.setRotation(inverted ? 180.0f : 0.0f);
+		m_invert_cb.setChecked(inverted);
+		m_invert_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				getActivity().getPreferences(Context.MODE_PRIVATE).edit()
+						.putBoolean(getString(R.string.key_invert), isChecked)
+						.commit();
+				m_invertText.setAnimation(m_anim1);
+				m_invertText.startAnimation(m_anim1);
+				((LifeCount) getActivity()).setUpperInverted(isChecked);
+			}
+		});
 	}
 
 	/**
@@ -53,5 +112,30 @@ public class SettingsFragment extends Fragment {
 				.putInt(getActivity().getString(R.string.key_total), resetval)
 				.commit();
 		SettingsFragment.this.getFragmentManager().popBackStack();
+	}
+
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		if (animation == m_anim1) {
+			if (m_invert_cb.isChecked()) {
+				m_invertText.setRotation(180.0f);
+			} else {
+				m_invertText.setRotation(0.0f);
+			}
+			m_invertText.clearAnimation();
+			m_invertText.startAnimation(m_anim2);
+		}
+	}
+
+	@Override
+	public void onAnimationRepeat(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onAnimationStart(Animation animation) {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -3,7 +3,6 @@
 
     <string name="app_name">MagicLife</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="empty_string"></string>
     <string name="reset_button">Reset</string>
 
@@ -19,5 +18,10 @@
     <string name="key_changes">recent_changes</string>
     <string name="key_uppernum">number_upper</string>
     <string name="key_poison">show_poison</string>
+
+    <!-- Settings Strings -->
+    <string name="settings_poison">Enable Poison</string>
+    <string name="settings_invert_total">18</string>
+    <string name="settings_invert_desc">Flip Upper Counter</string>
 
 </resources>

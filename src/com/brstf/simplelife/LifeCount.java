@@ -54,6 +54,12 @@ public class LifeCount extends SlidingFragmentActivity {
 		p2.setInversed(mPrefs.getBoolean(getString(R.string.key_invert), true));
 		p2.setLifeController(p2Controller);
 
+		// Set poison visibility
+		p1.setPoisonVisible(mPrefs.getBoolean(getString(R.string.key_poison),
+				true));
+		p2.setPoisonVisible(mPrefs.getBoolean(getString(R.string.key_poison),
+				true));
+
 		setBehindContentView(R.layout.sliding_menu_frame);
 		createSlidingMenus(savedInstanceState);
 	}
@@ -232,5 +238,27 @@ public class LifeCount extends SlidingFragmentActivity {
 	public void reset(int resetval) {
 		p1Controller.reset(resetval);
 		p2Controller.reset(resetval);
+	}
+
+	/**
+	 * Sets whether or not the upper display is inverted. Typically called from
+	 * the settings fragment.
+	 * 
+	 * @param invert
+	 *            True if the upper display should be inverted, false otherwise.
+	 */
+	public void setUpperInverted(boolean invert) {
+		((LifeView) findViewById(R.id.player2_lv)).setInversed(invert);
+	}
+
+	/**
+	 * Sets whether or not the poison counters / toggle button are visible.
+	 * 
+	 * @param visible
+	 *            True if the poison items would be visible, false otherwise
+	 */
+	public void setPoisonVisible(boolean visible) {
+		((LifeView) findViewById(R.id.player2_lv)).setPoisonVisible(visible);
+		((LifeView) findViewById(R.id.player1_lv)).setPoisonVisible(visible);
 	}
 }

@@ -66,6 +66,9 @@ public class PoisonView extends ObserverLayout {
 			} else {
 				((ImageView) this.getChildAt(i))
 						.setImageResource(R.drawable.gray_drop);
+				if (!m_poison_mode) {
+					this.getChildAt(i).setAlpha(0.0f);
+				}
 			}
 		}
 	}

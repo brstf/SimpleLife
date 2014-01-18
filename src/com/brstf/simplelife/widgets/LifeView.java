@@ -106,20 +106,27 @@ public class LifeView extends ObserverLayout {
 		m_button_poison.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (m_poison.isOpaque()) {
-					m_text_anim = new AlphaAnimation(0.15f, 1.0f);
-				} else {
-					m_text_anim = new AlphaAnimation(1.0f, 0.15f);
-				}
-				m_text_anim.setDuration(getResources().getInteger(
-						R.integer.poison_reveal_time));
-				m_text_anim.setStartOffset(0L);
-				m_text_anim.setFillAfter(true);
-				m_life.startAnimation(m_text_anim);
-
-				LifeView.this.m_poison.togglePoison();
+				LifeView.this.togglePoison();
 			}
 		});
+	}
+
+	/**
+	 * Toggles editing of poison counters
+	 */
+	public void togglePoison() {
+		if (m_poison.isOpaque()) {
+			m_text_anim = new AlphaAnimation(0.15f, 1.0f);
+		} else {
+			m_text_anim = new AlphaAnimation(1.0f, 0.15f);
+		}
+		m_text_anim.setDuration(getResources().getInteger(
+				R.integer.poison_reveal_time));
+		m_text_anim.setStartOffset(0L);
+		m_text_anim.setFillAfter(true);
+		m_life.startAnimation(m_text_anim);
+
+		this.m_poison.togglePoison();
 	}
 
 	/**
@@ -135,6 +142,21 @@ public class LifeView extends ObserverLayout {
 			this.setRotation(180.0f);
 		} else {
 			this.setRotation(0.0f);
+		}
+	}
+
+	/**
+	 * Sets whether or not the poison controls / counters are visible.
+	 * 
+	 * @param visible
+	 *            True if they should be visible, false otherwise
+	 */
+	public void setPoisonVisible(boolean visible) {
+		int viscode = visible ? View.VISIBLE : View.INVISIBLE;
+		this.m_poison.setVisibility(viscode);
+		this.m_button_poison.setVisibility(viscode);
+		if (this.m_poison.isOpaque()) {
+			this.togglePoison();
 		}
 	}
 
