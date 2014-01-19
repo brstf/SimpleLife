@@ -119,4 +119,34 @@
             android:textSize="@dimen/settings_invert_text_size" />
     </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
+    <!-- Enable WakeLock -->
+
+    <com.brstf.simplelife.widgets.SquareRelativeLayout
+        android:id="@+id/settings_wake_rl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/settings_poison"
+        android:layout_toLeftOf="@id/spacer" >
+
+        <CheckBox
+            android:id="@+id/settings_wake_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/settings_wake_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="30dp"
+            android:text="@string/settings_wake"
+            android:textColor="@color/white"
+            android:textSize="@dimen/settings_description_text_size" />
+    </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
 </RelativeLayout>

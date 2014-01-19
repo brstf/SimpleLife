@@ -42,7 +42,7 @@ public class LifeCount extends SlidingFragmentActivity {
 		initializeLife(savedInstanceState);
 
 		// Don't turn screen off
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		setWakeFlag(mPrefs.getBoolean(getString(R.string.key_wake), true));
 		setContentView(R.layout.life_count);
 
 		// Initialize Player 1:
@@ -84,6 +84,7 @@ public class LifeCount extends SlidingFragmentActivity {
 			edit.putInt(getString(R.string.key_changes), getResources()
 					.getInteger(R.integer.default_changes));
 			edit.putBoolean(getString(R.string.key_poison), false);
+			edit.putBoolean(getString(R.string.key_wake), true);
 			edit.commit();
 		}
 	}
@@ -268,6 +269,8 @@ public class LifeCount extends SlidingFragmentActivity {
 	 *            True if the upper display should be inverted, false otherwise.
 	 */
 	public void setUpperInverted(boolean invert) {
+		mPrefs.edit().putBoolean(getString(R.string.key_invert), invert)
+				.commit();
 		((LifeView) findViewById(R.id.player2_lv)).setInversed(invert);
 		mLogFragRight.setUpperInverted(invert);
 		mLogFragLeft.setUpperInverted(invert);
@@ -280,7 +283,36 @@ public class LifeCount extends SlidingFragmentActivity {
 	 *            True if the poison items would be visible, false otherwise
 	 */
 	public void setPoisonVisible(boolean visible) {
+		mPrefs.edit().putBoolean(getString(R.string.key_poison), visible)
+				.commit();
 		((LifeView) findViewById(R.id.player2_lv)).setPoisonVisible(visible);
 		((LifeView) findViewById(R.id.player1_lv)).setPoisonVisible(visible);
+	}
+
+	/**
+	 * Sets whether or not to keep the screen on during operation
+	 * 
+	 * @param wake
+	 *            True if screen should stay on, false otherwise
+	 */
+	public void setWakeLock(boolean wake) {
+		mPrefs.edit().putBoolean(getString(R.string.key_wake), wake).commit();
+		setWakeFlag(wake);
+	}
+
+	/**
+	 * Sets or clears the wake flag to keep screen on or let it turn off.
+	 * 
+	 * @param wake
+	 *            True if screen should stay on, false otherwise
+	 */
+	private void setWakeFlag(boolean wake) {
+		if (wake) {
+			getWindow()
+					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		} else {
+			getWindow().clearFlags(
+					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		}
 	}
 }

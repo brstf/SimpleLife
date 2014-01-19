@@ -24,6 +24,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	private Animation m_anim2;
 	private CheckBox m_invert_cb;
 	private CheckBox m_poison_cb;
+	private CheckBox m_wake_cb;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,9 +62,6 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				getActivity().getPreferences(Context.MODE_PRIVATE).edit()
-						.putBoolean(getString(R.string.key_poison), isChecked)
-						.commit();
 				((LifeCount) getActivity()).setPoisonVisible(isChecked);
 			}
 		});
@@ -88,12 +86,21 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				getActivity().getPreferences(Context.MODE_PRIVATE).edit()
-						.putBoolean(getString(R.string.key_invert), isChecked)
-						.commit();
 				m_invertText.setAnimation(m_anim1);
 				m_invertText.startAnimation(m_anim1);
 				((LifeCount) getActivity()).setUpperInverted(isChecked);
+			}
+		});
+
+		// Set wake lock change listener
+		m_wake_cb = (CheckBox) getView().findViewById(R.id.settings_wake_check);
+		m_wake_cb.setChecked(getActivity().getPreferences(Context.MODE_PRIVATE)
+				.getBoolean(getString(R.string.key_wake), true));
+		m_wake_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				((LifeCount) getActivity()).setWakeLock(isChecked);
 			}
 		});
 	}
