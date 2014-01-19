@@ -48,7 +48,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
-            android:paddingRight="24dp"
+            android:paddingRight="@dimen/sliding_p2_padding"
             android:text="@string/player2"
             android:textColor="@color/white"
             android:textSize="20sp" />

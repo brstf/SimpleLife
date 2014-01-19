@@ -49,10 +49,13 @@ public class SlidingMenuLogListFragment extends Fragment {
 		// We pass our taken list to the adapter. LifeLogSlidingMenuAdapter
 		m_log1 = (LifeLog) this.getView().findViewById(R.id.log1);
 		m_log2 = (LifeLog) this.getView().findViewById(R.id.log2);
+
 		m_log1.setLifeController(m_lc1);
 		m_log2.setLifeController(m_lc2);
 		m_log2.setInverse(mUpperInverted);
+
 		m_p2tv = (TextView) this.getView().findViewById(R.id.tv_p2);
+		flipText(mUpperInverted);
 
 		// Add listener for the reset button
 		ImageButton reset = (ImageButton) this.getView().findViewById(
@@ -67,6 +70,22 @@ public class SlidingMenuLogListFragment extends Fragment {
 	}
 
 	/**
+	 * Properly flip the "Player 2" text view when the upper display is
+	 * inverted.
+	 * 
+	 * @param invert
+	 *            True if the upper display is inverted, false otherwise
+	 */
+	private void flipText(boolean invert) {
+		m_p2tv.setRotation(invert ? 180.0f : 0.0f);
+		float pleft = invert ? getResources().getDimension(
+				R.dimen.sliding_p2_padding) : 0.0f;
+		float pright = invert ? 0.0f : getResources().getDimension(
+				R.dimen.sliding_p2_padding);
+		m_p2tv.setPadding((int) pleft, 0, (int) pright, 0);
+	}
+
+	/**
 	 * Sets whether or not the upper display is inverted. Typically called from
 	 * the settings fragment.
 	 * 
@@ -77,7 +96,7 @@ public class SlidingMenuLogListFragment extends Fragment {
 		mUpperInverted = invert;
 		if (m_log2 != null) {
 			m_log2.setInverse(invert);
-			m_p2tv.setRotation(invert ? 180.0f : 0.0f);
+			this.flipText(invert);
 		}
 	}
 

@@ -8,7 +8,7 @@
     <integer name="flip_time_half">150</integer>
 
     <!-- Settings Flip Animation Times -->
-    <integer name="flip_invert">250</integer>
+    <integer name="flip_invert">150</integer>
 
     <!-- Poison Animation Time -->
     <integer name="poison_reveal_time">200</integer>
