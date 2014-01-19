@@ -193,6 +193,8 @@ public class LifeCount extends SlidingFragmentActivity {
 					.findFragmentById(R.id.sliding_menu_frame);
 			mLogFrag.setControllers(p1Controller, p2Controller);
 		}
+		mLogFrag.setUpperInverted(mPrefs.getBoolean(
+				getString(R.string.key_invert), true));
 	}
 
 	@Override
@@ -249,6 +251,7 @@ public class LifeCount extends SlidingFragmentActivity {
 	 */
 	public void setUpperInverted(boolean invert) {
 		((LifeView) findViewById(R.id.player2_lv)).setInversed(invert);
+		mLogFrag.setUpperInverted(invert);
 	}
 
 	/**

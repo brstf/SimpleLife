@@ -6,7 +6,7 @@
 
     <!-- List of player two's previous life totals -->
 
-    <com.brstf.simplelife.widgets.LifeLogUd
+    <com.brstf.simplelife.widgets.LifeLog
         android:id="@+id/log2"
         android:layout_width="match_parent"
         android:layout_height="0dip"

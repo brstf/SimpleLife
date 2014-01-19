@@ -6,7 +6,6 @@ import com.brstf.simplelife.R;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +18,7 @@ public class SlidingMenuLogListFragment extends Fragment {
 	private LifeController m_lc1;
 	private LifeController m_lc2;
 	private boolean mOptionsShowing = false;
+	private boolean mUpperInverted = true;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +36,6 @@ public class SlidingMenuLogListFragment extends Fragment {
 	 *            LifeController for the second life total
 	 */
 	public void setControllers(LifeController lc1, LifeController lc2) {
-		Log.d("Slider", "Set controllers");
 		m_lc1 = lc1;
 		m_lc2 = lc2;
 	}
@@ -45,14 +44,12 @@ public class SlidingMenuLogListFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		Log.d("Slider", "onCreateActivity");
-
 		// We pass our taken list to the adapter. LifeLogSlidingMenuAdapter
 		m_log1 = (LifeLog) this.getView().findViewById(R.id.log1);
 		m_log2 = (LifeLog) this.getView().findViewById(R.id.log2);
-		Log.d("Slider", String.valueOf(m_lc1.getCurrentValue()));
 		m_log1.setLifeController(m_lc1);
 		m_log2.setLifeController(m_lc2);
+		m_log2.setInverse(mUpperInverted);
 
 		// Add listener for the reset button
 		ImageButton reset = (ImageButton) this.getView().findViewById(
@@ -61,11 +58,23 @@ public class SlidingMenuLogListFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				//m_lc1.reset();
-				//m_lc2.reset();
 				showOptions();
 			}
 		});
+	}
+
+	/**
+	 * Sets whether or not the upper display is inverted. Typically called from
+	 * the settings fragment.
+	 * 
+	 * @param invert
+	 *            True if the upper display should be inverted, false otherwise.
+	 */
+	public void setUpperInverted(boolean invert) {
+		mUpperInverted = invert;
+		if (m_log2 != null) {
+			m_log2.setInverse(invert);
+		}
 	}
 
 	/**
