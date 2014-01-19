@@ -28,7 +28,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:paddingLeft="24dp"
-            android:text="Player 1"
+            android:text="@string/player1"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -42,14 +42,14 @@
             android:gravity="center_vertical"
             android:rotation="180.0" />
 
-        <com.brstf.simplelife.widgets.UpsideDownText
+        <TextView
             android:id="@+id/tv_p2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
-            android:paddingLeft="24dp"
-            android:text="Player 2"
+            android:paddingRight="24dp"
+            android:text="@string/player2"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

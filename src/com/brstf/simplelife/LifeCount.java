@@ -22,7 +22,8 @@ public class LifeCount extends SlidingFragmentActivity {
 	private LifeController p2Controller;
 	private HistoryInt p1Life;
 	private HistoryInt p2Life;
-	private SlidingMenuLogListFragment mLogFrag;
+	private SlidingMenuLogListFragment mLogFragRight;
+	private SlidingMenuLogListFragment mLogFragLeft;
 	private SharedPreferences mPrefs;
 
 	@Override
@@ -61,6 +62,7 @@ public class LifeCount extends SlidingFragmentActivity {
 				true));
 
 		setBehindContentView(R.layout.sliding_menu_frame);
+		getSlidingMenu().setSecondaryMenu(R.layout.sliding_menu_frame2);
 		createSlidingMenus(savedInstanceState);
 	}
 
@@ -175,7 +177,8 @@ public class LifeCount extends SlidingFragmentActivity {
 		menu.setBehindOffsetRes(R.dimen.sliding_menu_offset);
 		menu.setShadowDrawable(R.drawable.sliding_menu_shadow);
 		menu.setShadowWidthRes(R.dimen.sliding_menu_shadow_width);
-		menu.setMode(SlidingMenu.RIGHT);
+		menu.setMode(SlidingMenu.LEFT_RIGHT);
+		menu.setSecondaryShadowDrawable(R.drawable.sliding_menu_shadow_right);
 		menu.setOnClosedListener(new OnClosedListener() {
 			@Override
 			public void onClosed() {
@@ -184,16 +187,27 @@ public class LifeCount extends SlidingFragmentActivity {
 		});
 
 		if (savedInstanceState == null) {
-			mLogFrag = new SlidingMenuLogListFragment();
-			mLogFrag.setControllers(p1Controller, p2Controller);
+			mLogFragRight = new SlidingMenuLogListFragment();
+			mLogFragRight.setControllers(p1Controller, p2Controller);
 			this.getFragmentManager().beginTransaction()
-					.replace(R.id.sliding_menu_frame, mLogFrag).commit();
+					.replace(R.id.sliding_menu_frame, mLogFragRight).commit();
+			mLogFragLeft = new SlidingMenuLogListFragment();
+			mLogFragLeft.setControllers(p1Controller, p2Controller);
+			this.getFragmentManager().beginTransaction()
+					.replace(R.id.sliding_menu_frame2, mLogFragLeft).commit();
 		} else {
-			mLogFrag = (SlidingMenuLogListFragment) this.getFragmentManager()
-					.findFragmentById(R.id.sliding_menu_frame);
-			mLogFrag.setControllers(p1Controller, p2Controller);
+			mLogFragRight = (SlidingMenuLogListFragment) this
+					.getFragmentManager().findFragmentById(
+							R.id.sliding_menu_frame);
+			mLogFragRight.setControllers(p1Controller, p2Controller);
+			mLogFragLeft = (SlidingMenuLogListFragment) this
+					.getFragmentManager().findFragmentById(
+							R.id.sliding_menu_frame2);
+			mLogFragLeft.setControllers(p1Controller, p2Controller);
 		}
-		mLogFrag.setUpperInverted(mPrefs.getBoolean(
+		mLogFragRight.setUpperInverted(mPrefs.getBoolean(
+				getString(R.string.key_invert), true));
+		mLogFragLeft.setUpperInverted(mPrefs.getBoolean(
 				getString(R.string.key_invert), true));
 	}
 
@@ -216,8 +230,12 @@ public class LifeCount extends SlidingFragmentActivity {
 
 	private boolean closeOptions() {
 		// Check if settings are showing, if they are just pop it off
-		if (mLogFrag.getFragmentManager().getBackStackEntryCount() > 0) {
-			mLogFrag.getFragmentManager().popBackStack();
+		if (mLogFragRight.getFragmentManager().getBackStackEntryCount() > 0) {
+			mLogFragRight.getFragmentManager().popBackStack();
+			return true;
+		}
+		if (mLogFragLeft.getFragmentManager().getBackStackEntryCount() > 0) {
+			mLogFragLeft.getFragmentManager().popBackStack();
 			return true;
 		}
 		return false;
@@ -251,7 +269,8 @@ public class LifeCount extends SlidingFragmentActivity {
 	 */
 	public void setUpperInverted(boolean invert) {
 		((LifeView) findViewById(R.id.player2_lv)).setInversed(invert);
-		mLogFrag.setUpperInverted(invert);
+		mLogFragRight.setUpperInverted(invert);
+		mLogFragLeft.setUpperInverted(invert);
 	}
 
 	/**

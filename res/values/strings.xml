@@ -24,4 +24,8 @@
     <string name="settings_invert_total">18</string>
     <string name="settings_invert_desc">Flip Upper Counter</string>
 
+    <!-- Sliding Menu Strings -->
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+
 </resources>

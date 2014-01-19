@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class SlidingMenuLogListFragment extends Fragment {
 	private LifeLog m_log1;
@@ -19,6 +20,7 @@ public class SlidingMenuLogListFragment extends Fragment {
 	private LifeController m_lc2;
 	private boolean mOptionsShowing = false;
 	private boolean mUpperInverted = true;
+	private TextView m_p2tv;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +52,7 @@ public class SlidingMenuLogListFragment extends Fragment {
 		m_log1.setLifeController(m_lc1);
 		m_log2.setLifeController(m_lc2);
 		m_log2.setInverse(mUpperInverted);
+		m_p2tv = (TextView) this.getView().findViewById(R.id.tv_p2);
 
 		// Add listener for the reset button
 		ImageButton reset = (ImageButton) this.getView().findViewById(
@@ -74,6 +77,7 @@ public class SlidingMenuLogListFragment extends Fragment {
 		mUpperInverted = invert;
 		if (m_log2 != null) {
 			m_log2.setInverse(invert);
+			m_p2tv.setRotation(invert ? 180.0f : 0.0f);
 		}
 	}
 
@@ -88,13 +92,12 @@ public class SlidingMenuLogListFragment extends Fragment {
 		}
 
 		mOptionsShowing = true;
-
 		getFragmentManager()
 				.beginTransaction()
 				.setCustomAnimations(R.animator.flip_right_in,
 						R.animator.flip_right_out, R.animator.flip_left_in,
 						R.animator.flip_left_out)
-				.replace(R.id.sliding_menu_frame, new SettingsFragment())
+				.replace(this.getId(), new SettingsFragment())
 				.addToBackStack(null).commit();
 	}
 }
