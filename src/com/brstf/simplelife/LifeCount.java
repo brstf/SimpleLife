@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.brstf.simplelife.controls.LifeController;
 import com.brstf.simplelife.data.HistoryInt;
+import com.brstf.simplelife.data.LifeDbAdapter;
 import com.brstf.simplelife.widgets.LifeView;
 import com.brstf.simplelife.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -25,11 +26,13 @@ public class LifeCount extends SlidingFragmentActivity {
 	private SlidingMenuLogListFragment mLogFragRight;
 	private SlidingMenuLogListFragment mLogFragLeft;
 	private SharedPreferences mPrefs;
+	private LifeDbAdapter mDbHelper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupPreferences();
+		mDbHelper = new LifeDbAdapter(this);
 
 		// Restore life histories
 		int start_total = mPrefs.getInt(getString(R.string.key_total),
@@ -98,6 +101,15 @@ public class LifeCount extends SlidingFragmentActivity {
 	 */
 	private void initializeLife(Bundle savedInstanceState) {
 		if (savedInstanceState == null) {
+			// If there's no saved instance state, restore from database
+			mDbHelper.open();
+			int p1count = mDbHelper.getRowCount(mDbHelper.getP1Table());
+			int p2count = mDbHelper.getRowCount(mDbHelper.getP2Table());
+			if (p1count != 0 && p2count != 0) {
+				p1Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP1Table()));
+				p2Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP2Table()));
+			}
+			mDbHelper.close();
 			return;
 		}
 
@@ -150,6 +162,18 @@ public class LifeCount extends SlidingFragmentActivity {
 		// For each tag, save the history
 		outState.putInt(p_tags.get(0), p1Controller.getCurrentPoison());
 		outState.putInt(p_tags.get(1), p2Controller.getCurrentPoison());
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		// On activity destruction, write the life totals to the database
+		mDbHelper.open();
+		mDbHelper.clear();
+		mDbHelper.addEntries(mDbHelper.getP1Table(), p1Life.getHistory());
+		mDbHelper.addEntries(mDbHelper.getP2Table(), p2Life.getHistory());
+		mDbHelper.close();
 	}
 
 	@Override
@@ -224,9 +248,7 @@ public class LifeCount extends SlidingFragmentActivity {
 			return true;
 		}
 
-		return false;
-		// TODO: Save logs on activity destroy through preferences or db
-		// return super.onKeyUp(keyCode, event);
+		return super.onKeyUp(keyCode, event);
 	}
 
 	private boolean closeOptions() {

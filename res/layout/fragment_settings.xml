@@ -149,4 +149,16 @@
             android:textSize="@dimen/settings_description_text_size" />
     </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
+    <!-- Github Link -->
+
+    <com.brstf.simplelife.widgets.SquareImageButton
+        android:id="@+id/but_github"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/invert_rl"
+        android:layout_toRightOf="@id/spacer"
+        android:background="@drawable/transparent_button"
+        android:src="@drawable/github_mark" />
+
 </RelativeLayout>

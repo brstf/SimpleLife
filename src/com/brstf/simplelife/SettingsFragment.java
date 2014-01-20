@@ -2,6 +2,8 @@ package com.brstf.simplelife;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,6 +105,18 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 				((LifeCount) getActivity()).setWakeLock(isChecked);
 			}
 		});
+
+		// Setup github button
+		ImageButton but_github = (ImageButton) this.getView().findViewById(
+				R.id.but_github);
+		but_github.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
+						.parse("http://www.github.com"));
+				startActivity(browserIntent);
+			}
+		});
 	}
 
 	/**
@@ -136,13 +150,11 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 
 	@Override
 	public void onAnimationRepeat(Animation animation) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
 
 	}
 }
