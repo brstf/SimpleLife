@@ -88,6 +88,7 @@ public class LifeCount extends SlidingFragmentActivity {
 					.getInteger(R.integer.default_changes));
 			edit.putBoolean(getString(R.string.key_poison), false);
 			edit.putBoolean(getString(R.string.key_wake), true);
+			edit.putBoolean(getString(R.string.key_quick), false);
 			edit.commit();
 		}
 	}

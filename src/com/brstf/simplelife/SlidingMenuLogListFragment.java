@@ -5,10 +5,12 @@ import com.brstf.simplelife.widgets.LifeLog;
 import com.brstf.simplelife.R;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -64,7 +66,23 @@ public class SlidingMenuLogListFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
+				// If quick reset is disabled, show options, otherwise reset
+				if (!getActivity().getPreferences(Context.MODE_PRIVATE)
+						.getBoolean(
+								getActivity().getString(R.string.key_quick),
+								false)) {
+					showOptions();
+				} else {
+					((LifeCount) getActivity()).reset();
+				}
+			}
+		});
+
+		reset.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
 				showOptions();
+				return true;
 			}
 		});
 	}

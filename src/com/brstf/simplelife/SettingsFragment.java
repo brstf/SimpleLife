@@ -16,7 +16,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brstf.simplelife.LifeCount;
 
@@ -27,6 +29,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	private CheckBox m_invert_cb;
 	private CheckBox m_poison_cb;
 	private CheckBox m_wake_cb;
+	private CheckBox m_quick_cb;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,22 +41,52 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		super.onActivityCreated(savedInstanceState);
 
 		// Add click listeners to the reset buttons
-		ImageButton reset20 = (ImageButton) getView().findViewById(
-				R.id.but_reset20);
-		reset20.setOnClickListener(new OnClickListener() {
+		ImageButton reset = (ImageButton) getView()
+				.findViewById(R.id.but_reset);
+		reset.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				reset(20);
+				reset(getActivity()
+						.getPreferences(Context.MODE_PRIVATE)
+						.getInt(getActivity().getString(R.string.key_total), 20));
 			}
 		});
-		ImageButton reset40 = (ImageButton) getView().findViewById(
-				R.id.but_reset40);
-		reset40.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				reset(40);
-			}
-		});
+
+		int resetval = getActivity().getPreferences(Context.MODE_PRIVATE)
+				.getInt(getActivity().getString(R.string.key_total), 20);
+		changeResetVal(resetval);
+
+		RadioGroup reset_radio = (RadioGroup) getView().findViewById(
+				R.id.settings_reset_val_rg);
+		switch (resetval) {
+		case 20:
+			reset_radio.check(R.id.settings_rg_20);
+			break;
+		case 30:
+			reset_radio.check(R.id.settings_rg_30);
+			break;
+		case 40:
+			reset_radio.check(R.id.settings_rg_40);
+			break;
+		}
+		reset_radio
+				.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						switch (checkedId) {
+						case R.id.settings_rg_20:
+							changeResetVal(20);
+							break;
+						case R.id.settings_rg_30:
+							changeResetVal(30);
+							break;
+						case R.id.settings_rg_40:
+							changeResetVal(40);
+							break;
+						}
+					}
+				});
 
 		// Set Poison Check Box Listener
 		m_poison_cb = (CheckBox) getView().findViewById(R.id.poison_check);
@@ -106,6 +139,32 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			}
 		});
 
+		// Set quick reset change listener
+		m_quick_cb = (CheckBox) getView().findViewById(
+				R.id.settings_quick_check);
+		m_quick_cb.setChecked(getActivity()
+				.getPreferences(Context.MODE_PRIVATE).getBoolean(
+						getString(R.string.key_quick), false));
+		m_quick_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				getActivity()
+						.getPreferences(Context.MODE_PRIVATE)
+						.edit()
+						.putBoolean(
+								getActivity().getString(R.string.key_quick),
+								isChecked).commit();
+				if (isChecked) {
+					Toast.makeText(
+							getActivity(),
+							"Quick-Reset enabled. Tap settings button to reset life "
+									+ "totals, long-press it to show settings",
+							Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+
 		// Setup github button
 		ImageButton but_github = (ImageButton) this.getView().findViewById(
 				R.id.but_github);
@@ -119,6 +178,14 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		});
 	}
 
+	protected void changeResetVal(int reset) {
+		getActivity().getPreferences(Context.MODE_PRIVATE).edit()
+				.putInt(getActivity().getString(R.string.key_total), reset)
+				.commit();
+		((TextView) this.getView().findViewById(R.id.settings_reset_text))
+				.setText(String.valueOf(reset));
+	}
+
 	/**
 	 * Resets the LifeCount and pops this fragment off the stack. Note: This
 	 * fragment should only ever be added to the back stack when adding this
@@ -129,9 +196,6 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	 */
 	private void reset(int resetval) {
 		((LifeCount) getActivity()).reset(resetval);
-		getActivity().getPreferences(Context.MODE_PRIVATE).edit()
-				.putInt(getActivity().getString(R.string.key_total), resetval)
-				.commit();
 		SettingsFragment.this.getFragmentManager().popBackStack();
 	}
 

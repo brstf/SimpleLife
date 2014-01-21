@@ -1,164 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/options_grid"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gray" >
 
-    <View
-        android:id="@+id/spacer"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <!-- Reset to 20 life -->
-
-    <com.brstf.simplelife.widgets.SquareImageButton
-        android:id="@+id/but_reset20"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:id="@+id/options_grid"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/spacer"
-        android:background="@drawable/transparent_button"
-        android:paddingTop="10dp"
-        android:src="@drawable/round_arrow_20" />
+        android:background="@drawable/gray" >
 
-    <!-- Reset to 40 life -->
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-    <com.brstf.simplelife.widgets.SquareImageButton
-        android:id="@+id/but_reset40"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/spacer"
-        android:background="@drawable/transparent_button"
-        android:paddingTop="10dp"
-        android:src="@drawable/round_arrow_40" />
+        <!-- Reset Life -->
 
-    <!-- Enable poison editing -->
-
-    <com.brstf.simplelife.widgets.SquareRelativeLayout
-        android:id="@+id/settings_poison"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/but_reset20"
-        android:layout_toLeftOf="@id/spacer" >
-
-        <CheckBox
-            android:id="@+id/poison_check"
-            android:layout_width="wrap_content"
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/settings_reset_rl"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@id/spacer" >
 
-        <TextView
-            android:id="@+id/settings_poison_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="30dp"
-            android:text="@string/settings_poison"
-            android:textColor="@color/white"
-            android:textSize="@dimen/settings_description_text_size" />
-    </com.brstf.simplelife.widgets.SquareRelativeLayout>
-
-    <!-- Invert Upper Display -->
-
-    <com.brstf.simplelife.widgets.SquareRelativeLayout
-        android:id="@+id/invert_rl"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/but_reset40"
-        android:layout_toRightOf="@id/spacer" >
-
-        <RelativeLayout
-            android:id="@+id/settings_lower_invert"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="false" >
-
-            <CheckBox
-                android:id="@+id/settings_invert_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:paddingBottom="@dimen/settings_invert_padding" />
+            <com.brstf.simplelife.widgets.SquareImageButton
+                android:id="@+id/but_reset"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/transparent_button"
+                android:src="@drawable/round_arrow" />
 
             <TextView
-                android:id="@+id/settings_invert_desc"
+                android:id="@+id/settings_reset_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_reset_text_size"
+                android:textStyle="bold" />
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+        <!-- Choose Reset Value -->
+
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/settings_reset_val_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/spacer" >
+
+            <TextView
+                android:id="@+id/settings_choose_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/settings_choose_reset"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RadioGroup
+                android:id="@+id/settings_reset_val_rg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_choose_reset"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <RadioButton
+                    android:id="@+id/settings_rg_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_reset_20"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/settings_rg_30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_reset_30"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/settings_rg_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_reset_40"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+        <!-- Enable poison editing -->
+
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/settings_poison"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/settings_reset_rl"
+            android:layout_toLeftOf="@id/spacer" >
+
+            <CheckBox
+                android:id="@+id/poison_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/settings_poison_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@id/settings_invert_check"
-                android:paddingBottom="@dimen/settings_invert_padding"
-                android:text="@string/settings_invert_desc"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="30dp"
+                android:text="@string/settings_poison"
                 android:textColor="@color/white"
                 android:textSize="@dimen/settings_description_text_size" />
-        </RelativeLayout>
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
-        <TextView
-            android:id="@+id/invert_tv"
-            android:layout_width="wrap_content"
+        <!-- Invert Upper Display -->
+
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/invert_rl"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_above="@id/settings_lower_invert"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/settings_invert_padding"
-            android:gravity="center"
-            android:text="@string/settings_invert_total"
-            android:textColor="@color/white"
-            android:textSize="@dimen/settings_invert_text_size" />
-    </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/settings_reset_val_rl"
+            android:layout_toRightOf="@id/spacer" >
 
-    <!-- Enable WakeLock -->
+            <RelativeLayout
+                android:id="@+id/settings_lower_invert"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="false" >
 
-    <com.brstf.simplelife.widgets.SquareRelativeLayout
-        android:id="@+id/settings_wake_rl"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/settings_poison"
-        android:layout_toLeftOf="@id/spacer" >
+                <CheckBox
+                    android:id="@+id/settings_invert_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="@dimen/settings_invert_padding" />
 
-        <CheckBox
-            android:id="@+id/settings_wake_check"
-            android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/settings_invert_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@id/settings_invert_check"
+                    android:paddingBottom="@dimen/settings_invert_padding"
+                    android:text="@string/settings_invert_desc"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/settings_description_text_size" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/invert_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/settings_lower_invert"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/settings_invert_padding"
+                android:gravity="center"
+                android:text="@string/settings_invert_total"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_invert_text_size" />
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+        <!-- Enable WakeLock -->
+
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/settings_wake_rl"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center" />
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/settings_poison"
+            android:layout_toLeftOf="@id/spacer" >
 
-        <TextView
-            android:id="@+id/settings_wake_text"
-            android:layout_width="wrap_content"
+            <CheckBox
+                android:id="@+id/settings_wake_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/settings_wake_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="30dp"
+                android:text="@string/settings_wake"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_description_text_size" />
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+        <!-- Enable Quick-Reset -->
+
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/settings_quick_rl"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="30dp"
-            android:text="@string/settings_wake"
-            android:textColor="@color/white"
-            android:textSize="@dimen/settings_description_text_size" />
-    </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/invert_rl"
+            android:layout_toRightOf="@id/spacer" >
 
-    <!-- Github Link -->
+            <CheckBox
+                android:id="@+id/settings_quick_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center" />
 
-    <com.brstf.simplelife.widgets.SquareImageButton
-        android:id="@+id/but_github"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/invert_rl"
-        android:layout_toRightOf="@id/spacer"
-        android:background="@drawable/transparent_button"
-        android:src="@drawable/github_mark" />
+            <TextView
+                android:id="@+id/settings_quick_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="30dp"
+                android:text="@string/settings_quick"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_description_text_size" />
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
-</RelativeLayout>
+        <!-- Github Link -->
+
+        <com.brstf.simplelife.widgets.SquareImageButton
+            android:id="@+id/but_github"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/settings_quick_rl"
+            android:layout_toRightOf="@id/spacer"
+            android:background="@drawable/transparent_button"
+            android:src="@drawable/github_mark" />
+    </RelativeLayout>
+
+</ScrollView>

@@ -19,12 +19,18 @@
     <string name="key_uppernum">number_upper</string>
     <string name="key_poison">show_poison</string>
     <string name="key_wake">wake_lock</string>
+    <string name="key_quick">quick_reset</string>
 
     <!-- Settings Strings -->
     <string name="settings_poison">Enable Poison</string>
     <string name="settings_invert_total">18</string>
     <string name="settings_invert_desc">Flip Upper Counter</string>
     <string name="settings_wake">Keep Screen On</string>
+    <string name="settings_quick">Enable Quick-Reset</string>
+    <string name="settings_reset_20">Reset to 20</string>
+    <string name="settings_reset_30">Reset to 30</string>
+    <string name="settings_reset_40">Reset to 40</string>
+    <string name="settings_choose_reset">Choose Reset Value:</string>
 
     <!-- Sliding Menu Strings -->
     <string name="player1">Player 1</string>
