@@ -19,6 +19,6 @@
     <dimen name="shadow_size">6px</dimen>
 
     <!-- Sliding Menu Dimensions -->
-    <dimen name="sliding_p2_padding">24dp</dimen>
+    <dimen name="sliding_text_padding">18dp</dimen>
 
 </resources>

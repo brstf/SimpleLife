@@ -1,85 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <!-- List of player two's previous life totals -->
-
-    <com.brstf.simplelife.widgets.LifeLog
-        android:id="@+id/log2"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.5"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-    <!-- Separator -->
+        <!-- List of player two's previous life totals -->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:background="@drawable/gray"
-        android:orientation="horizontal" >
+        <com.brstf.simplelife.widgets.LifeLog
+            android:id="@+id/log2"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.5"
+            android:orientation="vertical" />
 
-        <TextView
-            android:id="@+id/tv_p1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:gravity="center_vertical"
-            android:paddingLeft="24dp"
-            android:text="@string/player1"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+        <!-- Separator -->
 
-        <ImageView
-            android:id="@+id/arrow_down"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/tv_p1"
-            android:background="@drawable/arrow"
-            android:gravity="center_vertical"
-            android:rotation="180.0" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:background="@drawable/gray"
+            android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/tv_p2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:paddingRight="@dimen/sliding_p2_padding"
-            android:text="@string/player2"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/tv_p1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/sliding_text_padding"
+                android:text="@string/player1"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@id/tv_p2"
-            android:background="@drawable/arrow"
-            android:gravity="center_vertical" />
+            <ImageView
+                android:id="@+id/arrow_down"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/tv_p1"
+                android:background="@drawable/arrow"
+                android:gravity="center_vertical"
+                android:rotation="180.0" />
 
-        <ImageButton
-            android:id="@+id/but_reset"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/transparent_button"
-            android:contentDescription="@string/reset_button"
-            android:gravity="center_vertical|center_horizontal"
-            android:src="@drawable/ic_action_settings" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_p2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/sliding_text_padding"
+                android:text="@string/player2"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-    <!-- List of player one's previous life totals -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/tv_p2"
+                android:background="@drawable/arrow"
+                android:gravity="center_vertical" />
+        </RelativeLayout>
 
-    <com.brstf.simplelife.widgets.LifeLog
-        android:id="@+id/log1"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.5"
-        android:orientation="vertical" />
+        <!-- List of player one's previous life totals -->
 
-</LinearLayout>
+        <com.brstf.simplelife.widgets.LifeLog
+            android:id="@+id/log1"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.5"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/but_reset"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/gray_button_circle"
+        android:contentDescription="@string/reset_button"
+        android:gravity="center"
+        android:src="@drawable/ic_action_settings" />
+
+</RelativeLayout>

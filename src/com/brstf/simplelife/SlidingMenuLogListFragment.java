@@ -97,9 +97,9 @@ public class SlidingMenuLogListFragment extends Fragment {
 	private void flipText(boolean invert) {
 		m_p2tv.setRotation(invert ? 180.0f : 0.0f);
 		float pleft = invert ? getResources().getDimension(
-				R.dimen.sliding_p2_padding) : 0.0f;
+				R.dimen.sliding_text_padding) : 0.0f;
 		float pright = invert ? 0.0f : getResources().getDimension(
-				R.dimen.sliding_p2_padding);
+				R.dimen.sliding_text_padding);
 		m_p2tv.setPadding((int) pleft, 0, (int) pright, 0);
 	}
 
