@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -250,6 +253,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			} else {
 				m_invertText.setRotation(0.0f);
 			}
+			m_invertText.setGravity(Gravity.CENTER);
 			m_invertText.clearAnimation();
 			m_invertText.startAnimation(m_anim2);
 		}

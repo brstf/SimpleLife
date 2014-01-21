@@ -7,4 +7,14 @@
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
 
+    <!-- Tile Colors -->
+    <color name="red_tile">#F16364</color>
+    <color name="red_tile_shadow">#A60400</color>
+    <color name="blue_tile">#64b1b2</color>
+    <color name="blue_tile_shadow">#216965</color>
+    <color name="green_tile">#4FC14F</color>
+    <color name="green_tile_shadow">#1A7D1A</color>
+    <color name="orange_tile">#F19363</color>
+    <color name="orange_tile_shadow">#9D4A20</color>
+
 </resources>

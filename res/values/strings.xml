@@ -32,7 +32,7 @@
     <string name="settings_reset_30">Reset to 30</string>
     <string name="settings_reset_40">Reset to 40</string>
     <string name="settings_choose_reset">Choose Reset Value:</string>
-    <string name="settings_entry_time">Set Time Until Entry Lock:</string>
+    <string name="settings_entry_time">Time Until Entry Lock</string>
 
     <!-- Sliding Menu Strings -->
     <string name="player1">Player 1</string>
