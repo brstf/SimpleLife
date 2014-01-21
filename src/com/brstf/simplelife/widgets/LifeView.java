@@ -1,5 +1,6 @@
 package com.brstf.simplelife.widgets;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -172,8 +173,10 @@ public class LifeView extends ObserverLayout {
 
 			// Setup alpha animation
 			m_mod_anim = new AlphaAnimation(1.0f, 0.0f);
-			m_mod_anim.setDuration(getResources().getInteger(
-					R.integer.update_interval));
+			m_mod_anim.setDuration((long) (1000.0f * ((Activity) getContext())
+					.getPreferences(Context.MODE_PRIVATE).getFloat(
+							((Activity) getContext())
+									.getString(R.string.key_entry), 2.0f)));
 			m_mod_anim.setStartOffset(0L);
 			m_mod_anim.setFillAfter(true);
 			m_mod.startAnimation(m_mod_anim);

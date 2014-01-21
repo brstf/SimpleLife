@@ -244,6 +244,58 @@
                 android:textSize="@dimen/settings_description_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
+        <!-- Entry Timer -->
+
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/settings_entry_timer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/settings_wake_rl"
+            android:layout_toLeftOf="@id/spacer" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/entry_but_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent_button" />
+
+                <Button
+                    android:id="@+id/entry_but_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent_button" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/settings_entry_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_entry_text_size" />
+
+            <TextView
+                android:id="@+id/settings_entry_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:text="@string/settings_entry_time"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_description_text_size" />
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
         <!-- Github Link -->
 
         <com.brstf.simplelife.widgets.SquareImageButton

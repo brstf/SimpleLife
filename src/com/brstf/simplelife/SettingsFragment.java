@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -165,6 +166,24 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			}
 		});
 
+		// Set entry time
+		setEntryText(getActivity().getPreferences(Context.MODE_PRIVATE)
+				.getFloat(getString(R.string.key_entry), 2.0f));
+		((Button) getView().findViewById(R.id.entry_but_up))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changeEntryTime(0.25f);
+					}
+				});
+		((Button) getView().findViewById(R.id.entry_but_down))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changeEntryTime(-0.25f);
+					}
+				});
+
 		// Setup github button
 		ImageButton but_github = (ImageButton) this.getView().findViewById(
 				R.id.but_github);
@@ -176,6 +195,30 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 				startActivity(browserIntent);
 			}
 		});
+	}
+
+	/**
+	 * Modify the time before a life modification is "locked-in" by adding the
+	 * given modification to the current value. This saves the new value in the
+	 * shared preferences and sets the TextView text.
+	 * 
+	 * @param mod
+	 *            Amount to change the entry time by
+	 */
+	private void changeEntryTime(float mod) {
+		float time = getActivity().getPreferences(Context.MODE_PRIVATE)
+				.getFloat(getString(R.string.key_entry), 2.0f);
+		if ((time <= 1.0f && mod < 0.0f) || (time >= 6.0f && mod > 0.0f)) {
+			return;
+		}
+
+		setEntryText(time + mod);
+		((LifeCount) getActivity()).setEntryInterval(time + mod);
+	}
+
+	private void setEntryText(float time) {
+		((TextView) getView().findViewById(R.id.settings_entry_tv))
+				.setText(String.format("%.2f", time));
 	}
 
 	protected void changeResetVal(int reset) {

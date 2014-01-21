@@ -89,6 +89,7 @@ public class LifeCount extends SlidingFragmentActivity {
 			edit.putBoolean(getString(R.string.key_poison), false);
 			edit.putBoolean(getString(R.string.key_wake), true);
 			edit.putBoolean(getString(R.string.key_quick), false);
+			edit.putFloat(getString(R.string.key_entry), 2.0f);
 			edit.commit();
 		}
 	}
@@ -337,5 +338,13 @@ public class LifeCount extends SlidingFragmentActivity {
 			getWindow().clearFlags(
 					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
+	}
+
+	public void setEntryInterval(float interval) {
+		long entrytime = (long) (interval * 1000.0);
+		p1Life.setInterval(entrytime);
+		p2Life.setInterval(entrytime);
+		getPreferences(Context.MODE_PRIVATE).edit()
+				.putFloat(getString(R.string.key_entry), interval).commit();
 	}
 }

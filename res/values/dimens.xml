@@ -15,6 +15,7 @@
     <dimen name="settings_invert_padding">30dp</dimen>
     <dimen name="settings_description_text_size">12sp</dimen>
     <dimen name="settings_reset_text_size">34sp</dimen>
+    <dimen name="settings_entry_text_size">38sp</dimen>
 
     <!-- Sliding Menu Dimensions -->
     <dimen name="sliding_p2_padding">24dp</dimen>

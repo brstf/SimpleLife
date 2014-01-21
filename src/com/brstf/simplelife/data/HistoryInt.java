@@ -6,7 +6,7 @@ public class HistoryInt {
 	private ArrayList<Integer> value_history = new ArrayList<Integer>();
 	private long last_time = 0L;
 	private int initval;
-	private final long interval;
+	private long interval;
 
 	/**
 	 * Default constructor, initializes the starting value to 0.
@@ -120,6 +120,16 @@ public class HistoryInt {
 	 */
 	public void setHistory(ArrayList<Integer> history) {
 		this.value_history = new ArrayList<Integer>(history);
+	}
+
+	/**
+	 * Sets the update interval of this HistoryInt.
+	 * 
+	 * @param interval
+	 *            New time interval (in ms)
+	 */
+	public void setInterval(long interval) {
+		this.interval = interval;
 	}
 
 	/**
