@@ -61,8 +61,8 @@ public class PoisonView extends ObserverLayout {
 		for (int i = 0; i < this.getChildCount(); ++i) {
 			if (i < getLifeController().getCurrentPoison()) {
 				((ImageView) this.getChildAt(i))
-						.setImageResource(R.drawable.black_drop);
-				this.getChildAt(i).setAlpha(0.5f);
+						.setImageResource(R.drawable.gray_drop_darker);
+				this.getChildAt(i).setAlpha(1.0f);
 			} else {
 				((ImageView) this.getChildAt(i))
 						.setImageResource(R.drawable.gray_drop);
@@ -88,7 +88,7 @@ public class PoisonView extends ObserverLayout {
 		m_poison_mode = !m_poison_mode;
 		for (int i = 0; i < this.getChildCount(); ++i) {
 			if (i >= this.getLifeController().getCurrentPoison()) {
-				this.getChildAt(i).setAlpha(0.5f);
+				this.getChildAt(i).setAlpha(1.0f);
 				this.getChildAt(i).startAnimation(m_PoisonAnim);
 			}
 		}
