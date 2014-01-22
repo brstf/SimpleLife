@@ -3,6 +3,7 @@ package com.brstf.simplelife;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	private CheckBox m_poison_cb;
 	private CheckBox m_wake_cb;
 	private CheckBox m_quick_cb;
+	private SharedPreferences mPrefs;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,20 +43,22 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
+		// Get the shared preferences
+		mPrefs = ((LifeCount) getActivity()).getPrefs();
+
 		// Add click listeners to the reset buttons
 		ImageButton reset = (ImageButton) getView()
 				.findViewById(R.id.but_reset);
 		reset.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				reset(getActivity()
-						.getPreferences(Context.MODE_PRIVATE)
-						.getInt(getActivity().getString(R.string.key_total), 20));
+				reset(mPrefs.getInt(
+						getActivity().getString(R.string.key_total), 20));
 			}
 		});
 
-		int resetval = getActivity().getPreferences(Context.MODE_PRIVATE)
-				.getInt(getActivity().getString(R.string.key_total), 20);
+		int resetval = mPrefs.getInt(getActivity()
+				.getString(R.string.key_total), 20);
 		changeResetVal(resetval);
 
 		RadioGroup reset_radio = (RadioGroup) getView().findViewById(
@@ -69,40 +74,40 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			reset_radio.check(R.id.settings_rg_40);
 			break;
 		}
-		reset_radio
-				.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+		reset_radio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-					@Override
-					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						switch (checkedId) {
-						case R.id.settings_rg_20:
-							changeResetVal(20);
-							break;
-						case R.id.settings_rg_30:
-							changeResetVal(30);
-							break;
-						case R.id.settings_rg_40:
-							changeResetVal(40);
-							break;
-						}
-					}
-				});
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch (checkedId) {
+				case R.id.settings_rg_20:
+					changeResetVal(20);
+					break;
+				case R.id.settings_rg_30:
+					changeResetVal(30);
+					break;
+				case R.id.settings_rg_40:
+					changeResetVal(40);
+					break;
+				}
+			}
+		});
 
 		// Set Poison Check Box Listener
 		m_poison_cb = (CheckBox) getView().findViewById(R.id.poison_check);
-		boolean showPoison = getActivity().getPreferences(Context.MODE_PRIVATE)
-				.getBoolean(getString(R.string.key_poison), true);
+		boolean showPoison = mPrefs.getBoolean(getString(R.string.key_poison),
+				true);
 		m_poison_cb.setChecked(showPoison);
-		((Button) getView().findViewById(R.id.but_poison))
-				.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						m_poison_cb.setChecked(!m_poison_cb.isChecked());
-						((LifeCount) getActivity())
-								.setPoisonVisible(m_poison_cb.isChecked());
-
-					}
-				});
+		Button but_poison = (Button) getView().findViewById(R.id.but_poison);
+		but_poison.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				m_poison_cb.setChecked(!m_poison_cb.isChecked());
+				mPrefs.edit()
+						.putBoolean(
+								getActivity().getString(R.string.key_poison),
+								m_poison_cb.isChecked()).apply();
+			}
+		});
 
 		// Load the flip animations
 		m_anim1 = AnimationUtils.loadAnimation(this.getActivity(),
@@ -115,65 +120,69 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		// Set the check button listener
 		m_invert_cb = (CheckBox) getView().findViewById(
 				R.id.settings_invert_check);
-		boolean inverted = getActivity().getPreferences(Context.MODE_PRIVATE)
-				.getBoolean(getString(R.string.key_invert), true);
+		boolean inverted = mPrefs.getBoolean(getString(R.string.key_invert),
+				true);
 		m_invertText = (TextView) getView().findViewById(R.id.invert_tv);
 		m_invertText.setRotation(inverted ? 180.0f : 0.0f);
 		m_invert_cb.setChecked(inverted);
-		((Button) this.getView().findViewById(R.id.but_invert))
-				.setOnClickListener(new OnClickListener() {
+		Button but_invert = (Button) this.getView().findViewById(
+				R.id.but_invert);
+		but_invert.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						m_invert_cb.setChecked(!m_invert_cb.isChecked());
-						m_invertText.setAnimation(m_anim1);
-						m_invertText.startAnimation(m_anim1);
-						((LifeCount) getActivity())
-								.setUpperInverted(m_invert_cb.isChecked());
-					}
-				});
+			@Override
+			public void onClick(View v) {
+				m_invert_cb.setChecked(!m_invert_cb.isChecked());
+				m_invertText.setAnimation(m_anim1);
+				m_invertText.startAnimation(m_anim1);
+				mPrefs.edit()
+						.putBoolean(
+								getActivity().getString(R.string.key_invert),
+								m_invert_cb.isChecked()).apply();
+			}
+		});
 
 		// Set wake lock change listener
 		m_wake_cb = (CheckBox) getView().findViewById(R.id.settings_wake_check);
-		m_wake_cb.setChecked(getActivity().getPreferences(Context.MODE_PRIVATE)
-				.getBoolean(getString(R.string.key_wake), true));
-		((Button) getView().findViewById(R.id.but_wake))
-				.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						m_wake_cb.setChecked(!m_wake_cb.isChecked());
-						((LifeCount) getActivity()).setWakeLock(m_wake_cb
-								.isChecked());
-					}
-				});
+		m_wake_cb.setChecked(mPrefs.getBoolean(getString(R.string.key_wake),
+				true));
+		Button but_wake = (Button) getView().findViewById(R.id.but_wake);
+		but_wake.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				m_wake_cb.setChecked(!m_wake_cb.isChecked());
+				mPrefs.edit()
+						.putBoolean(getActivity().getString(R.string.key_wake),
+								m_wake_cb.isChecked()).apply();
+			}
+		});
 
 		// Set quick reset change listener
 		m_quick_cb = (CheckBox) getView().findViewById(
 				R.id.settings_quick_check);
-		m_quick_cb.setChecked(getActivity()
-				.getPreferences(Context.MODE_PRIVATE).getBoolean(
-						getString(R.string.key_quick), false));
-		((Button) getView().findViewById(R.id.but_quick))
-				.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						m_quick_cb.setChecked(!m_quick_cb.isChecked());
-						((LifeCount) getActivity()).setQuickReset(m_quick_cb
-								.isChecked());
-						
-						if (m_quick_cb.isChecked()) {
-							Toast.makeText(
-									getActivity(),
-									"Quick-Reset enabled. Tap settings button to reset life "
-											+ "totals, long-press it to show settings",
-									Toast.LENGTH_LONG).show();
-						}
-					}
-				});
+		m_quick_cb.setChecked(mPrefs.getBoolean(getString(R.string.key_quick),
+				false));
+		Button but_quick = (Button) getView().findViewById(R.id.but_quick);
+		but_quick.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				m_quick_cb.setChecked(!m_quick_cb.isChecked());
+				mPrefs.edit()
+						.putBoolean(
+								getActivity().getString(R.string.key_quick),
+								m_quick_cb.isChecked()).apply();
+
+				if (m_quick_cb.isChecked()) {
+					Toast.makeText(
+							getActivity(),
+							"Quick-Reset enabled. Tap settings button to reset life "
+									+ "totals, long-press it to show settings",
+							Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 
 		// Set entry time
-		setEntryText(getActivity().getPreferences(Context.MODE_PRIVATE)
-				.getFloat(getString(R.string.key_entry), 2.0f));
+		setEntryText(mPrefs.getFloat(getString(R.string.key_entry), 2.0f));
 		((Button) getView().findViewById(R.id.entry_but_up))
 				.setOnClickListener(new OnClickListener() {
 					@Override
@@ -218,6 +227,9 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		}
 
 		setEntryText(time + mod);
+		mPrefs.edit()
+				.putFloat(getActivity().getString(R.string.key_entry),
+						time + mod).apply();
 		((LifeCount) getActivity()).setEntryInterval(time + mod);
 	}
 
@@ -227,9 +239,9 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	}
 
 	protected void changeResetVal(int reset) {
-		getActivity().getPreferences(Context.MODE_PRIVATE).edit()
+		mPrefs.edit()
 				.putInt(getActivity().getString(R.string.key_total), reset)
-				.commit();
+				.apply();
 		((TextView) this.getView().findViewById(R.id.settings_reset_text))
 				.setText(String.valueOf(reset));
 	}
@@ -263,11 +275,9 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 
 	@Override
 	public void onAnimationRepeat(Animation animation) {
-
 	}
 
 	@Override
 	public void onAnimationStart(Animation animation) {
-
 	}
 }

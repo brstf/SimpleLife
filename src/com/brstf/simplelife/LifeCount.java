@@ -13,12 +13,14 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.WindowManager;
 
-public class LifeCount extends SlidingFragmentActivity {
+public class LifeCount extends SlidingFragmentActivity implements
+		OnSharedPreferenceChangeListener {
 	private LifeController p1Controller;
 	private LifeController p2Controller;
 	private HistoryInt p1Life;
@@ -92,6 +94,9 @@ public class LifeCount extends SlidingFragmentActivity {
 			edit.putFloat(getString(R.string.key_entry), 2.0f);
 			edit.commit();
 		}
+
+		// Register this activity as a listener for preference changes
+		mPrefs.registerOnSharedPreferenceChangeListener(this);
 	}
 
 	/**
@@ -268,6 +273,15 @@ public class LifeCount extends SlidingFragmentActivity {
 	}
 
 	/**
+	 * Get the SharedPreferences of this Activity.
+	 * 
+	 * @return SharedPreferences object associated with this Activtiy.
+	 */
+	public SharedPreferences getPrefs() {
+		return mPrefs;
+	}
+
+	/**
 	 * Resets both life totals to their starting values.
 	 */
 	public void reset() {
@@ -294,8 +308,6 @@ public class LifeCount extends SlidingFragmentActivity {
 	 *            True if the upper display should be inverted, false otherwise.
 	 */
 	public void setUpperInverted(boolean invert) {
-		mPrefs.edit().putBoolean(getString(R.string.key_invert), invert)
-				.commit();
 		((LifeView) findViewById(R.id.player2_lv)).setInversed(invert);
 		mLogFragRight.setUpperInverted(invert);
 		mLogFragLeft.setUpperInverted(invert);
@@ -308,21 +320,8 @@ public class LifeCount extends SlidingFragmentActivity {
 	 *            True if the poison items would be visible, false otherwise
 	 */
 	public void setPoisonVisible(boolean visible) {
-		mPrefs.edit().putBoolean(getString(R.string.key_poison), visible)
-				.commit();
 		((LifeView) findViewById(R.id.player2_lv)).setPoisonVisible(visible);
 		((LifeView) findViewById(R.id.player1_lv)).setPoisonVisible(visible);
-	}
-
-	/**
-	 * Sets whether or not to keep the screen on during operation
-	 * 
-	 * @param wake
-	 *            True if screen should stay on, false otherwise
-	 */
-	public void setWakeLock(boolean wake) {
-		mPrefs.edit().putBoolean(getString(R.string.key_wake), wake).commit();
-		setWakeFlag(wake);
 	}
 
 	/**
@@ -341,18 +340,49 @@ public class LifeCount extends SlidingFragmentActivity {
 		}
 	}
 
+	/**
+	 * Set the entry interval time (in seconds), the time until a modification
+	 * to a life total is "locked-in".
+	 * 
+	 * @param interval
+	 *            Entry interval time (in seconds)
+	 */
 	public void setEntryInterval(float interval) {
 		long entrytime = (long) (interval * 1000.0);
 		p1Life.setInterval(entrytime);
 		p2Life.setInterval(entrytime);
-		getPreferences(Context.MODE_PRIVATE).edit()
-				.putFloat(getString(R.string.key_entry), interval).commit();
 	}
 
+	/**
+	 * Set whether or not the "Quick-Reset" option is enabled.
+	 * 
+	 * @param quick
+	 *            True if quick-reset should be enabled, false otherwise
+	 */
 	public void setQuickReset(boolean quick) {
-		getPreferences(Context.MODE_PRIVATE).edit()
-				.putBoolean(getString(R.string.key_quick), quick).commit();
 		mLogFragRight.setQuickReset(quick);
 		mLogFragLeft.setQuickReset(quick);
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		// Properly respond depending on which preference was changed
+		if (key == getString(R.string.key_poison)) {
+			// Poison Changed
+			setPoisonVisible(mPrefs.getBoolean(key, false));
+		} else if (key == getString(R.string.key_invert)) {
+			// Inverted upper life view changed
+			setUpperInverted(mPrefs.getBoolean(key, true));
+		} else if (key == getString(R.string.key_wake)) {
+			// Wake lock setting changed
+			setWakeFlag(mPrefs.getBoolean(key, true));
+		} else if (key == getString(R.string.key_quick)) {
+			// Quick reset setting changed
+			setQuickReset(mPrefs.getBoolean(key, false));
+		} else if (key == getString(R.string.key_entry)) {
+			// Entry time changed
+			setEntryInterval(mPrefs.getFloat(key, 2.0f));
+		}
 	}
 }
