@@ -230,12 +230,14 @@ public class LifeCount extends SlidingFragmentActivity implements
 		} else {
 			// TODO: Fix the bug here
 			mLogFragRight = (SlidingMenuLogListFragment) this
-					.getFragmentManager().findFragmentById(
-							R.id.sliding_menu_frame);
+					.getFragmentManager()
+					.findFragmentById(R.id.sliding_menu_frame)
+					.getFragmentManager().getBackStackEntryAt(0);
 			mLogFragRight.setControllers(p1Controller, p2Controller);
 			mLogFragLeft = (SlidingMenuLogListFragment) this
-					.getFragmentManager().findFragmentById(
-							R.id.sliding_menu_frame2);
+					.getFragmentManager()
+					.findFragmentById(R.id.sliding_menu_frame2)
+					.getFragmentManager().getBackStackEntryAt(0);
 			mLogFragLeft.setControllers(p1Controller, p2Controller);
 		}
 		mLogFragRight.setUpperInverted(mPrefs.getBoolean(
