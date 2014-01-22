@@ -223,6 +223,7 @@ public class LifeCount extends SlidingFragmentActivity {
 			this.getFragmentManager().beginTransaction()
 					.replace(R.id.sliding_menu_frame2, mLogFragLeft).commit();
 		} else {
+			// TODO: Fix the bug here
 			mLogFragRight = (SlidingMenuLogListFragment) this
 					.getFragmentManager().findFragmentById(
 							R.id.sliding_menu_frame);
@@ -346,5 +347,12 @@ public class LifeCount extends SlidingFragmentActivity {
 		p2Life.setInterval(entrytime);
 		getPreferences(Context.MODE_PRIVATE).edit()
 				.putFloat(getString(R.string.key_entry), interval).commit();
+	}
+
+	public void setQuickReset(boolean quick) {
+		getPreferences(Context.MODE_PRIVATE).edit()
+				.putBoolean(getString(R.string.key_quick), quick).commit();
+		mLogFragRight.setQuickReset(quick);
+		mLogFragLeft.setQuickReset(quick);
 	}
 }

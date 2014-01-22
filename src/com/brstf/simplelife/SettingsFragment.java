@@ -15,8 +15,6 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -95,13 +93,16 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		boolean showPoison = getActivity().getPreferences(Context.MODE_PRIVATE)
 				.getBoolean(getString(R.string.key_poison), true);
 		m_poison_cb.setChecked(showPoison);
-		m_poison_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				((LifeCount) getActivity()).setPoisonVisible(isChecked);
-			}
-		});
+		((Button) getView().findViewById(R.id.but_poison))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						m_poison_cb.setChecked(!m_poison_cb.isChecked());
+						((LifeCount) getActivity())
+								.setPoisonVisible(m_poison_cb.isChecked());
+
+					}
+				});
 
 		// Load the flip animations
 		m_anim1 = AnimationUtils.loadAnimation(this.getActivity(),
@@ -119,27 +120,32 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		m_invertText = (TextView) getView().findViewById(R.id.invert_tv);
 		m_invertText.setRotation(inverted ? 180.0f : 0.0f);
 		m_invert_cb.setChecked(inverted);
-		m_invert_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				m_invertText.setAnimation(m_anim1);
-				m_invertText.startAnimation(m_anim1);
-				((LifeCount) getActivity()).setUpperInverted(isChecked);
-			}
-		});
+		((Button) this.getView().findViewById(R.id.but_invert))
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						m_invert_cb.setChecked(!m_invert_cb.isChecked());
+						m_invertText.setAnimation(m_anim1);
+						m_invertText.startAnimation(m_anim1);
+						((LifeCount) getActivity())
+								.setUpperInverted(m_invert_cb.isChecked());
+					}
+				});
 
 		// Set wake lock change listener
 		m_wake_cb = (CheckBox) getView().findViewById(R.id.settings_wake_check);
 		m_wake_cb.setChecked(getActivity().getPreferences(Context.MODE_PRIVATE)
 				.getBoolean(getString(R.string.key_wake), true));
-		m_wake_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				((LifeCount) getActivity()).setWakeLock(isChecked);
-			}
-		});
+		((Button) getView().findViewById(R.id.but_wake))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						m_wake_cb.setChecked(!m_wake_cb.isChecked());
+						((LifeCount) getActivity()).setWakeLock(m_wake_cb
+								.isChecked());
+					}
+				});
 
 		// Set quick reset change listener
 		m_quick_cb = (CheckBox) getView().findViewById(
@@ -147,25 +153,23 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		m_quick_cb.setChecked(getActivity()
 				.getPreferences(Context.MODE_PRIVATE).getBoolean(
 						getString(R.string.key_quick), false));
-		m_quick_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				getActivity()
-						.getPreferences(Context.MODE_PRIVATE)
-						.edit()
-						.putBoolean(
-								getActivity().getString(R.string.key_quick),
-								isChecked).commit();
-				if (isChecked) {
-					Toast.makeText(
-							getActivity(),
-							"Quick-Reset enabled. Tap settings button to reset life "
-									+ "totals, long-press it to show settings",
-							Toast.LENGTH_LONG).show();
-				}
-			}
-		});
+		((Button) getView().findViewById(R.id.but_quick))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						m_quick_cb.setChecked(!m_quick_cb.isChecked());
+						((LifeCount) getActivity()).setQuickReset(m_quick_cb
+								.isChecked());
+						
+						if (m_quick_cb.isChecked()) {
+							Toast.makeText(
+									getActivity(),
+									"Quick-Reset enabled. Tap settings button to reset life "
+											+ "totals, long-press it to show settings",
+									Toast.LENGTH_LONG).show();
+						}
+					}
+				});
 
 		// Set entry time
 		setEntryText(getActivity().getPreferences(Context.MODE_PRIVATE)

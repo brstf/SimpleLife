@@ -7,7 +7,7 @@
     <dimen name="sliding_menu_shadow_width">15dp</dimen>
 
     <!-- Life total Text View dimensions -->
-    <dimen name="life_total_size">120sp</dimen>
+    <dimen name="life_total_size">145sp</dimen>
     <dimen name="life_total_mod_size">42sp</dimen>
 
     <!-- Invert Settings Dimensions -->

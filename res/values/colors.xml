@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="red">#FF0000</color>
-    <color name="green">#00FF00</color>
+    <color name="red">#F16364</color>
+    <color name="green">#64b1b2</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="light_gray">#FFEEEEEE</color>
+    <color name="dark_gray">#FF999999</color>
+    <color name="darker_gray">#FF555555</color>
     <color name="transparent">#00000000</color>
+    <color name="separator_color">#FFCCCCCC</color>
 
     <!-- Tile Colors -->
     <color name="red_tile">#F16364</color>
@@ -16,5 +20,7 @@
     <color name="green_tile_shadow">#1A7D1A</color>
     <color name="orange_tile">#F19363</color>
     <color name="orange_tile_shadow">#9D4A20</color>
+    <color name="gray_tile">#FFFFFFFF</color>
+    <color name="gray_tile_shadow">#FFCCCCCC</color>
 
 </resources>

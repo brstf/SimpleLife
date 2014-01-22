@@ -2,13 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gray" >
+    android:background="@color/light_gray" >
 
     <RelativeLayout
         android:id="@+id/options_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gray"
         android:paddingBottom="10dp"
         android:paddingTop="5dp" >
 
@@ -30,14 +29,14 @@
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@id/spacer"
-            android:background="@drawable/red_tile" >
+            android:background="@drawable/gray_tile" >
 
             <com.brstf.simplelife.widgets.SquareImageButton
                 android:id="@+id/but_reset"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/transparent_button"
-                android:src="@drawable/round_arrow" />
+                android:src="@drawable/round_arrow_dark" />
 
             <TextView
                 android:id="@+id/settings_reset_text"
@@ -47,7 +46,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/white"
+                android:textColor="@color/red_tile"
                 android:textSize="@dimen/settings_reset_text_size"
                 android:textStyle="bold" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
@@ -63,7 +62,7 @@
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/blue_tile" >
+            android:background="@drawable/gray_tile" >
 
             <TextView
                 android:id="@+id/settings_choose_reset"
@@ -73,7 +72,7 @@
                 android:layout_centerHorizontal="true"
                 android:paddingTop="10dp"
                 android:text="@string/settings_choose_reset"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_gray"
                 android:textSize="14sp" />
 
             <RadioGroup
@@ -90,21 +89,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_reset_20"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/dark_gray" />
 
                 <RadioButton
                     android:id="@+id/settings_rg_30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_reset_30"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/dark_gray" />
 
                 <RadioButton
                     android:id="@+id/settings_rg_40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_reset_40"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/dark_gray" />
             </RadioGroup>
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
@@ -118,7 +117,15 @@
             android:layout_below="@id/settings_reset_rl"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/spacer"
-            android:background="@drawable/green_tile" >
+            android:background="@drawable/gray_tile" >
+
+            <Button
+                android:id="@+id/but_poison"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
 
             <CheckBox
                 android:id="@+id/poison_check"
@@ -126,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:clickable="false"
                 android:gravity="center" />
 
             <TextView
@@ -136,7 +144,7 @@
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="30dp"
                 android:text="@string/settings_poison"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
@@ -150,7 +158,15 @@
             android:layout_below="@id/settings_reset_val_rl"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/orange_tile" >
+            android:background="@drawable/gray_tile" >
+
+            <Button
+                android:id="@+id/but_invert"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
 
             <RelativeLayout
                 android:id="@+id/settings_lower_invert"
@@ -165,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
+                    android:clickable="false"
                     android:paddingBottom="@dimen/settings_invert_padding" />
 
                 <TextView
@@ -175,7 +192,7 @@
                     android:layout_toRightOf="@id/settings_invert_check"
                     android:paddingBottom="@dimen/settings_invert_padding"
                     android:text="@string/settings_invert_desc"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dark_gray"
                     android:textSize="@dimen/settings_description_text_size" />
             </RelativeLayout>
 
@@ -195,7 +212,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:text="@string/settings_invert_total"
-                android:textColor="@color/white"
+                android:textColor="@color/red_tile"
                 android:textSize="@dimen/settings_invert_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
@@ -209,7 +226,15 @@
             android:layout_below="@id/settings_poison"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/spacer"
-            android:background="@drawable/red_tile" >
+            android:background="@drawable/gray_tile" >
+
+            <Button
+                android:id="@+id/but_wake"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
 
             <CheckBox
                 android:id="@+id/settings_wake_check"
@@ -217,6 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:clickable="false"
                 android:gravity="center" />
 
             <TextView
@@ -227,7 +253,7 @@
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="30dp"
                 android:text="@string/settings_wake"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
@@ -241,7 +267,15 @@
             android:layout_below="@id/invert_rl"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/blue_tile" >
+            android:background="@drawable/gray_tile" >
+
+            <Button
+                android:id="@+id/but_quick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
 
             <CheckBox
                 android:id="@+id/settings_quick_check"
@@ -249,6 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:clickable="false"
                 android:gravity="center" />
 
             <TextView
@@ -259,7 +294,7 @@
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="30dp"
                 android:text="@string/settings_quick"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
@@ -273,7 +308,7 @@
             android:layout_below="@id/settings_wake_rl"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/spacer"
-            android:background="@drawable/green_tile" >
+            android:background="@drawable/gray_tile" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -302,7 +337,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text=""
-                android:textColor="@color/white"
+                android:textColor="@color/red_tile"
                 android:textSize="@dimen/settings_entry_text_size" />
 
             <TextView
@@ -313,7 +348,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="30dp"
                 android:text="@string/settings_entry_time"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
@@ -326,14 +361,14 @@
             android:layout_below="@id/settings_quick_rl"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/orange_tile" >
+            android:background="@drawable/gray_tile" >
 
             <com.brstf.simplelife.widgets.SquareImageButton
                 android:id="@+id/but_github"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/transparent_button"
-                android:src="@drawable/github_mark" />
+                android:src="@drawable/github_mark_dark" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
     </RelativeLayout>
 

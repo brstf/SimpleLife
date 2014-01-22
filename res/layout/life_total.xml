@@ -46,7 +46,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text=""
-        android:textColor="@color/black"
+        android:typeface="sans"
+        android:textColor="@color/darker_gray"
         android:textSize="@dimen/life_total_size" />
 
     <!-- Poison Icons -->

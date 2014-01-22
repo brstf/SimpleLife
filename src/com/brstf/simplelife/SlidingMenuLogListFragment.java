@@ -23,6 +23,7 @@ public class SlidingMenuLogListFragment extends Fragment {
 	private boolean mOptionsShowing = false;
 	private boolean mUpperInverted = true;
 	private TextView m_p2tv;
+	private boolean m_quick;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,6 +86,15 @@ public class SlidingMenuLogListFragment extends Fragment {
 				return true;
 			}
 		});
+
+		m_quick = this.getActivity().getPreferences(Context.MODE_PRIVATE)
+				.getBoolean(getString(R.string.key_quick), false);
+		int id = m_quick ? R.drawable.reset_gear
+				: R.drawable.ic_action_settings;
+		if (this.getView() != null) {
+			((ImageButton) this.getView().findViewById(R.id.but_reset))
+					.setImageResource(id);
+		}
 	}
 
 	/**
@@ -136,5 +146,29 @@ public class SlidingMenuLogListFragment extends Fragment {
 						R.animator.flip_left_out)
 				.replace(this.getId(), new SettingsFragment())
 				.addToBackStack(null).commit();
+	}
+
+	/**
+	 * Get whether or not quick reset is enabled.
+	 * 
+	 * @return True if quick reset is enabled, false otherwise
+	 */
+	public boolean getQuickReset() {
+		return m_quick;
+	}
+
+	/**
+	 * Sets whether or not quick reset is enabled.
+	 * 
+	 * @param quick
+	 *            True if quick reset should be enabled, false otherwise
+	 */
+	public void setQuickReset(boolean quick) {
+		m_quick = quick;
+		int id = quick ? R.drawable.reset_gear : R.drawable.ic_action_settings;
+		if (this.getView() != null) {
+			((ImageButton) this.getView().findViewById(R.id.but_reset))
+					.setImageResource(id);
+		}
 	}
 }
