@@ -132,7 +132,7 @@ public class SlidingMenuLogListFragment extends Fragment {
 	 * Flip the sliding menu to show the options menu, or flip back if the
 	 * options is already showing.
 	 */
-	protected void showOptions() {
+	public void showOptions() {
 		if (mOptionsShowing) {
 			getFragmentManager().popBackStack();
 			mOptionsShowing = false;

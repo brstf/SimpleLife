@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class LifeDbAdapter {
 	private final static String DATABASE_NAME = "simplelife";
@@ -14,10 +15,10 @@ public class LifeDbAdapter {
 	private final static String P2_TABLE = "simplelife_p2";
 	private final static String DATABASE_ROW = "(_id INTEGER PRIMARY "
 			+ "KEY AUTOINCREMENT, life INTEGER NOT NULL)";
-	private final static String DATABASE_CREATE_P1 = "CREATE TABLE " + P1_TABLE
-			+ " " + DATABASE_ROW;
-	private final static String DATABASE_CREATE_P2 = "CREATE TABLE " + P2_TABLE
-			+ " " + DATABASE_ROW;
+	private final static String DATABASE_CREATE_P1 = "CREATE TABLE IF NOT EXISTS "
+			+ P1_TABLE + " " + DATABASE_ROW;
+	private final static String DATABASE_CREATE_P2 = "CREATE TABLE IF NOT EXISTS "
+			+ P2_TABLE + " " + DATABASE_ROW;
 
 	private static final int DATABASE_VERSION = 1;
 
@@ -34,6 +35,28 @@ public class LifeDbAdapter {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE_P1);
 			db.execSQL(DATABASE_CREATE_P2);
+		}
+
+		@Override
+		public void onOpen(SQLiteDatabase db) {
+			if (!doesTableExist(P1_TABLE, db) || !doesTableExist(P2_TABLE, db)) {
+				onCreate(db);
+			}
+		}
+
+		private boolean doesTableExist(String tableName, SQLiteDatabase db) {
+			Cursor cursor = db.rawQuery(
+					"select DISTINCT tbl_name FROM sqlite_master where tbl_name = '"
+							+ tableName + "'", null);
+
+			if (cursor != null) {
+				if (cursor.getCount() > 0) {
+					cursor.close();
+					return true;
+				}
+				cursor.close();
+			}
+			return false;
 		}
 
 		@Override
@@ -61,6 +84,7 @@ public class LifeDbAdapter {
 
 	public void open() {
 		mDb = mDbHelper.getWritableDatabase();
+		mDbHelper.onCreate(mDb);
 	}
 
 	public void beginTransation() {

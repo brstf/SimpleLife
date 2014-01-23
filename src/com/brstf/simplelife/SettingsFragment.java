@@ -381,7 +381,6 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		mPrefs.edit()
 				.putFloat(getActivity().getString(R.string.key_entry),
 						time + mod).apply();
-		((LifeCount) getActivity()).setEntryInterval(time + mod);
 	}
 
 	private void setEntryText(float time) {

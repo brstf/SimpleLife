@@ -110,28 +110,20 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 *            Bundle with histories saved
 	 */
 	private void initializeLife(Bundle savedInstanceState) {
-		if (savedInstanceState == null) {
-			// If there's no saved instance state, restore from database
-			mDbHelper.open();
-			int p1count = mDbHelper.getRowCount(mDbHelper.getP1Table());
-			int p2count = mDbHelper.getRowCount(mDbHelper.getP2Table());
-			if (p1count != 0 && p2count != 0) {
-				p1Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP1Table()));
-				p2Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP2Table()));
-			}
-			mDbHelper.close();
-			return;
-		}
 
-		// Get the player keys
-		ArrayList<String> players = savedInstanceState
-				.getStringArrayList(getResources().getString(
-						R.string.tag_players_life));
-		if (players != null) {
-			p1Life.setHistory(savedInstanceState.getIntegerArrayList(players
-					.get(0)));
-			p2Life.setHistory(savedInstanceState.getIntegerArrayList(players
-					.get(1)));
+		// If there's no saved instance state, restore from database
+		mDbHelper.open();
+		int p1count = mDbHelper.getRowCount(mDbHelper.getP1Table());
+		int p2count = mDbHelper.getRowCount(mDbHelper.getP2Table());
+		if (p1count != 0 && p2count != 0) {
+			p1Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP1Table()));
+			p2Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP2Table()));
+		}
+		mDbHelper.close();
+
+		// Restore poison if it's there
+		if (savedInstanceState == null) {
+			return;
 		}
 
 		// Get the poison amounts
@@ -150,26 +142,16 @@ public class LifeCount extends SlidingFragmentActivity implements
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 
-		// Construct a list of player tags
-		ArrayList<String> lh_tags = new ArrayList<String>();
-		ArrayList<String> p_tags = new ArrayList<String>();
-		String lh_tag = getResources().getString(R.string.tag_lh);
+		// Construct a list of poison tags
 		String p_tag = getResources().getString(R.string.tag_poison);
-
-		// Add a tag for each player we need to restore
-		lh_tags.add(lh_tag + "1");
-		lh_tags.add(lh_tag + "2");
-		outState.putStringArrayList(
-				getResources().getString(R.string.tag_players_life), lh_tags);
-		outState.putIntegerArrayList(lh_tags.get(0), p1Life.getHistory());
-		outState.putIntegerArrayList(lh_tags.get(1), p2Life.getHistory());
+		ArrayList<String> p_tags = new ArrayList<String>();
 
 		p_tags.add(p_tag + "1");
 		p_tags.add(p_tag + "2");
 		outState.putStringArrayList(
 				getResources().getString(R.string.tag_players_poison), p_tags);
 
-		// For each tag, save the history
+		// For each tag, save the poison levels
 		outState.putInt(p_tags.get(0), p1Controller.getCurrentPoison());
 		outState.putInt(p_tags.get(1), p2Controller.getCurrentPoison());
 	}
@@ -309,7 +291,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 * @param invert
 	 *            True if the upper display should be inverted, false otherwise.
 	 */
-	public void setUpperInverted(boolean invert) {
+	private void setUpperInverted(boolean invert) {
 		((LifeView) findViewById(R.id.player2_lv)).setInversed(invert);
 		mLogFragRight.setUpperInverted(invert);
 		mLogFragLeft.setUpperInverted(invert);
@@ -321,7 +303,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 * @param visible
 	 *            True if the poison items would be visible, false otherwise
 	 */
-	public void setPoisonVisible(boolean visible) {
+	private void setPoisonVisible(boolean visible) {
 		((LifeView) findViewById(R.id.player2_lv)).setPoisonVisible(visible);
 		((LifeView) findViewById(R.id.player1_lv)).setPoisonVisible(visible);
 	}
@@ -349,7 +331,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 * @param interval
 	 *            Entry interval time (in seconds)
 	 */
-	public void setEntryInterval(float interval) {
+	private void setEntryInterval(float interval) {
 		long entrytime = (long) (interval * 1000.0);
 		p1Life.setInterval(entrytime);
 		p2Life.setInterval(entrytime);
@@ -361,7 +343,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 * @param quick
 	 *            True if quick-reset should be enabled, false otherwise
 	 */
-	public void setQuickReset(boolean quick) {
+	private void setQuickReset(boolean quick) {
 		mLogFragRight.setQuickReset(quick);
 		mLogFragLeft.setQuickReset(quick);
 	}
@@ -372,7 +354,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 * @param bigmod
 	 *            True if +5/-5 buttons should be enabled, false otherwise
 	 */
-	public void setBigmodChanged(boolean bigmod) {
+	private void setBigmodChanged(boolean bigmod) {
 		((LifeView) findViewById(R.id.player2_lv)).setBigmodEnabled(bigmod);
 		((LifeView) findViewById(R.id.player1_lv)).setBigmodEnabled(bigmod);
 	}
