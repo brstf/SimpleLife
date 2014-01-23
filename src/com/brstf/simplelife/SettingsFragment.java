@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brstf.simplelife.LifeCount;
+import com.brstf.simplelife.dialog.AboutDialog;
 
 public class SettingsFragment extends Fragment implements AnimationListener {
 	private TextView m_invertText;
@@ -142,6 +143,49 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			}
 		});
 
+		// Setup Dice Rolling listeners
+		setDiceSidesText(mPrefs.getInt(getString(R.string.key_dice_sides), 6));
+		((Button) getView().findViewById(R.id.dice_sides_but_up))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changeDiceSides(1);
+					}
+				});
+		((Button) getView().findViewById(R.id.dice_sides_but_down))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changeDiceSides(-1);
+					}
+				});
+		setDiceNumText(mPrefs.getInt(getString(R.string.key_dice_num), 2));
+		((Button) getView().findViewById(R.id.dice_num_but_up))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changeDiceNum(1);
+					}
+				});
+		((Button) getView().findViewById(R.id.dice_num_but_down))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changeDiceNum(-1);
+					}
+				});
+		((Button) getView().findViewById(R.id.but_dice_roll))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						int sides = mPrefs.getInt(
+								getString(R.string.key_dice_sides), 6);
+						int num = mPrefs.getInt(
+								getString(R.string.key_dice_num), 2);
+						rollDice(sides, num);
+					}
+				});
+
 		// Set wake lock change listener
 		m_wake_cb = (CheckBox) getView().findViewById(R.id.settings_wake_check);
 		m_wake_cb.setChecked(mPrefs.getBoolean(getString(R.string.key_wake),
@@ -217,6 +261,17 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			}
 		});
 
+		// Setup about button
+		ImageButton but_about = (ImageButton) this.getView().findViewById(
+				R.id.but_about);
+		but_about.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AboutDialog about = new AboutDialog();
+				about.show(getActivity().getFragmentManager(), "about");
+			}
+		});
+
 		// Setup github button
 		ImageButton but_github = (ImageButton) this.getView().findViewById(
 				R.id.but_github);
@@ -231,6 +286,80 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	}
 
 	/**
+	 * Simulate rolling of the dice by rolling the given number of dice with the
+	 * given number of sides.
+	 * 
+	 * @param sides
+	 *            Number of sides on the dice to roll
+	 * @param num
+	 *            Number of dice to roll
+	 */
+	protected void rollDice(int sides, int num) {
+		int total = 0;
+		for (int i = 0; i < num; ++i) {
+			total += 1 + (int) (Math.random() * sides);
+		}
+		((TextView) getView().findViewById(R.id.settings_dice_result))
+				.setText(String.valueOf(total));
+	}
+
+	/**
+	 * Change the number of sides on the dice to roll by the given amount.
+	 * 
+	 * @param mod
+	 *            Number to change the number of sides on the dice to roll by
+	 */
+	protected void changeDiceSides(int mod) {
+		int sides = mPrefs.getInt(getString(R.string.key_dice_sides), 6);
+		if (sides <= 1 && mod < 0) {
+			return;
+		}
+
+		setDiceSidesText(sides + mod);
+		mPrefs.edit().putInt(getString(R.string.key_dice_sides), sides + mod)
+				.apply();
+	}
+
+	/**
+	 * Sets the text of the number of sides on each die being rolled.
+	 * 
+	 * @param num
+	 *            Number of sides on the dice
+	 */
+	private void setDiceSidesText(int sides) {
+		((TextView) getView().findViewById(R.id.settings_dice_sides_tv))
+				.setText(String.valueOf(sides));
+	}
+
+	/**
+	 * Change the number of dice to roll by the given amount.
+	 * 
+	 * @param mod
+	 *            Number to change the number of dice to roll by
+	 */
+	protected void changeDiceNum(int mod) {
+		int num = mPrefs.getInt(getString(R.string.key_dice_num), 2);
+		if (num <= 1 && mod < 0) {
+			return;
+		}
+
+		setDiceNumText(num + mod);
+		mPrefs.edit().putInt(getString(R.string.key_dice_num), num + mod)
+				.apply();
+	}
+
+	/**
+	 * Sets the text of the number of dice being rolled.
+	 * 
+	 * @param num
+	 *            Number of dice to roll
+	 */
+	private void setDiceNumText(int num) {
+		((TextView) getView().findViewById(R.id.settings_dice_num_tv))
+				.setText(String.valueOf(num));
+	}
+
+	/**
 	 * Modify the time before a life modification is "locked-in" by adding the
 	 * given modification to the current value. This saves the new value in the
 	 * shared preferences and sets the TextView text.
@@ -239,8 +368,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	 *            Amount to change the entry time by
 	 */
 	private void changeEntryTime(float mod) {
-		float time = getActivity().getPreferences(Context.MODE_PRIVATE)
-				.getFloat(getString(R.string.key_entry), 2.0f);
+		float time = mPrefs.getFloat(getString(R.string.key_entry), 2.0f);
 		if ((time <= 1.0f && mod < 0.0f) || (time >= 6.0f && mod > 0.0f)) {
 			return;
 		}

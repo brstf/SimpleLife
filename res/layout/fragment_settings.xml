@@ -228,6 +228,168 @@
                 android:textSize="@dimen/settings_invert_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
+        <!-- Die Roller -->
+
+        <RelativeLayout
+            android:id="@+id/settings_dice_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/settings_poison"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gray_tile" >
+
+            <View
+                android:id="@+id/mini_spacer_dice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <!-- Choose Number of Sides -->
+
+            <com.brstf.simplelife.widgets.SquareRelativeLayout
+                android:id="@+id/settings_dice_sides_rl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_toLeftOf="@id/mini_spacer_dice" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/dice_sides_but_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/transparent_button" />
+
+                    <Button
+                        android:id="@+id/dice_sides_but_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/transparent_button" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/settings_dice_sides_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textColor="@color/red_tile"
+                    android:textSize="@dimen/settings_entry_text_size" />
+
+                <TextView
+                    android:id="@+id/settings_dice_sides_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/settings_dice_sides_desc"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/settings_description_text_size" />
+            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+            <!-- Choose Number of Dice -->
+
+            <com.brstf.simplelife.widgets.SquareRelativeLayout
+                android:id="@+id/settings_dice_num_rl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="40dp"
+                android:layout_toRightOf="@id/mini_spacer_dice" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/dice_num_but_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/transparent_button" />
+
+                    <Button
+                        android:id="@+id/dice_num_but_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/transparent_button" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/settings_dice_num_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textColor="@color/red_tile"
+                    android:textSize="@dimen/settings_entry_text_size" />
+
+                <TextView
+                    android:id="@+id/settings_dice_num_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/settings_dice_num_desc"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/settings_description_text_size" />
+            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+            <Button
+                android:id="@+id/but_dice_roll"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/gray_button_circle"
+                android:contentDescription="@string/settings_dice_content_desc"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="12dp"
+                android:text="@string/settings_dice_roll"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/settings_description_text_size" />
+
+            <TextView
+                android:id="@+id/settings_dice_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/settings_default_dice"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_entry_text_size" />
+        </RelativeLayout>
+
         <!-- Enable WakeLock -->
 
         <com.brstf.simplelife.widgets.SquareRelativeLayout
@@ -235,7 +397,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/settings_poison"
+            android:layout_below="@id/settings_dice_rl"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/spacer"
             android:background="@drawable/gray_tile" >
@@ -276,7 +438,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/invert_rl"
+            android:layout_below="@id/settings_dice_rl"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
             android:background="@drawable/gray_tile" >
@@ -431,7 +593,7 @@
                 android:layout_toLeftOf="@id/mini_spacer2" >
 
                 <com.brstf.simplelife.widgets.SquareImageButton
-                    android:id="@+id/but_aboujt"
+                    android:id="@+id/but_about"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/transparent_button"
