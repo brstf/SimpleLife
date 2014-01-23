@@ -2,11 +2,14 @@ package com.brstf.simplelife.data;
 
 import java.util.ArrayList;
 
+import com.brstf.simplelife.controls.LifeController;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class LifeDbAdapter {
 	private final static String DATABASE_NAME = "simplelife";
@@ -130,9 +133,15 @@ public class LifeDbAdapter {
 	 */
 	public void addEntries(String table, ArrayList<Integer> entries) {
 		ContentValues values = new ContentValues();
-		for (Integer i : entries) {
-			values.put("life", i);
-			mDb.insert(table, null, values);
+		mDb.beginTransaction();
+		try {
+			for (Integer i : entries) {
+				values.put("life", i);
+				mDb.insert(table, null, values);
+			}
+			mDb.setTransactionSuccessful();
+		} finally {
+			mDb.endTransaction();
 		}
 	}
 
@@ -184,5 +193,40 @@ public class LifeDbAdapter {
 		int count = c.getInt(0);
 		c.close();
 		return count;
+	}
+
+	/**
+	 * Add poison and life history values from the given life controller to the
+	 * table with the given name.
+	 * 
+	 * @param table
+	 *            Name of the table to save the history into
+	 * @param lc
+	 *            LifeController to get the values to fill the table with from
+	 */
+	public void addLife(String table, LifeController lc) {
+		ArrayList<Integer> entries = new ArrayList<Integer>();
+		entries.add(lc.getCurrentPoison());
+		entries.addAll(lc.getHistory());
+		Log.d("DEBUG", "Saving " + String.valueOf(entries.size()) + " entries");
+		addEntries(table, entries);
+	}
+
+	/**
+	 * Restores the entries saved in the given table to the given life
+	 * controller.
+	 * 
+	 * @param table
+	 *            Name of the table to retrieve entries from
+	 * @param lc
+	 *            LifeController to restore values into
+	 */
+	public void restoreLife(String table, LifeController lc) {
+		ArrayList<Integer> entries = getAllFrom(table);
+		if (entries.size() > 0) {
+			lc.setPoison(entries.get(0));
+			entries.remove(0);
+			lc.setHistory(entries);
+		}
 	}
 }

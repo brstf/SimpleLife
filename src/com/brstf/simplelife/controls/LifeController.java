@@ -113,6 +113,17 @@ public class LifeController extends Observable {
 	}
 
 	/**
+	 * Wrapper method to set the history of the underlying HistoryInt object to
+	 * the given history.
+	 * 
+	 * @param history
+	 *            Integer list history to set the life to
+	 */
+	public void setHistory(ArrayList<Integer> history) {
+		life.setHistory(history);
+	}
+
+	/**
 	 * Sets the poison amount to the given value.
 	 * 
 	 * @param poison

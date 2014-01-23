@@ -1,7 +1,5 @@
 package com.brstf.simplelife;
 
-import java.util.ArrayList;
-
 import com.brstf.simplelife.controls.LifeController;
 import com.brstf.simplelife.data.HistoryInt;
 import com.brstf.simplelife.data.LifeDbAdapter;
@@ -15,6 +13,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.WindowManager;
@@ -110,61 +109,34 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 *            Bundle with histories saved
 	 */
 	private void initializeLife(Bundle savedInstanceState) {
-
 		// If there's no saved instance state, restore from database
 		mDbHelper.open();
 		int p1count = mDbHelper.getRowCount(mDbHelper.getP1Table());
 		int p2count = mDbHelper.getRowCount(mDbHelper.getP2Table());
 		if (p1count != 0 && p2count != 0) {
-			p1Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP1Table()));
-			p2Life.setHistory(mDbHelper.getAllFrom(mDbHelper.getP2Table()));
+			Log.d("DEBUG", "Restore life totals from db");
+			mDbHelper.restoreLife(mDbHelper.getP1Table(), p1Controller);
+			mDbHelper.restoreLife(mDbHelper.getP2Table(), p2Controller);
 		}
 		mDbHelper.close();
 
-		// Restore poison if it's there
-		if (savedInstanceState == null) {
-			return;
-		}
-
-		// Get the poison amounts
-		ArrayList<String> players_poison = savedInstanceState
-				.getStringArrayList(getResources().getString(
-						R.string.tag_players_poison));
-		if (players_poison != null) {
-			p1Controller.setPoison(savedInstanceState.getInt(players_poison
-					.get(0)));
-			p2Controller.setPoison(savedInstanceState.getInt(players_poison
-					.get(1)));
+		if (p1Controller.getHistory().size() == 0
+				|| p2Controller.getHistory().size() == 0) {
+			reset();
 		}
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
+	protected void onPause() {
+		super.onPause();
 
-		// Construct a list of poison tags
-		String p_tag = getResources().getString(R.string.tag_poison);
-		ArrayList<String> p_tags = new ArrayList<String>();
-
-		p_tags.add(p_tag + "1");
-		p_tags.add(p_tag + "2");
-		outState.putStringArrayList(
-				getResources().getString(R.string.tag_players_poison), p_tags);
-
-		// For each tag, save the poison levels
-		outState.putInt(p_tags.get(0), p1Controller.getCurrentPoison());
-		outState.putInt(p_tags.get(1), p2Controller.getCurrentPoison());
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
+		Log.d("DEBUG", "onStop");
 
 		// On activity destruction, write the life totals to the database
 		mDbHelper.open();
 		mDbHelper.clear();
-		mDbHelper.addEntries(mDbHelper.getP1Table(), p1Life.getHistory());
-		mDbHelper.addEntries(mDbHelper.getP2Table(), p2Life.getHistory());
+		mDbHelper.addLife(mDbHelper.getP1Table(), p1Controller);
+		mDbHelper.addLife(mDbHelper.getP2Table(), p2Controller);
 		mDbHelper.close();
 	}
 
