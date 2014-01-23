@@ -225,22 +225,19 @@ public class LifeCount extends SlidingFragmentActivity implements
 			mLogFragRight = new SlidingMenuLogListFragment();
 			mLogFragRight.setControllers(p1Controller, p2Controller);
 			this.getFragmentManager().beginTransaction()
-					.replace(R.id.sliding_menu_frame, mLogFragRight).commit();
+					.replace(R.id.sliding_menu_frame, mLogFragRight, "RIGHT")
+					.commit();
 			mLogFragLeft = new SlidingMenuLogListFragment();
 			mLogFragLeft.setControllers(p1Controller, p2Controller);
 			this.getFragmentManager().beginTransaction()
-					.replace(R.id.sliding_menu_frame2, mLogFragLeft).commit();
+					.replace(R.id.sliding_menu_frame2, mLogFragLeft, "LEFT")
+					.commit();
 		} else {
-			// TODO: backstackentryat null pointer
 			mLogFragRight = (SlidingMenuLogListFragment) this
-					.getFragmentManager()
-					.findFragmentById(R.id.sliding_menu_frame)
-					.getFragmentManager().getBackStackEntryAt(0);
+					.getFragmentManager().findFragmentByTag("RIGHT");
 			mLogFragRight.setControllers(p1Controller, p2Controller);
 			mLogFragLeft = (SlidingMenuLogListFragment) this
-					.getFragmentManager()
-					.findFragmentById(R.id.sliding_menu_frame2)
-					.getFragmentManager().getBackStackEntryAt(0);
+					.getFragmentManager().findFragmentByTag("LEFT");
 			mLogFragLeft.setControllers(p1Controller, p2Controller);
 		}
 		mLogFragRight.setUpperInverted(mPrefs.getBoolean(
