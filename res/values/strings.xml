@@ -59,7 +59,7 @@
     <string name="about_message">
 <![CDATA[<body>
 	<p>
-		<b>Simple Life</b> is a minimalistic Magic: The Gathering life counter app for Android.
+		<font color="#F16364"><b>Simple Life</b></font> is a minimalistic Magic: The Gathering life counter app for Android.
 	</p>
 
 	<p>
@@ -76,11 +76,11 @@
 
 	<p>
 		<b>Special Thanks:</b><br>
-		&nbsp;David Lombardo (Testing)<br>
-		&nbsp;Allen Stauffer (Testing)<br>
-		&nbsp;Dominick Crumb (Testing)<br>
-		&nbsp;Matt Connell (Feedback)<br>
-		&nbsp;Ashley Pacicca (Feedback)
+		&nbsp;&nbsp;David Lombardo (Testing)<br>
+		&nbsp;&nbsp;Allen Stauffer (Testing)<br>
+		&nbsp;&nbsp;Dominick Crumb (Testing)<br>
+		&nbsp;&nbsp;Matt Connell (Feedback)<br>
+		&nbsp;&nbsp;Ashley Pacicca (Feedback)
 	</p>
 </body>]]>
     </string>
