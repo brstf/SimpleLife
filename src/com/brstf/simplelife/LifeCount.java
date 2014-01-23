@@ -229,6 +229,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 			this.getFragmentManager().beginTransaction()
 					.replace(R.id.sliding_menu_frame2, mLogFragLeft).commit();
 		} else {
+			// TODO: backstackentryat null pointer
 			mLogFragRight = (SlidingMenuLogListFragment) this
 					.getFragmentManager()
 					.findFragmentById(R.id.sliding_menu_frame)

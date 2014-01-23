@@ -35,6 +35,7 @@
     <string name="settings_choose_reset">Choose Reset Value:</string>
     <string name="settings_entry_time">Time Until Entry Lock</string>
     <string name="settings_bigmod">Enable +5/-5 Buttons</string>
+    <string name="settings_about">About</string>
 
     <!-- Sliding Menu Strings -->
     <string name="player1">Player 1</string>
