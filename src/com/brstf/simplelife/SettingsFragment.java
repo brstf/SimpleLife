@@ -32,6 +32,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	private CheckBox m_poison_cb;
 	private CheckBox m_wake_cb;
 	private CheckBox m_quick_cb;
+	private CheckBox m_bigmod_cb;
 	private SharedPreferences mPrefs;
 
 	@Override
@@ -197,6 +198,24 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 						changeEntryTime(-0.25f);
 					}
 				});
+
+		// Set up +5/-5 check box
+		m_bigmod_cb = (CheckBox) getView().findViewById(
+				R.id.settings_bigmod_check);
+		boolean showBigmod = mPrefs.getBoolean(getString(R.string.key_bigmod),
+				true);
+		m_bigmod_cb.setChecked(showBigmod);
+		Button but_bigmod = (Button) getView().findViewById(R.id.but_bigmod);
+		but_bigmod.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				m_bigmod_cb.setChecked(!m_bigmod_cb.isChecked());
+				mPrefs.edit()
+						.putBoolean(
+								getActivity().getString(R.string.key_bigmod),
+								m_bigmod_cb.isChecked()).apply();
+			}
+		});
 
 		// Setup github button
 		ImageButton but_github = (ImageButton) this.getView().findViewById(

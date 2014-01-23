@@ -21,6 +21,7 @@
     <string name="key_wake">wake_lock</string>
     <string name="key_quick">quick_reset</string>
     <string name="key_entry">entry_time</string>
+    <string name="key_bigmod">bigmod</string>
 
     <!-- Settings Strings -->
     <string name="settings_poison">Enable Poison</string>
@@ -33,9 +34,14 @@
     <string name="settings_reset_40">Reset to 40</string>
     <string name="settings_choose_reset">Choose Reset Value:</string>
     <string name="settings_entry_time">Time Until Entry Lock</string>
+    <string name="settings_bigmod">Enable +5/-5 Buttons</string>
 
     <!-- Sliding Menu Strings -->
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
+
+    <!-- Life Total Strings -->
+    <string name="mod_p5">+5</string>
+    <string name="mod_m5">-5</string>
 
 </resources>

@@ -61,10 +61,10 @@ public class LifeCount extends SlidingFragmentActivity implements
 		p2.setLifeController(p2Controller);
 
 		// Set poison visibility
-		p1.setPoisonVisible(mPrefs.getBoolean(getString(R.string.key_poison),
-				true));
-		p2.setPoisonVisible(mPrefs.getBoolean(getString(R.string.key_poison),
-				true));
+		setPoisonVisible(mPrefs.getBoolean(getString(R.string.key_poison),
+				false));
+		setBigmodChanged(mPrefs
+				.getBoolean(getString(R.string.key_bigmod), true));
 
 		setBehindContentView(R.layout.sliding_menu_frame);
 		getSlidingMenu().setSecondaryMenu(R.layout.sliding_menu_frame2);
@@ -92,6 +92,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 			edit.putBoolean(getString(R.string.key_wake), true);
 			edit.putBoolean(getString(R.string.key_quick), false);
 			edit.putFloat(getString(R.string.key_entry), 2.0f);
+			edit.putBoolean(getString(R.string.key_bigmod), true);
 			edit.commit();
 		}
 
@@ -365,6 +366,17 @@ public class LifeCount extends SlidingFragmentActivity implements
 		mLogFragLeft.setQuickReset(quick);
 	}
 
+	/**
+	 * Set whether or not the "+5/-5" buttons are enabled.
+	 * 
+	 * @param bigmod
+	 *            True if +5/-5 buttons should be enabled, false otherwise
+	 */
+	public void setBigmodChanged(boolean bigmod) {
+		((LifeView) findViewById(R.id.player2_lv)).setBigmodEnabled(bigmod);
+		((LifeView) findViewById(R.id.player1_lv)).setBigmodEnabled(bigmod);
+	}
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
@@ -384,6 +396,9 @@ public class LifeCount extends SlidingFragmentActivity implements
 		} else if (key == getString(R.string.key_entry)) {
 			// Entry time changed
 			setEntryInterval(mPrefs.getFloat(key, 2.0f));
+		} else if (key == getString(R.string.key_bigmod)) {
+			// Bigmod preference changed
+			setBigmodChanged(mPrefs.getBoolean(key, true));
 		}
 	}
 }

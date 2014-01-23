@@ -352,13 +352,54 @@
                 android:textSize="@dimen/settings_description_text_size" />
         </com.brstf.simplelife.widgets.SquareRelativeLayout>
 
+        <!-- Enable +5/-5 Buttons -->
+        
+        <com.brstf.simplelife.widgets.SquareRelativeLayout
+            android:id="@+id/settings_bigmod_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/settings_quick_rl"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/spacer"
+            android:background="@drawable/gray_tile" >
+
+            <Button
+                android:id="@+id/but_bigmod"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
+
+            <CheckBox
+                android:id="@+id/settings_bigmod_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/settings_bigmod_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="30dp"
+                android:text="@string/settings_bigmod"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/settings_description_text_size" />
+        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+        
         <!-- Github Link -->
 
         <com.brstf.simplelife.widgets.SquareRelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/settings_quick_rl"
+            android:layout_below="@id/settings_bigmod_rl"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
             android:background="@drawable/gray_tile" >

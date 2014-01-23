@@ -18,6 +18,8 @@ import com.brstf.simplelife.TextUtils;
 public class LifeView extends ObserverLayout {
 	private Button m_button_up;
 	private Button m_button_down;
+	private Button m_button_5up;
+	private Button m_button_5down;
 	private ImageButton m_button_poison;
 	private PoisonView m_poison;
 	private TextView m_life;
@@ -44,6 +46,8 @@ public class LifeView extends ObserverLayout {
 
 		m_button_up = (Button) findViewById(R.id.but_up);
 		m_button_down = (Button) findViewById(R.id.but_down);
+		m_button_5up = (Button) findViewById(R.id.but_5up);
+		m_button_5down = (Button) findViewById(R.id.but_5down);
 		m_button_poison = (ImageButton) findViewById(R.id.poison_button);
 		m_poison = (PoisonView) findViewById(R.id.poison_layout);
 		m_life = (TextView) findViewById(R.id.life_text);
@@ -104,6 +108,8 @@ public class LifeView extends ObserverLayout {
 	private void addListeners(LifeController lc) {
 		m_button_up.setOnClickListener(createListener(lc, 1));
 		m_button_down.setOnClickListener(createListener(lc, -1));
+		m_button_5up.setOnClickListener(createListener(lc, 5));
+		m_button_5down.setOnClickListener(createListener(lc, -5));
 		m_button_poison.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -159,6 +165,18 @@ public class LifeView extends ObserverLayout {
 		if (this.m_poison.isOpaque()) {
 			this.togglePoison();
 		}
+	}
+
+	/**
+	 * Set whether or not the "+5/-5" buttons are enabled.
+	 * 
+	 * @param bigmod
+	 *            True if +5/-5 buttons should be enabled, false otherwise
+	 */
+	public void setBigmodEnabled(boolean bigmod) {
+		int viscode = bigmod ? View.VISIBLE : View.INVISIBLE;
+		m_button_5up.setVisibility(viscode);
+		m_button_5down.setVisibility(viscode);
 	}
 
 	@Override

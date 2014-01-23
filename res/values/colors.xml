@@ -5,6 +5,7 @@
     <color name="green">#64b1b2</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="pretty_light_gray">#FFCCCCCC</color>
     <color name="light_gray">#FFEEEEEE</color>
     <color name="dark_gray">#FF999999</color>
     <color name="darker_gray">#FF555555</color>

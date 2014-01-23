@@ -93,5 +93,4 @@ public class PoisonView extends ObserverLayout {
 			}
 		}
 	}
-
 }

@@ -68,6 +68,34 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="70dp" />
 
+    <!-- +5 / -5 Buttons -->
+
+    <Button
+        android:id="@+id/but_5up"
+        android:layout_width="54dp"
+        android:layout_height="match_parent"
+        android:layout_above="@id/spacer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/transparent_button"
+        android:text="@string/mod_p5"
+        android:textColor="@color/pretty_light_gray"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/but_5down"
+        android:layout_width="54dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/spacer"
+        android:background="@drawable/transparent_button"
+        android:text="@string/mod_m5"
+        android:textColor="@color/pretty_light_gray"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <!-- Life Mod (Only appears when a change is being made -->
 
     <TextView
