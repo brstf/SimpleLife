@@ -55,6 +55,34 @@
     <!-- About Dialog Strings -->
     <string name="about_title">About Simple Life</string>
     <string name="about_button">Thanks!</string>
-    <string name="about_message">Simple Life is a minimalistic Magic: The Gathering life counter app for Android.\n\nEmail comments, questions, bugs, or praise to brstf.dev@gmail.com.\n\nDeveloped by: Brian Stauffer (@brstf)\n\nSpecial Thanks:\nDavid Lombardo (Testing)\nAllen Stauffer (Testing)\nDominick Crumb (Testing)\nMatt Connell (Feedback)\nAshley Pacicca (Feedback)</string>
+    <!-- <string name="about_message">Simple Life is a minimalistic Magic: The Gathering life counter app for Android.\n\nEmail comments, questions, bugs, or praise to brstf.dev@gmail.com.\n\nDeveloped by: Brian Stauffer (@brstf)\n\nSpecial Thanks:\nDavid Lombardo (Testing)\nAllen Stauffer (Testing)\nDominick Crumb (Testing)\nMatt Connell (Feedback)\nAshley Pacicca (Feedback)</string> -->
+    <string name="about_message">
+<![CDATA[<body>
+	<p>
+		<b>Simple Life</b> is a minimalistic Magic: The Gathering life counter app for Android.
+	</p>
+
+	<p>
+		Email comments, questions, bugs, or praise to <a href="mailto:brstf.dev@gmail.com">brstf.dev@gmail.com</a>.
+	</p>
+
+	<p>
+		Developed by: Brian Stauffer (<a href="https://twitter.com/brstf">@brstf</a>)
+	</p>
+
+	<p>
+		<a href="https://github.com/jfeinstein10/SlidingMenu">Sliding Menu</a> by Jeremy Feinstein used under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+	</p>
+
+	<p>
+		<b>Special Thanks:</b><br>
+		&nbsp;David Lombardo (Testing)<br>
+		&nbsp;Allen Stauffer (Testing)<br>
+		&nbsp;Dominick Crumb (Testing)<br>
+		&nbsp;Matt Connell (Feedback)<br>
+		&nbsp;Ashley Pacicca (Feedback)
+	</p>
+</body>]]>
+    </string>
 
 </resources>

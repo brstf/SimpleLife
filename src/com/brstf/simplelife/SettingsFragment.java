@@ -1,7 +1,9 @@
 package com.brstf.simplelife;
 
+import java.util.Random;
+
+import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -35,6 +37,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	private CheckBox m_quick_cb;
 	private CheckBox m_bigmod_cb;
 	private SharedPreferences mPrefs;
+	private Random m_rand;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +47,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		m_rand = new Random(System.currentTimeMillis());
 
 		// Get the shared preferences
 		mPrefs = ((LifeCount) getActivity()).getPrefs();
@@ -267,8 +271,8 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 		but_about.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AboutDialog about = new AboutDialog();
-				about.show(getActivity().getFragmentManager(), "about");
+				AlertDialog about = AboutDialog.create(getActivity());
+				about.show();
 			}
 		});
 
@@ -297,7 +301,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 	protected void rollDice(int sides, int num) {
 		int total = 0;
 		for (int i = 0; i < num; ++i) {
-			total += 1 + (int) (Math.random() * sides);
+			total += 1 + m_rand.nextInt(sides);
 		}
 		((TextView) getView().findViewById(R.id.settings_dice_result))
 				.setText(String.valueOf(total));
