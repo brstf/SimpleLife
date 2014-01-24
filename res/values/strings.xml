@@ -43,10 +43,12 @@
     <string name="settings_dice_content_desc">Roll Dice</string>
     <string name="settings_default_dice">~</string>
     <string name="settings_dice_roll">Roll</string>
+    <string name="settings_dice_roller">Dice Roller</string>
 
     <!-- Sliding Menu Strings -->
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
+    <string name="undo_content">Undo Life Change</string>
 
     <!-- Life Total Strings -->
     <string name="mod_p5">+5</string>

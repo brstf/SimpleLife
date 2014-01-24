@@ -6,4 +6,27 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent" />
 
+    <ImageButton
+        android:id="@+id/but_undo_invert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/transparent_button"
+        android:contentDescription="@string/undo_content"
+        android:padding="15dp"
+        android:rotation="180"
+        android:src="@drawable/ic_action_undo" />
+
+    <ImageButton
+        android:id="@+id/but_undo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/transparent_button"
+        android:contentDescription="@string/undo_content"
+        android:padding="15dp"
+        android:src="@drawable/ic_action_undo" />
+
 </merge>

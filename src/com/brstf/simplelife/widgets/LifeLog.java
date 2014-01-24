@@ -11,6 +11,7 @@ import com.brstf.simplelife.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class LifeLog extends ObserverLayout implements Observer {
@@ -18,6 +19,8 @@ public class LifeLog extends ObserverLayout implements Observer {
 	private boolean m_inverse;
 	private ArrayList<Integer> m_list;
 	private LogAdapter m_adapter;
+	private ImageButton m_undo;
+	private ImageButton m_undo_invert;
 
 	public LifeLog(Context context) {
 		super(context);
@@ -36,6 +39,21 @@ public class LifeLog extends ObserverLayout implements Observer {
 		super.init();
 
 		m_lv = (ListView) findViewById(R.id.life_log);
+		m_undo = (ImageButton) findViewById(R.id.but_undo);
+		m_undo_invert = (ImageButton) findViewById(R.id.but_undo_invert);
+		m_undo_invert.setVisibility(View.INVISIBLE);
+		m_undo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				undo();
+			}
+		});
+		m_undo_invert.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				undo();
+			}
+		});
 		m_list = new ArrayList<Integer>();
 		setInverse(false);
 	}
@@ -54,6 +72,13 @@ public class LifeLog extends ObserverLayout implements Observer {
 		if (m_inverse) {
 			getListView().setStackFromBottom(true);
 			rowid = R.layout.log_list_row_ud;
+
+			// Flip Undo button
+			m_undo_invert.setVisibility(View.VISIBLE);
+			m_undo.setVisibility(View.INVISIBLE);
+		} else {
+			m_undo.setVisibility(View.VISIBLE);
+			m_undo_invert.setVisibility(View.INVISIBLE);
 		}
 		m_adapter = new LogAdapter(getContext(), rowid, m_list, m_inverse);
 		getListView().setAdapter(m_adapter);
@@ -104,5 +129,18 @@ public class LifeLog extends ObserverLayout implements Observer {
 	@Override
 	protected void registerLifeController(final LifeController lc) {
 		setInverse(m_inverse);
+	}
+
+	/**
+	 * Removes the most recent total from the history.
+	 * 
+	 * @return Total that was popped off if LifeController is non-null, -1
+	 *         otherwise
+	 */
+	private int undo() {
+		if (getLifeController() != null) {
+			return getLifeController().undo();
+		}
+		return -1;
 	}
 }

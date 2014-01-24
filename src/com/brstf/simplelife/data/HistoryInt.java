@@ -93,6 +93,19 @@ public class HistoryInt {
 	}
 
 	/**
+	 * Pop the last change off of this HistoryInt.
+	 * 
+	 * @return Most recent total or -1 if there are no values to pop
+	 */
+	public int pop() {
+		if (this.getSize() >= 1) {
+			return this.value_history.remove(this.getSize() - 1);
+		} else {
+			return -1;
+		}
+	}
+
+	/**
 	 * Resets the value to the initial value, clearing out the history.
 	 */
 	public void reset() {

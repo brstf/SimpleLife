@@ -247,6 +247,16 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="@string/settings_dice_roller"
+                android:textColor="@color/dark_gray"
+                android:textSize="17sp" />
+
             <!-- Choose Number of Sides -->
 
             <com.brstf.simplelife.widgets.SquareRelativeLayout

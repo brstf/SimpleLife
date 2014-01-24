@@ -183,4 +183,19 @@ public class LifeController extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+
+	/**
+	 * Pop the most recent change off of the life log.
+	 * 
+	 * @return Most recent total, or -1 if there are none to undo
+	 */
+	public int undo() {
+		if (life.getSize() > 1) {
+			int total = life.pop();
+			triggerObservers();
+			return total;
+		} else {
+			return -1;
+		}
+	}
 }
