@@ -15,12 +15,19 @@ public class LifeDbAdapter {
 	private final static String DATABASE_NAME = "simplelife";
 	private final static String P1_TABLE = "simplelife_p1";
 	private final static String P2_TABLE = "simplelife_p2";
+	private final static String P1_STAT_TABLE = "simplelife_stat_p1";
+	private final static String P2_STAT_TABLE = "simplelife_stat_p2";
 	private final static String DATABASE_ROW = "(_id INTEGER PRIMARY "
 			+ "KEY AUTOINCREMENT, life INTEGER NOT NULL)";
+	private final static String STAT_DATABASE_ROW = "(_id INTEGER PRIMARY KEY AUTOINCREMENT, )";
 	private final static String DATABASE_CREATE_P1 = "CREATE TABLE IF NOT EXISTS "
 			+ P1_TABLE + " " + DATABASE_ROW;
 	private final static String DATABASE_CREATE_P2 = "CREATE TABLE IF NOT EXISTS "
 			+ P2_TABLE + " " + DATABASE_ROW;
+	private final static String DATABASE_CREATE_STATS_P1 = "CREATE TABLE IF NOT EXISTS "
+			+ P2_STAT_TABLE + " " + STAT_DATABASE_ROW;
+	private final static String DATABASE_CREATE_STATS_P2 = "CREATE TABLE IF NOT EXISTS "
+			+ P2_STAT_TABLE + " " + STAT_DATABASE_ROW;
 
 	private static final int DATABASE_VERSION = 1;
 

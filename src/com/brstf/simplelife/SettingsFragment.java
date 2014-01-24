@@ -283,7 +283,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			@Override
 			public void onClick(View v) {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
-						.parse("http://www.github.com"));
+						.parse("https://github.com/brstf/SimpleLife"));
 				startActivity(browserIntent);
 			}
 		});
