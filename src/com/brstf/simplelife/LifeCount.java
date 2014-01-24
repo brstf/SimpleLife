@@ -111,12 +111,12 @@ public class LifeCount extends SlidingFragmentActivity implements
 	private void initializeLife(Bundle savedInstanceState) {
 		// If there's no saved instance state, restore from database
 		mDbHelper.open();
-		int p1count = mDbHelper.getRowCount(mDbHelper.getP1Table());
-		int p2count = mDbHelper.getRowCount(mDbHelper.getP2Table());
+		int p1count = mDbHelper.getRowCount(LifeDbAdapter.getP1Table());
+		int p2count = mDbHelper.getRowCount(LifeDbAdapter.getP2Table());
 		if (p1count != 0 && p2count != 0) {
 			Log.d("DEBUG", "Restore life totals from db");
-			mDbHelper.restoreLife(mDbHelper.getP1Table(), p1Controller);
-			mDbHelper.restoreLife(mDbHelper.getP2Table(), p2Controller);
+			mDbHelper.restoreLife(LifeDbAdapter.getP1Table(), p1Controller);
+			mDbHelper.restoreLife(LifeDbAdapter.getP2Table(), p2Controller);
 		}
 		mDbHelper.close();
 
@@ -135,8 +135,8 @@ public class LifeCount extends SlidingFragmentActivity implements
 		// On activity destruction, write the life totals to the database
 		mDbHelper.open();
 		mDbHelper.clear();
-		mDbHelper.addLife(mDbHelper.getP1Table(), p1Controller);
-		mDbHelper.addLife(mDbHelper.getP2Table(), p2Controller);
+		mDbHelper.addLife(LifeDbAdapter.getP1Table(), p1Controller);
+		mDbHelper.addLife(LifeDbAdapter.getP2Table(), p2Controller);
 		mDbHelper.close();
 	}
 
@@ -241,6 +241,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 * Resets both life totals to their starting values.
 	 */
 	public void reset() {
+		saveStats();
 		p1Controller.reset();
 		p2Controller.reset();
 	}
@@ -252,8 +253,20 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 *            Value to reset the life totals to
 	 */
 	public void reset(int resetval) {
+		saveStats();
 		p1Controller.reset(resetval);
 		p2Controller.reset(resetval);
+	}
+
+	/**
+	 * Save the stats of the current life controllers to their respective
+	 * tables.
+	 */
+	private void saveStats() {
+		mDbHelper.open();
+		mDbHelper.addStatsFromTo(p1Controller, LifeDbAdapter.getP1StatsTable());
+		mDbHelper.addStatsFromTo(p2Controller, LifeDbAdapter.getP2StatsTable());
+		mDbHelper.close();
 	}
 
 	/**

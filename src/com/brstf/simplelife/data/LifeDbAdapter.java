@@ -19,13 +19,17 @@ public class LifeDbAdapter {
 	private final static String P2_STAT_TABLE = "simplelife_stat_p2";
 	private final static String DATABASE_ROW = "(_id INTEGER PRIMARY "
 			+ "KEY AUTOINCREMENT, life INTEGER NOT NULL)";
-	private final static String STAT_DATABASE_ROW = "(_id INTEGER PRIMARY KEY AUTOINCREMENT, )";
+	private final static String STAT_DATABASE_ROW = "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ "total_loss INTEGER NOT NULL, total_gain INTEGER NOT NULL, avg_total REAL NOT "
+			+ " NULL, avg_inc REAL NOT NULL, avg_dec REAL NOT NULL, avg_mod REAL NOT NULL, "
+			+ "total_poison INTEGER NOT NULL, total_mod INTEGER NOT NULL, num_mod INTEGER "
+			+ "NOT NULL)";
 	private final static String DATABASE_CREATE_P1 = "CREATE TABLE IF NOT EXISTS "
 			+ P1_TABLE + " " + DATABASE_ROW;
 	private final static String DATABASE_CREATE_P2 = "CREATE TABLE IF NOT EXISTS "
 			+ P2_TABLE + " " + DATABASE_ROW;
 	private final static String DATABASE_CREATE_STATS_P1 = "CREATE TABLE IF NOT EXISTS "
-			+ P2_STAT_TABLE + " " + STAT_DATABASE_ROW;
+			+ P1_STAT_TABLE + " " + STAT_DATABASE_ROW;
 	private final static String DATABASE_CREATE_STATS_P2 = "CREATE TABLE IF NOT EXISTS "
 			+ P2_STAT_TABLE + " " + STAT_DATABASE_ROW;
 
@@ -44,6 +48,9 @@ public class LifeDbAdapter {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE_P1);
 			db.execSQL(DATABASE_CREATE_P2);
+
+			db.execSQL(DATABASE_CREATE_STATS_P1);
+			db.execSQL(DATABASE_CREATE_STATS_P2);
 		}
 
 		@Override
@@ -157,7 +164,7 @@ public class LifeDbAdapter {
 	 * 
 	 * @return Name of the database table for player 1
 	 */
-	public String getP1Table() {
+	public static String getP1Table() {
 		return P1_TABLE;
 	}
 
@@ -166,8 +173,26 @@ public class LifeDbAdapter {
 	 * 
 	 * @return Name of the database table for player 2
 	 */
-	public String getP2Table() {
+	public static String getP2Table() {
 		return P2_TABLE;
+	}
+
+	/**
+	 * Gets the name of the table for player 1 stats.
+	 * 
+	 * @return Name of the database table for player 1 stats
+	 */
+	public static String getP1StatsTable() {
+		return P1_STAT_TABLE;
+	}
+
+	/**
+	 * Gets the name of the table for player 2 stats.
+	 * 
+	 * @return Name of the database table for player 2 stats
+	 */
+	public static String getP2StatsTable() {
+		return P2_STAT_TABLE;
 	}
 
 	public void clear() {
@@ -234,6 +259,67 @@ public class LifeDbAdapter {
 			lc.setPoison(entries.get(0));
 			entries.remove(0);
 			lc.setHistory(entries);
+		}
+	}
+
+	/**
+	 * Compute relevant stats from the given LifeController and store the stats
+	 * in the names stat database.
+	 * 
+	 * @param lc
+	 *            LifeController to compute statistics from
+	 * @param table
+	 *            Name of the table to store the statistics in
+	 */
+	public void addStatsFromTo(LifeController lc, String table) {
+		// Compute total decrement, increment, poison, mod, number of mods
+		int num_inc = 0;
+		int num_dec = 0;
+		int total_mod = 0;
+		int total_inc = 0;
+		int total_dec = 0;
+		int total = lc.getHistory().get(0);
+		for (int i = 1; i < lc.getHistory().size(); ++i) {
+			int mod = lc.getHistory().get(i) - lc.getHistory().get(i - 1);
+			if (mod > 0) {
+				++num_inc;
+				total_inc += mod;
+				total_mod += mod;
+			} else {
+				++num_dec;
+				total_dec -= mod;
+				total_mod -= mod;
+			}
+			total += lc.getHistory().get(i);
+		}
+
+		int num_mods = lc.getHistory().size() - 1;
+		int total_poison = lc.getCurrentPoison();
+
+		// Compute average life total, average increment size, average
+		// decrement size, average mod
+		float avg_total = ((float) total) / ((float) lc.getHistory().size());
+		float avg_inc = ((float) total_inc) / ((float) num_inc);
+		float avg_dec = ((float) total_dec) / ((float) num_dec);
+		float avg_mod = ((float) total_mod) / ((float) num_mods);
+
+		// Put everything into a ContentValues and write it to the db
+		ContentValues values = new ContentValues();
+		mDb.beginTransaction();
+		values.put("total_loss", total_dec);
+		values.put("total_gain", total_inc);
+		values.put("avg_total", avg_total);
+		values.put("avg_inc", avg_inc);
+		values.put("avg_dec", avg_dec);
+		values.put("avg_mod", avg_mod);
+		values.put("total_poison", total_poison);
+		values.put("total_mod", total_mod);
+		values.put("num_mod", num_mods);
+		try {
+			mDb.insert(table, null, values);
+			mDb.setTransactionSuccessful();
+		} finally {
+			mDb.endTransaction();
 		}
 	}
 }
