@@ -37,8 +37,8 @@
     <string name="settings_entry_time">Time Until Entry Lock\n(in seconds)</string>
     <string name="settings_bigmod">Enable +5/-5 Buttons</string>
     <string name="settings_about">About</string>
-    <string name="settings_dice_sides_desc">Number of Sides</string>
-    <string name="settings_dice_num_desc">Number of Dice</string>
+    <string name="settings_dice_sides_desc">Sides</string>
+    <string name="settings_dice_num_desc">Dice</string>
     <string name="settings_dice_content_desc">Roll Dice</string>
     <string name="settings_default_dice">~</string>
     <string name="settings_dice_roll">Roll</string>

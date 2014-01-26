@@ -66,7 +66,15 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		setBehindContentView(R.layout.sliding_menu_frame);
 		getSlidingMenu().setSecondaryMenu(R.layout.sliding_menu_frame2);
-		createSlidingMenus(savedInstanceState);
+		createSlidingMenus();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		// Register this activity as a listener for preference changes
+		mPrefs.registerOnSharedPreferenceChangeListener(this);
 	}
 
 	/**
@@ -95,9 +103,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 			edit.putInt(getString(R.string.key_dice_num), 2);
 			edit.commit();
 		}
-
-		// Register this activity as a listener for preference changes
-		mPrefs.registerOnSharedPreferenceChangeListener(this);
 	}
 
 	/**
@@ -134,6 +139,9 @@ public class LifeCount extends SlidingFragmentActivity implements
 		mDbHelper.addLife(LifeDbAdapter.getP1Table(), p1Controller);
 		mDbHelper.addLife(LifeDbAdapter.getP2Table(), p2Controller);
 		mDbHelper.close();
+
+		// Unregister preference listener
+		mPrefs.unregisterOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
@@ -154,7 +162,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 *            supplied in onSaveInstanceState(Bundle). Note: Otherwise it is
 	 *            null.
 	 */
-	private void createSlidingMenus(Bundle savedInstanceState) {
+	private void createSlidingMenus() {
 		SlidingMenu menu = getSlidingMenu();
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		menu.setFadeDegree(0.35f);
@@ -171,25 +179,14 @@ public class LifeCount extends SlidingFragmentActivity implements
 			}
 		});
 
-		if (savedInstanceState == null) {
-			mLogFragRight = new SlidingMenuLogListFragment();
-			mLogFragRight.setControllers(p1Controller, p2Controller);
-			this.getFragmentManager().beginTransaction()
-					.replace(R.id.sliding_menu_frame, mLogFragRight, "RIGHT")
-					.commit();
-			mLogFragLeft = new SlidingMenuLogListFragment();
-			mLogFragLeft.setControllers(p1Controller, p2Controller);
-			this.getFragmentManager().beginTransaction()
-					.replace(R.id.sliding_menu_frame2, mLogFragLeft, "LEFT")
-					.commit();
-		} else {
-			mLogFragRight = (SlidingMenuLogListFragment) this
-					.getFragmentManager().findFragmentByTag("RIGHT");
-			mLogFragRight.setControllers(p1Controller, p2Controller);
-			mLogFragLeft = (SlidingMenuLogListFragment) this
-					.getFragmentManager().findFragmentByTag("LEFT");
-			mLogFragLeft.setControllers(p1Controller, p2Controller);
-		}
+		mLogFragRight = new SlidingMenuLogListFragment();
+		mLogFragRight.setControllers(p1Controller, p2Controller);
+		mLogFragLeft = new SlidingMenuLogListFragment();
+		mLogFragLeft.setControllers(p1Controller, p2Controller);
+		this.getFragmentManager().beginTransaction()
+				.replace(R.id.sliding_menu_frame, mLogFragRight, "RIGHT")
+				.replace(R.id.sliding_menu_frame2, mLogFragLeft, "LEFT")
+				.commit();
 		mLogFragRight.setUpperInverted(mPrefs.getBoolean(
 				getString(R.string.key_invert), true));
 		mLogFragLeft.setUpperInverted(mPrefs.getBoolean(

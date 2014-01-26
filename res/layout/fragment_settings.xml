@@ -37,7 +37,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
-            <com.brstf.simplelife.widgets.SquareRelativeLayout
+            <RelativeLayout
                 android:id="@+id/settings_reset_rl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -63,16 +63,16 @@
                     android:textColor="@color/red_tile"
                     android:textSize="@dimen/settings_reset_text_size"
                     android:textStyle="bold" />
-            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            </RelativeLayout>
 
             <!-- Choose Reset Value -->
 
-            <com.brstf.simplelife.widgets.SquareRelativeLayout
+            <RelativeLayout
                 android:id="@+id/settings_reset_val_rl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/mini_spacer" >
 
                 <RadioGroup
@@ -108,18 +108,85 @@
                         android:text="@string/settings_reset_40"
                         android:textColor="@color/dark_gray" />
                 </RadioGroup>
-            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!-- Invert Upper Display -->
+
+        <RelativeLayout
+            android:id="@+id/invert_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/reset_outer_rl"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/spacer"
+            android:background="@drawable/gray_tile" >
+
+            <TextView
+                android:id="@+id/invert_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/settings_invert_total"
+                android:textColor="@color/red_tile"
+                android:textSize="@dimen/settings_invert_text_size" />
+
+            <RelativeLayout
+                android:id="@+id/settings_lower_invert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="false"
+                android:layout_below="@id/invert_tv"
+                android:gravity="center" >
+
+                <CheckBox
+                    android:id="@+id/settings_invert_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:clickable="false"
+                    android:paddingBottom="@dimen/settings_invert_padding" />
+
+                <TextView
+                    android:id="@+id/settings_invert_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/settings_invert_check"
+                    android:gravity="center"
+                    android:text="@string/settings_invert_desc"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/settings_description_text_size" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/but_invert"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@id/settings_lower_invert"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
         </RelativeLayout>
 
         <!-- Enable poison editing -->
 
-        <com.brstf.simplelife.widgets.SquareRelativeLayout
+        <RelativeLayout
             android:id="@+id/settings_poison"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/invert_rl"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/reset_outer_rl"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toLeftOf="@id/spacer"
             android:background="@drawable/gray_tile" >
 
@@ -144,81 +211,12 @@
                 android:id="@+id/settings_poison_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/poison_check"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="30dp"
                 android:text="@string/settings_poison"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
-        </com.brstf.simplelife.widgets.SquareRelativeLayout>
-
-        <!-- Invert Upper Display -->
-
-        <com.brstf.simplelife.widgets.SquareRelativeLayout
-            android:id="@+id/invert_rl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/reset_outer_rl"
-            android:layout_margin="5dp"
-            android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/gray_tile" >
-
-            <Button
-                android:id="@+id/but_invert"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/transparent_button" />
-
-            <RelativeLayout
-                android:id="@+id/settings_lower_invert"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="false" >
-
-                <CheckBox
-                    android:id="@+id/settings_invert_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:paddingBottom="@dimen/settings_invert_padding" />
-
-                <TextView
-                    android:id="@+id/settings_invert_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toRightOf="@id/settings_invert_check"
-                    android:paddingBottom="@dimen/settings_invert_padding"
-                    android:text="@string/settings_invert_desc"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/settings_description_text_size" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/settings_invert_rl"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" />
-
-            <TextView
-                android:id="@+id/invert_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/settings_lower_invert"
-                android:layout_below="@id/settings_invert_rl"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="@string/settings_invert_total"
-                android:textColor="@color/red_tile"
-                android:textSize="@dimen/settings_invert_text_size" />
-        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+        </RelativeLayout>
 
         <!-- Die Roller -->
 
@@ -228,7 +226,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/settings_poison"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/gray_tile" >
 
@@ -239,28 +239,16 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:text="@string/settings_dice_roller"
-                android:textColor="@color/dark_gray"
-                android:textSize="17sp" />
-
             <!-- Choose Number of Sides -->
 
-            <com.brstf.simplelife.widgets.SquareRelativeLayout
+            <RelativeLayout
                 android:id="@+id/settings_dice_sides_rl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="40dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="40dp"
                 android:layout_toLeftOf="@id/mini_spacer_dice" >
 
                 <LinearLayout
@@ -303,11 +291,11 @@
                     android:text="@string/settings_dice_sides_desc"
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/settings_description_text_size" />
-            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            </RelativeLayout>
 
             <!-- Choose Number of Dice -->
 
-            <com.brstf.simplelife.widgets.SquareRelativeLayout
+            <RelativeLayout
                 android:id="@+id/settings_dice_num_rl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -359,42 +347,56 @@
                     android:text="@string/settings_dice_num_desc"
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/settings_description_text_size" />
-            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/settings_dice_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="@string/settings_dice_roller"
+                android:textColor="@color/dark_gray"
+                android:textSize="17sp" />
 
             <Button
                 android:id="@+id/but_dice_roll"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
+                android:layout_below="@id/settings_dice_title"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:background="@drawable/gray_button_circle"
                 android:contentDescription="@string/settings_dice_content_desc"
                 android:gravity="center" />
 
             <TextView
+                android:id="@+id/settings_dice_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_alignBottom="@id/but_dice_roll"
+                android:layout_alignTop="@id/but_dice_roll"
                 android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/settings_default_dice"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settings_entry_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/but_dice_roll"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
                 android:paddingBottom="12dp"
                 android:text="@string/settings_dice_roll"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
-
-            <TextView
-                android:id="@+id/settings_dice_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="@string/settings_default_dice"
-                android:textColor="@color/white"
-                android:textSize="@dimen/settings_entry_text_size" />
         </RelativeLayout>
 
         <!-- Enable WakeLock -->
 
-        <com.brstf.simplelife.widgets.SquareRelativeLayout
+        <RelativeLayout
             android:id="@+id/settings_wake_rl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -403,14 +405,6 @@
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/spacer"
             android:background="@drawable/gray_tile" >
-
-            <Button
-                android:id="@+id/but_wake"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/transparent_button" />
 
             <CheckBox
                 android:id="@+id/settings_wake_check"
@@ -426,16 +420,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_below="@id/settings_wake_check"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="30dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:paddingBottom="20dp"
                 android:text="@string/settings_wake"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
-        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+            <Button
+                android:id="@+id/but_wake"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@id/settings_wake_text"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
+        </RelativeLayout>
 
         <!-- Enable Quick-Reset -->
 
-        <com.brstf.simplelife.widgets.SquareRelativeLayout
+        <RelativeLayout
             android:id="@+id/settings_quick_rl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -444,14 +450,6 @@
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
             android:background="@drawable/gray_tile" >
-
-            <Button
-                android:id="@+id/but_quick"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/transparent_button" />
 
             <CheckBox
                 android:id="@+id/settings_quick_check"
@@ -467,16 +465,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_below="@id/settings_quick_check"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="30dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:paddingBottom="20dp"
                 android:text="@string/settings_quick"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
-        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+
+            <Button
+                android:id="@+id/but_quick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@id/settings_quick_text"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
+        </RelativeLayout>
 
         <!-- Entry Timer -->
 
-        <com.brstf.simplelife.widgets.SquareRelativeLayout
+        <RelativeLayout
             android:id="@+id/settings_entry_timer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -486,9 +496,35 @@
             android:layout_toLeftOf="@id/spacer"
             android:background="@drawable/gray_tile" >
 
+            <TextView
+                android:id="@+id/settings_entry_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10dp"
+                android:text=""
+                android:textColor="@color/red_tile"
+                android:textSize="@dimen/settings_entry_text_size" />
+
+            <TextView
+                android:id="@+id/settings_entry_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_entry_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:text="@string/settings_entry_time"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/settings_description_text_size" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignBottom="@id/settings_entry_desc"
+                android:layout_alignParentTop="true"
                 android:orientation="vertical" >
 
                 <Button
@@ -505,39 +541,20 @@
                     android:layout_weight="1"
                     android:background="@drawable/transparent_button" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/settings_entry_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text=""
-                android:textColor="@color/red_tile"
-                android:textSize="@dimen/settings_entry_text_size" />
-
-            <TextView
-                android:id="@+id/settings_entry_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="15dp"
-                android:gravity="center"
-                android:text="@string/settings_entry_time"
-                android:textColor="@color/dark_gray"
-                android:textSize="@dimen/settings_description_text_size" />
-        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+        </RelativeLayout>
 
         <!-- Enable +5/-5 Buttons -->
 
-        <com.brstf.simplelife.widgets.SquareRelativeLayout
+        <RelativeLayout
             android:id="@+id/settings_bigmod_rl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/settings_entry_timer"
             android:layout_alignParentRight="true"
             android:layout_below="@id/settings_quick_rl"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/spacer"
             android:background="@drawable/gray_tile" >
 
@@ -562,13 +579,15 @@
                 android:id="@+id/settings_bigmod_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/settings_bigmod_check"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="30dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/settings_bigmod"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/settings_description_text_size" />
-        </com.brstf.simplelife.widgets.SquareRelativeLayout>
+        </RelativeLayout>
+
+        <!-- About Button -->
 
         <RelativeLayout
             android:id="@+id/about_outer_rl"
@@ -587,7 +606,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
-            <com.brstf.simplelife.widgets.SquareRelativeLayout
+            <RelativeLayout
                 android:id="@+id/settings_about_rl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -612,11 +631,11 @@
                     android:text="@string/settings_about"
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/settings_description_text_size" />
-            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            </RelativeLayout>
 
             <!-- Github Link -->
 
-            <com.brstf.simplelife.widgets.SquareRelativeLayout
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -628,7 +647,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/transparent_button"
                     android:src="@drawable/github_mark_dark" />
-            </com.brstf.simplelife.widgets.SquareRelativeLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
 
