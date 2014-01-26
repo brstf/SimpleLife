@@ -72,7 +72,8 @@ public class LifeView extends ObserverLayout {
 	protected void registerLifeController(final LifeController lc) {
 		m_poison.setLifeController(lc);
 		addListeners(lc);
-		m_life.setText(String.valueOf(getLifeController().getCurrentValue()));
+		m_life.setText(TextUtils.getUnambiguousText(getLifeController()
+				.getCurrentValue()));
 	}
 
 	/**

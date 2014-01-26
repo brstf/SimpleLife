@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.WindowManager;
@@ -114,7 +113,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 		int p1count = mDbHelper.getRowCount(LifeDbAdapter.getP1Table());
 		int p2count = mDbHelper.getRowCount(LifeDbAdapter.getP2Table());
 		if (p1count != 0 && p2count != 0) {
-			Log.d("DEBUG", "Restore life totals from db");
 			mDbHelper.restoreLife(LifeDbAdapter.getP1Table(), p1Controller);
 			mDbHelper.restoreLife(LifeDbAdapter.getP2Table(), p2Controller);
 		}
@@ -129,8 +127,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 	@Override
 	protected void onPause() {
 		super.onPause();
-
-		Log.d("DEBUG", "onStop");
 
 		// On activity destruction, write the life totals to the database
 		mDbHelper.open();

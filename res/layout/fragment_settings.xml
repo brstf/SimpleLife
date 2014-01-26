@@ -75,30 +75,20 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@id/mini_spacer" >
 
-                <TextView
-                    android:id="@+id/settings_choose_reset"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:paddingTop="10dp"
-                    android:text="@string/settings_choose_reset"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="14sp" />
-
                 <RadioGroup
                     android:id="@+id/settings_reset_val_rg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/settings_choose_reset"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
+                    android:gravity="center"
                     android:orientation="vertical" >
 
                     <RadioButton
                         android:id="@+id/settings_rg_20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="@string/settings_reset_20"
                         android:textColor="@color/dark_gray" />
 
@@ -106,6 +96,7 @@
                         android:id="@+id/settings_rg_30"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="@string/settings_reset_30"
                         android:textColor="@color/dark_gray" />
 
@@ -113,6 +104,7 @@
                         android:id="@+id/settings_rg_40"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="@string/settings_reset_40"
                         android:textColor="@color/dark_gray" />
                 </RadioGroup>

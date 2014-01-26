@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MagicLife</string>
+    <string name="app_name">Simple Life</string>
     <string name="action_settings">Settings</string>
     <string name="empty_string"></string>
     <string name="reset_button">Reset</string>
@@ -34,7 +34,6 @@
     <string name="settings_reset_20">Reset to 20</string>
     <string name="settings_reset_30">Reset to 30</string>
     <string name="settings_reset_40">Reset to 40</string>
-    <string name="settings_choose_reset">Choose Reset Value:</string>
     <string name="settings_entry_time">Time Until Entry Lock\n(in seconds)</string>
     <string name="settings_bigmod">Enable +5/-5 Buttons</string>
     <string name="settings_about">About</string>
@@ -76,6 +75,10 @@
 		<a href="https://github.com/jfeinstein10/SlidingMenu">Sliding Menu</a> by Jeremy Feinstein used under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
 	</p>
 
+	<p>
+		<font color="#F16364"><b>Simple Life</b></font> licensed through <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+	</p>
+	
 	<p>
 		<b>Special Thanks:</b><br>
 		&nbsp;&nbsp;David Lombardo (Testing)<br>
