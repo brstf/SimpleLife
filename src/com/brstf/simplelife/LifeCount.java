@@ -65,7 +65,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		setBehindContentView(R.layout.sliding_menu_frame);
 		getSlidingMenu().setSecondaryMenu(R.layout.sliding_menu_frame2);
-		createSlidingMenus();
 	}
 
 	@Override
@@ -74,6 +73,9 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Register this activity as a listener for preference changes
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
+
+		// Make sliding menu fragments
+		createSlidingMenus();
 	}
 
 	/**
@@ -141,6 +143,10 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Unregister preference listener
 		mPrefs.unregisterOnSharedPreferenceChangeListener(this);
+
+		// Dis-associate fragments
+		this.getFragmentManager().beginTransaction().remove(mLogFragRight)
+				.remove(mLogFragLeft).commit();
 	}
 
 	/**
