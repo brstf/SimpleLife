@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.WindowManager;
 
 public class LifeCount extends SlidingFragmentActivity implements
@@ -142,13 +141,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Unregister preference listener
 		mPrefs.unregisterOnSharedPreferenceChangeListener(this);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.life_count, menu);
-		return true;
 	}
 
 	/**

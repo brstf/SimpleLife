@@ -47,6 +47,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
+        android:paddingBottom="10dp"
         android:text=""
         android:textColor="@color/darker_gray"
         android:textSize="@dimen/life_total_size"
@@ -66,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/spacer"
         android:layout_centerHorizontal="true"
-        android:paddingTop="70dp" />
+        android:paddingTop="80dp" />
 
     <!-- +5 / -5 Buttons -->
 
