@@ -46,8 +46,8 @@ public class SlidingMenuLogListFragment extends Fragment {
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public void onResume() {
+		super.onResume();
 
 		// We pass our taken list to the adapter. LifeLogSlidingMenuAdapter
 		m_log1 = (LifeLog) this.getView().findViewById(R.id.log1);
@@ -144,8 +144,9 @@ public class SlidingMenuLogListFragment extends Fragment {
 				.setCustomAnimations(R.animator.flip_right_in,
 						R.animator.flip_right_out, R.animator.flip_left_in,
 						R.animator.flip_left_out)
-				.replace(this.getId(), new SettingsFragment())
-				.addToBackStack(null).commit();
+				.replace(this.getId(), new SettingsFragment(),
+						this.getTag() + "_OPTIONS").addToBackStack(null)
+				.commit();
 	}
 
 	/**

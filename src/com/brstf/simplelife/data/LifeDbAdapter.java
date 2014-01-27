@@ -270,6 +270,11 @@ public class LifeDbAdapter {
 	 *            Name of the table to store the statistics in
 	 */
 	public void addStatsFromTo(LifeController lc, String table) {
+		// Sanity check, make sure history is non-empty
+		if (lc.getHistory().size() == 0) {
+			return;
+		}
+
 		// Compute total decrement, increment, poison, mod, number of mods
 		int num_inc = 0;
 		int num_dec = 0;
@@ -300,6 +305,17 @@ public class LifeDbAdapter {
 		float avg_inc = ((float) total_inc) / ((float) num_inc);
 		float avg_dec = ((float) total_dec) / ((float) num_dec);
 		float avg_mod = ((float) total_mod) / ((float) num_mods);
+
+		// Check for undefined numbers:
+		if (num_inc == 0) {
+			avg_inc = 0.0f;
+		}
+		if (num_dec == 0) {
+			avg_dec = 0.0f;
+		}
+		if (num_mods == 0) {
+			avg_mod = 0.0f;
+		}
 
 		// Put everything into a ContentValues and write it to the db
 		ContentValues values = new ContentValues();

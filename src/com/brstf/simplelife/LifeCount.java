@@ -9,10 +9,13 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
@@ -65,6 +68,9 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		setBehindContentView(R.layout.sliding_menu_frame);
 		getSlidingMenu().setSecondaryMenu(R.layout.sliding_menu_frame2);
+
+		// Make sliding menu fragments
+		createSlidingMenus();
 	}
 
 	@Override
@@ -73,9 +79,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Register this activity as a listener for preference changes
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
-
-		// Make sliding menu fragments
-		createSlidingMenus();
 	}
 
 	/**
@@ -143,10 +146,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Unregister preference listener
 		mPrefs.unregisterOnSharedPreferenceChangeListener(this);
-
-		// Dis-associate fragments
-		this.getFragmentManager().beginTransaction().remove(mLogFragRight)
-				.remove(mLogFragLeft).commit();
 	}
 
 	/**
@@ -177,14 +176,40 @@ public class LifeCount extends SlidingFragmentActivity implements
 			}
 		});
 
-		mLogFragRight = new SlidingMenuLogListFragment();
+		Fragment optionsLeft = getFragmentManager().findFragmentByTag(
+				"LEFT_OPTIONS");
+		Fragment optionsRight = getFragmentManager().findFragmentByTag(
+				"RIGHT_OPTIONS");
+		mLogFragRight = (SlidingMenuLogListFragment) getFragmentManager()
+				.findFragmentByTag("RIGHT");
+		mLogFragLeft = (SlidingMenuLogListFragment) getFragmentManager()
+				.findFragmentByTag("LEFT");
+		if (mLogFragRight == null) {
+			mLogFragRight = new SlidingMenuLogListFragment();
+		}
+		if (mLogFragLeft == null) {
+			mLogFragLeft = new SlidingMenuLogListFragment();
+		}
 		mLogFragRight.setControllers(p1Controller, p2Controller);
-		mLogFragLeft = new SlidingMenuLogListFragment();
 		mLogFragLeft.setControllers(p1Controller, p2Controller);
-		this.getFragmentManager().beginTransaction()
-				.replace(R.id.sliding_menu_frame, mLogFragRight, "RIGHT")
-				.replace(R.id.sliding_menu_frame2, mLogFragLeft, "LEFT")
-				.commit();
+
+		// Add the fragments to the sliding menu
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		if (optionsRight != null) {
+			ft = ft.replace(R.id.sliding_menu_frame2, optionsRight,
+					"RIGHT_OPTIONS");
+		} else {
+			ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
+		}
+		if (optionsLeft != null) {
+			ft = ft.replace(R.id.sliding_menu_frame, optionsLeft,
+					"LEFT_OPTIONS");
+		} else {
+			ft = ft.replace(R.id.sliding_menu_frame, mLogFragLeft, "LEFT");
+		}
+		ft.commit();
+
+		// set the fragments to be inverted as necessary
 		mLogFragRight.setUpperInverted(mPrefs.getBoolean(
 				getString(R.string.key_invert), true));
 		mLogFragLeft.setUpperInverted(mPrefs.getBoolean(
@@ -233,8 +258,9 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 */
 	public void reset() {
 		saveStats();
-		p1Controller.reset();
-		p2Controller.reset();
+		int rval = mPrefs.getInt(getString(R.string.key_total), 20);
+		p1Controller.reset(rval);
+		p2Controller.reset(rval);
 	}
 
 	/**
