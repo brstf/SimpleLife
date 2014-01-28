@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
@@ -33,6 +32,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setupPreferences();
 		mDbHelper = new LifeDbAdapter(this);
 
@@ -184,30 +184,34 @@ public class LifeCount extends SlidingFragmentActivity implements
 				.findFragmentByTag("RIGHT");
 		mLogFragLeft = (SlidingMenuLogListFragment) getFragmentManager()
 				.findFragmentByTag("LEFT");
-		if (mLogFragRight == null) {
+
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+		// Only create new fragments if they don't exist
+		if (mLogFragRight == null || mLogFragLeft == null) {
 			mLogFragRight = new SlidingMenuLogListFragment();
-		}
-		if (mLogFragLeft == null) {
 			mLogFragLeft = new SlidingMenuLogListFragment();
+			ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
+			ft = ft.replace(R.id.sliding_menu_frame, mLogFragLeft, "LEFT");
 		}
 		mLogFragRight.setControllers(p1Controller, p2Controller);
 		mLogFragLeft.setControllers(p1Controller, p2Controller);
 
-		// Add the fragments to the sliding menu
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		// Restore the options fragments if they exist
 		if (optionsRight != null) {
 			ft = ft.replace(R.id.sliding_menu_frame2, optionsRight,
 					"RIGHT_OPTIONS");
-		} else {
-			ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
 		}
+
 		if (optionsLeft != null) {
 			ft = ft.replace(R.id.sliding_menu_frame, optionsLeft,
 					"LEFT_OPTIONS");
-		} else {
-			ft = ft.replace(R.id.sliding_menu_frame, mLogFragLeft, "LEFT");
 		}
-		ft.commit();
+
+		// If there are any changes to be done, commit them
+		if (!ft.isEmpty()) {
+			ft.commit();
+		}
 
 		// set the fragments to be inverted as necessary
 		mLogFragRight.setUpperInverted(mPrefs.getBoolean(

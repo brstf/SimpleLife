@@ -2,8 +2,8 @@ int animator flip_left_in 0x7f040000
 int animator flip_left_out 0x7f040001
 int animator flip_right_in 0x7f040002
 int animator flip_right_out 0x7f040003
-int animator from_middle 0x7f040004
-int animator to_middle 0x7f040005
+int animator from_middle_vert 0x7f040004
+int animator to_middle_vert 0x7f040005
 int attr behindOffset 0x7f010003
 int attr behindScrollScale 0x7f010005
 int attr behindWidth 0x7f010004

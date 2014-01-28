@@ -47,6 +47,7 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+
 		m_rand = new Random(System.currentTimeMillis());
 
 		// Get the shared preferences
@@ -117,10 +118,10 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 
 		// Load the flip animations
 		m_anim1 = AnimationUtils.loadAnimation(this.getActivity(),
-				R.animator.to_middle);
+				R.animator.to_middle_vert);
 		m_anim1.setAnimationListener(this);
 		m_anim2 = AnimationUtils.loadAnimation(this.getActivity(),
-				R.animator.from_middle);
+				R.animator.from_middle_vert);
 		m_anim2.setAnimationListener(this);
 
 		// Set the check button listener

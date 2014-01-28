@@ -49,6 +49,8 @@ public class SlidingMenuLogListFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 
+		this.setRetainInstance(true);
+
 		// We pass our taken list to the adapter. LifeLogSlidingMenuAdapter
 		m_log1 = (LifeLog) this.getView().findViewById(R.id.log1);
 		m_log2 = (LifeLog) this.getView().findViewById(R.id.log2);
