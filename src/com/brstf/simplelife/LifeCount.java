@@ -258,6 +258,24 @@ public class LifeCount extends SlidingFragmentActivity implements
 	}
 
 	/**
+	 * Get the LifeController for player 1.
+	 * 
+	 * @return LifeController for player 1
+	 */
+	public LifeController getP1Controller() {
+		return p1Controller;
+	}
+
+	/**
+	 * Get the LifeController for player 2.
+	 * 
+	 * @return LifeController for player 2
+	 */
+	public LifeController getP2Controller() {
+		return p2Controller;
+	}
+
+	/**
 	 * Resets both life totals to their starting values.
 	 */
 	public void reset() {
