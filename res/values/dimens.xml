@@ -7,18 +7,21 @@
     <dimen name="sliding_menu_shadow_width">15dp</dimen>
 
     <!-- Life total Text View dimensions -->
-    <dimen name="life_total_size">145sp</dimen>
-    <dimen name="life_total_mod_size">42sp</dimen>
+    <dimen name="life_total_size">125sp</dimen>
+    <dimen name="life_total_mod_size">32sp</dimen>
+    <dimen name="life_total_poison_padding">60dp</dimen>
 
-    <!-- Invert Settings Dimensions -->
+    <!-- Settings Dimensions -->
     <dimen name="settings_invert_text_size">45sp</dimen>
     <dimen name="settings_invert_padding">30dp</dimen>
     <dimen name="settings_description_text_size">12sp</dimen>
     <dimen name="settings_reset_text_size">34sp</dimen>
     <dimen name="settings_entry_text_size">38sp</dimen>
     <dimen name="shadow_size">6px</dimen>
+    <dimen name="settings_radio_text_size">16sp</dimen>
 
     <!-- Sliding Menu Dimensions -->
     <dimen name="sliding_text_padding">18dp</dimen>
+    <dimen name="player_size">14sp</dimen>
 
 </resources>

@@ -1,0 +1,9 @@
+<resources>
+    <!-- Life Total Text View Dimensions -->
+    <dimen name="life_total_size">145sp</dimen>
+    <dimen name="life_total_mod_size">42sp</dimen>
+    <dimen name="life_total_poison_padding">80dp</dimen>
+    
+    <!-- Sliding Menu Dimensions -->
+    <dimen name="player_size">20sp</dimen>
+</resources>

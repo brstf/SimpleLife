@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/spacer"
         android:layout_centerHorizontal="true"
-        android:paddingTop="80dp" />
+        android:paddingTop="@dimen/life_total_poison_padding" />
 
     <!-- +5 / -5 Buttons -->
 

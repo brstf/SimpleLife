@@ -90,7 +90,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/settings_reset_20"
-                        android:textColor="@color/dark_gray" />
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/settings_radio_text_size" />
 
                     <RadioButton
                         android:id="@+id/settings_rg_30"
@@ -98,7 +99,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/settings_reset_30"
-                        android:textColor="@color/dark_gray" />
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/settings_radio_text_size" />
 
                     <RadioButton
                         android:id="@+id/settings_rg_40"
@@ -106,7 +108,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/settings_reset_40"
-                        android:textColor="@color/dark_gray" />
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/settings_radio_text_size" />
                 </RadioGroup>
             </RelativeLayout>
         </RelativeLayout>

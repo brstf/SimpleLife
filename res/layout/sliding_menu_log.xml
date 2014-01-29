@@ -22,48 +22,69 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dip"
-            android:background="@drawable/gray"
-            android:orientation="horizontal" >
+            android:background="@drawable/gray" >
 
-            <TextView
-                android:id="@+id/tv_p1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/sliding_text_padding"
-                android:text="@string/player1"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/arrow_down"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@id/tv_p1"
-                android:background="@drawable/arrow"
-                android:gravity="center_vertical"
-                android:rotation="180.0" />
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingRight="30dp" >
 
-            <TextView
-                android:id="@+id/tv_p2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
-                android:paddingRight="@dimen/sliding_text_padding"
-                android:text="@string/player2"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tv_p1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/sliding_text_padding"
+                        android:text="@string/player1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/player_size" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@id/tv_p2"
-                android:background="@drawable/arrow"
-                android:gravity="center_vertical" />
+                    <ImageView
+                        android:id="@+id/arrow_down"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toRightOf="@id/tv_p1"
+                        android:background="@drawable/arrow"
+                        android:gravity="center_vertical"
+                        android:rotation="180.0" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="30dp" >
+
+                    <TextView
+                        android:id="@+id/tv_p2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/sliding_text_padding"
+                        android:text="@string/player2"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/player_size" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@id/tv_p2"
+                        android:background="@drawable/arrow"
+                        android:gravity="center_vertical" />
+                </RelativeLayout>
+            </LinearLayout>
         </RelativeLayout>
 
         <!-- List of player one's previous life totals -->
