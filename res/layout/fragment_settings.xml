@@ -655,51 +655,6 @@
                 android:textSize="@dimen/settings_description_text_size" />
         </RelativeLayout>
 
-        <!-- Enable Commander Damage -->
-
-        <RelativeLayout
-            android:id="@+id/settings_cmd_rl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/settings_theme_rl"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/settings_bigmod_rl"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/spacer"
-            android:background="?attr/settings_tile_background" >
-
-            <Button
-                android:id="@+id/but_cmd"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/transparent_button" />
-
-            <CheckBox
-                android:id="@+id/settings_cmd_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:clickable="false"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/settings_cmd_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/settings_cmd_check"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="@string/settings_cmd"
-                android:textColor="@color/dark_gray"
-                android:textSize="@dimen/settings_description_text_size" />
-        </RelativeLayout>
-
         <!-- About Button -->
 
         <RelativeLayout
