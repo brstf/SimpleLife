@@ -24,6 +24,7 @@
     <string name="key_bigmod">bigmod</string>
     <string name="key_dice_num">dice_num</string>
     <string name="key_dice_sides">dice_sides</string>
+    <string name="key_theme">theme</string>
 
     <!-- Settings Strings -->
     <string name="settings_poison">Enable Poison</string>
@@ -43,6 +44,11 @@
     <string name="settings_default_dice">~</string>
     <string name="settings_dice_roll">Roll</string>
     <string name="settings_dice_roller">Dice Roller</string>
+    <string name="settings_light_theme">Light Theme</string>
+    <string name="settings_dark_theme">Dark Theme</string>
+    <string name="settings_black_theme">Black Theme*</string>
+    <string name="settings_black_oled">*Can save battery on OLED screens</string>
+    <string name="settings_cmd">Enable Commander Damage</string>
 
     <!-- Sliding Menu Strings -->
     <string name="player1">Player 1</string>

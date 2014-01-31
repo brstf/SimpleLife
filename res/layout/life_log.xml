@@ -16,7 +16,7 @@
         android:contentDescription="@string/undo_content"
         android:padding="15dp"
         android:rotation="180"
-        android:src="@drawable/ic_action_undo" />
+        android:src="?attr/action_undo" />
 
     <ImageButton
         android:id="@+id/but_undo"
@@ -27,6 +27,6 @@
         android:background="@drawable/transparent_button"
         android:contentDescription="@string/undo_content"
         android:padding="15dp"
-        android:src="@drawable/ic_action_undo" />
+        android:src="?attr/action_undo" />
 
 </merge>

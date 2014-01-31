@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Drawables -->
+    <attr name="settings_button_drawable" format="reference" />
+    <attr name="menu_separator" format="reference" />
+    <attr name="settings_tile_background" format="reference" />
+    <attr name="dice_button_drawable" format="reference" />
+    <attr name="action_undo" format="reference" />
+
+    <!-- Colors -->
+    <attr name="mod_by_5_color" format="reference|color" />
+    <attr name="life_total_text_color" format="reference|color" />
+    <attr name="settings_background_color" format="reference|color" />
+
+</resources>

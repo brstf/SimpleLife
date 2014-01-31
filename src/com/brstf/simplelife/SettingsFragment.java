@@ -94,6 +94,8 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 					break;
 				case R.id.settings_rg_40:
 					changeResetVal(40);
+					getActivity().setTheme(R.style.AppBaseThemeBlack);
+					getActivity().recreate();
 					break;
 				}
 			}
@@ -266,6 +268,42 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 			}
 		});
 
+		// Setup Theme Chooser
+		int theme_id = mPrefs.getInt(getActivity()
+				.getString(R.string.key_theme), R.style.AppBaseThemeLight);
+		RadioGroup theme_radio = (RadioGroup) getView().findViewById(
+				R.id.settings_theme_rg);
+		theme_radio.setOnCheckedChangeListener(null);
+		switch (theme_id) {
+		case R.style.AppBaseThemeLight:
+			theme_radio.check(R.id.settings_theme_rb_light);
+			break;
+		case R.style.AppBaseThemeDark:
+			theme_radio.check(R.id.settings_theme_rb_dark);
+			break;
+		case R.style.AppBaseThemeBlack:
+			theme_radio.check(R.id.settings_theme_rb_black);
+			break;
+		}
+
+		theme_radio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch (checkedId) {
+				case R.id.settings_theme_rb_light:
+					changeTheme(R.style.AppBaseThemeLight);
+					break;
+				case R.id.settings_theme_rb_dark:
+					changeTheme(R.style.AppBaseThemeDark);
+					break;
+				case R.id.settings_theme_rb_black:
+					changeTheme(R.style.AppBaseThemeBlack);
+					break;
+				}
+			}
+		});
+
 		// Setup about button
 		ImageButton but_about = (ImageButton) this.getView().findViewById(
 				R.id.but_about);
@@ -288,6 +326,16 @@ public class SettingsFragment extends Fragment implements AnimationListener {
 				startActivity(browserIntent);
 			}
 		});
+	}
+
+	/**
+	 * Change the theme of the app to the given theme.
+	 * 
+	 * @param theme_id
+	 *            Id of the theme to change the apps theme to
+	 */
+	private void changeTheme(int theme_id) {
+		mPrefs.edit().putInt(getString(R.string.key_theme), theme_id).apply();
 	}
 
 	/**

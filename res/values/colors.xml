@@ -11,6 +11,8 @@
     <color name="darker_gray">#FF555555</color>
     <color name="transparent">#00000000</color>
     <color name="separator_color">#FFCCCCCC</color>
+    <color name="gray">#AAAAAA</color>
+    <color name="dark_gray_bg">#FF111111</color>
 
     <!-- Tile Colors -->
     <color name="red_tile">#F16364</color>
@@ -23,5 +25,9 @@
     <color name="orange_tile_shadow">#9D4A20</color>
     <color name="gray_tile">#FFFFFFFF</color>
     <color name="gray_tile_shadow">#FFCCCCCC</color>
+    <color name="dark_gray_tile">#FF222222</color>
+    <color name="dark_gray_tile_shadow">#FF333333</color>
+    <color name="black_tile">#FF000000</color>
+    <color name="black_tile_shadow">#FF444444</color>
 
 </resources>

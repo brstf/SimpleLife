@@ -49,7 +49,7 @@
         android:gravity="center"
         android:paddingBottom="10dp"
         android:text=""
-        android:textColor="@color/darker_gray"
+        android:textColor="?attr/life_total_text_color"
         android:textSize="@dimen/life_total_size"
         android:typeface="sans" />
 
@@ -80,7 +80,7 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/transparent_button"
         android:text="@string/mod_p5"
-        android:textColor="@color/pretty_light_gray"
+        android:textColor="?attr/mod_by_5_color"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
         android:layout_below="@id/spacer"
         android:background="@drawable/transparent_button"
         android:text="@string/mod_m5"
-        android:textColor="@color/pretty_light_gray"
+        android:textColor="?attr/mod_by_5_color"
         android:textSize="20sp"
         android:textStyle="bold" />
 

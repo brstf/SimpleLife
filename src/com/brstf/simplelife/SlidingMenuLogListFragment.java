@@ -125,8 +125,10 @@ public class SlidingMenuLogListFragment extends Fragment {
 	public void setUpperInverted(boolean invert) {
 		mUpperInverted = invert;
 		if (m_log2 != null) {
-			m_log2.setInverse(invert);
-			this.flipText(invert);
+			if (this.isAdded()) {
+				m_log2.setInverse(invert);
+				this.flipText(invert);
+			}
 		}
 	}
 

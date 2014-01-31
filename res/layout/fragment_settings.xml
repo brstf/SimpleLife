@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray" >
+    android:background="?attr/settings_background_color" >
 
     <RelativeLayout
         android:id="@+id/options_grid"
@@ -28,7 +28,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <View
                 android:id="@+id/mini_spacer"
@@ -124,7 +124,7 @@
             android:layout_below="@id/reset_outer_rl"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <TextView
                 android:id="@+id/invert_tv"
@@ -191,7 +191,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:layout_toLeftOf="@id/spacer"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <Button
                 android:id="@+id/but_poison"
@@ -233,7 +233,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <View
                 android:id="@+id/mini_spacer_dice"
@@ -369,7 +369,7 @@
                 android:layout_height="85dp"
                 android:layout_below="@id/settings_dice_title"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/gray_button_circle"
+                android:background="?dice_button_drawable"
                 android:contentDescription="@string/settings_dice_content_desc"
                 android:gravity="center" />
 
@@ -407,7 +407,7 @@
             android:layout_below="@id/settings_dice_rl"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/spacer"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <CheckBox
                 android:id="@+id/settings_wake_check"
@@ -452,7 +452,7 @@
             android:layout_below="@id/settings_dice_rl"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <CheckBox
                 android:id="@+id/settings_quick_check"
@@ -497,7 +497,7 @@
             android:layout_below="@id/settings_wake_rl"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/spacer"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <TextView
                 android:id="@+id/settings_entry_tv"
@@ -559,7 +559,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/spacer"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <Button
                 android:id="@+id/but_bigmod"
@@ -590,6 +590,115 @@
                 android:textSize="@dimen/settings_description_text_size" />
         </RelativeLayout>
 
+        <!-- Choose Theme Value -->
+
+        <RelativeLayout
+            android:id="@+id/settings_theme_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/settings_entry_timer"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/spacer"
+            android:background="?attr/settings_tile_background" >
+
+            <RadioGroup
+                android:id="@+id/settings_theme_rg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:orientation="vertical" >
+
+                <RadioButton
+                    android:id="@+id/settings_theme_rb_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/settings_light_theme"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/settings_radio_text_size" />
+
+                <RadioButton
+                    android:id="@+id/settings_theme_rb_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/settings_dark_theme"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/settings_radio_text_size" />
+
+                <RadioButton
+                    android:id="@+id/settings_theme_rb_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/settings_black_theme"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/settings_radio_text_size" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_theme_rg"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:text="@string/settings_black_oled"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/settings_description_text_size" />
+        </RelativeLayout>
+
+        <!-- Enable Commander Damage -->
+
+        <RelativeLayout
+            android:id="@+id/settings_cmd_rl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/settings_theme_rl"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/settings_bigmod_rl"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/spacer"
+            android:background="?attr/settings_tile_background" >
+
+            <Button
+                android:id="@+id/but_cmd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/transparent_button" />
+
+            <CheckBox
+                android:id="@+id/settings_cmd_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/settings_cmd_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_cmd_check"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/settings_cmd"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/settings_description_text_size" />
+        </RelativeLayout>
+
         <!-- About Button -->
 
         <RelativeLayout
@@ -597,10 +706,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/settings_entry_timer"
-            android:layout_margin="5dp"
+            android:layout_below="@id/settings_theme_rl"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/gray_tile" >
+            android:background="?attr/settings_tile_background" >
 
             <View
                 android:id="@+id/mini_spacer2"
@@ -642,6 +753,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/mini_spacer2" >
 
                 <com.brstf.simplelife.widgets.SquareImageButton

@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
@@ -31,9 +32,13 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
 		setupPreferences();
+		int theme_id = mPrefs.getInt(
+				getResources().getString(R.string.key_theme),
+				R.style.AppBaseThemeLight);
+		this.setTheme(theme_id);
+
+		super.onCreate(savedInstanceState);
 		mDbHelper = new LifeDbAdapter(this);
 
 		// Restore life histories
@@ -105,6 +110,8 @@ public class LifeCount extends SlidingFragmentActivity implements
 			edit.putBoolean(getString(R.string.key_bigmod), true);
 			edit.putInt(getString(R.string.key_dice_sides), 6);
 			edit.putInt(getString(R.string.key_dice_num), 2);
+			edit.putInt(getString(R.string.key_theme),
+					R.style.AppBaseThemeLight);
 			edit.commit();
 		}
 	}
@@ -160,6 +167,8 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 *            null.
 	 */
 	private void createSlidingMenus() {
+		Log.d("DEBUG", "Do sliding menu shenanigans");
+
 		SlidingMenu menu = getSlidingMenu();
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		menu.setFadeDegree(0.35f);
@@ -189,6 +198,7 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Only create new fragments if they don't exist
 		if (mLogFragRight == null || mLogFragLeft == null) {
+			Log.d("DEBUG", "Null frags");
 			mLogFragRight = new SlidingMenuLogListFragment();
 			mLogFragLeft = new SlidingMenuLogListFragment();
 			ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
@@ -199,13 +209,17 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Restore the options fragments if they exist
 		if (optionsRight != null) {
+			Log.d("DEBUG", "Right options added");
 			ft = ft.replace(R.id.sliding_menu_frame2, optionsRight,
 					"RIGHT_OPTIONS");
+
 		}
 
 		if (optionsLeft != null) {
+			Log.d("DEBUG", "Left options added");
 			ft = ft.replace(R.id.sliding_menu_frame, optionsLeft,
 					"LEFT_OPTIONS");
+
 		}
 
 		// If there are any changes to be done, commit them
@@ -214,6 +228,8 @@ public class LifeCount extends SlidingFragmentActivity implements
 		}
 
 		// set the fragments to be inverted as necessary
+		Log.d("DEBUG", String.valueOf(mLogFragRight.isAdded()));
+		Log.d("DEBUG", String.valueOf(mLogFragLeft.isAdded()));
 		mLogFragRight.setUpperInverted(mPrefs.getBoolean(
 				getString(R.string.key_invert), true));
 		mLogFragLeft.setUpperInverted(mPrefs.getBoolean(
@@ -405,6 +421,9 @@ public class LifeCount extends SlidingFragmentActivity implements
 		} else if (key == getString(R.string.key_bigmod)) {
 			// Bigmod preference changed
 			setBigmodChanged(mPrefs.getBoolean(key, true));
+		} else if (key == getString(R.string.key_theme)) {
+			// Theme changed
+			this.recreate();
 		}
 	}
 }
