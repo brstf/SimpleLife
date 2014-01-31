@@ -10,13 +10,16 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
 public class LifeCount extends SlidingFragmentActivity implements
@@ -84,6 +87,29 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Register this activity as a listener for preference changes
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.settings:
+			this.toggle();
+			this.mLogFragLeft.showOptions();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	/**
@@ -167,8 +193,6 @@ public class LifeCount extends SlidingFragmentActivity implements
 	 *            null.
 	 */
 	private void createSlidingMenus() {
-		Log.d("DEBUG", "Do sliding menu shenanigans");
-
 		SlidingMenu menu = getSlidingMenu();
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		menu.setFadeDegree(0.35f);
@@ -198,28 +222,28 @@ public class LifeCount extends SlidingFragmentActivity implements
 
 		// Only create new fragments if they don't exist
 		if (mLogFragRight == null || mLogFragLeft == null) {
-			Log.d("DEBUG", "Null frags");
 			mLogFragRight = new SlidingMenuLogListFragment();
 			mLogFragLeft = new SlidingMenuLogListFragment();
-			ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
-			ft = ft.replace(R.id.sliding_menu_frame, mLogFragLeft, "LEFT");
 		}
+
+		ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
+		ft = ft.replace(R.id.sliding_menu_frame, mLogFragLeft, "LEFT");
+
+		ft.commit();
+
+		ft = getFragmentManager().beginTransaction();
 		mLogFragRight.setControllers(p1Controller, p2Controller);
 		mLogFragLeft.setControllers(p1Controller, p2Controller);
 
 		// Restore the options fragments if they exist
 		if (optionsRight != null) {
-			Log.d("DEBUG", "Right options added");
 			ft = ft.replace(R.id.sliding_menu_frame2, optionsRight,
 					"RIGHT_OPTIONS");
-
 		}
 
 		if (optionsLeft != null) {
-			Log.d("DEBUG", "Left options added");
 			ft = ft.replace(R.id.sliding_menu_frame, optionsLeft,
 					"LEFT_OPTIONS");
-
 		}
 
 		// If there are any changes to be done, commit them
@@ -227,9 +251,9 @@ public class LifeCount extends SlidingFragmentActivity implements
 			ft.commit();
 		}
 
+		getFragmentManager().executePendingTransactions();
+
 		// set the fragments to be inverted as necessary
-		Log.d("DEBUG", String.valueOf(mLogFragRight.isAdded()));
-		Log.d("DEBUG", String.valueOf(mLogFragLeft.isAdded()));
 		mLogFragRight.setUpperInverted(mPrefs.getBoolean(
 				getString(R.string.key_invert), true));
 		mLogFragLeft.setUpperInverted(mPrefs.getBoolean(
@@ -252,12 +276,17 @@ public class LifeCount extends SlidingFragmentActivity implements
 	}
 
 	private boolean closeOptions() {
+		FragmentManager fml = mLogFragLeft.getFragmentManager();
+		FragmentManager fmr = mLogFragRight.getFragmentManager();
+
 		// Check if settings are showing, if they are just pop it off
-		if (mLogFragRight.getFragmentManager().getBackStackEntryCount() > 0) {
+		if (fmr != null
+				&& mLogFragRight.getFragmentManager().getBackStackEntryCount() > 0) {
 			mLogFragRight.getFragmentManager().popBackStack();
 			return true;
 		}
-		if (mLogFragLeft.getFragmentManager().getBackStackEntryCount() > 0) {
+		if (fml != null
+				&& mLogFragLeft.getFragmentManager().getBackStackEntryCount() > 0) {
 			mLogFragLeft.getFragmentManager().popBackStack();
 			return true;
 		}
