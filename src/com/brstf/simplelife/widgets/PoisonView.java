@@ -5,6 +5,7 @@ import java.util.Observable;
 import com.brstf.simplelife.R;
 import com.brstf.simplelife.controls.LifeController;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 public class PoisonView extends ObserverLayout {
 	private boolean m_poison_mode = false;
 	private AlphaAnimation m_PoisonAnim;
+	private int darkGrayId;
+	private int lightGrayId;
 
 	public PoisonView(Context context) {
 		super(context);
@@ -39,6 +42,31 @@ public class PoisonView extends ObserverLayout {
 		for (int i = 0; i < this.getChildCount(); ++i) {
 			this.getChildAt(i).setAlpha(0.0f);
 		}
+
+		// Check if we're using a dark theme or a light theme and switch the
+		// poison drawable resource appropriately
+		boolean darkTheme = false;
+		int style = ((Activity) getContext()).getPreferences(
+				Context.MODE_PRIVATE).getInt(
+				getContext().getString(R.string.key_theme),
+				R.style.AppBaseThemeLight);
+		switch (style) {
+		case R.style.AppBaseThemeLight:
+			darkTheme = false;
+			break;
+		case R.style.AppBaseThemeDark:
+		case R.style.AppBaseThemeBlack:
+			darkTheme = true;
+			break;
+		}
+
+		if (!darkTheme) {
+			darkGrayId = R.drawable.gray_drop_darker;
+			lightGrayId = R.drawable.gray_drop;
+		} else {
+			darkGrayId = R.drawable.gray_drop;
+			lightGrayId = R.drawable.gray_drop_darker;
+		}
 	}
 
 	/**
@@ -60,12 +88,10 @@ public class PoisonView extends ObserverLayout {
 		// Update the poison views
 		for (int i = 0; i < this.getChildCount(); ++i) {
 			if (i < getLifeController().getCurrentPoison()) {
-				((ImageView) this.getChildAt(i))
-						.setImageResource(R.drawable.gray_drop_darker);
+				((ImageView) this.getChildAt(i)).setImageResource(darkGrayId);
 				this.getChildAt(i).setAlpha(1.0f);
 			} else {
-				((ImageView) this.getChildAt(i))
-						.setImageResource(R.drawable.gray_drop);
+				((ImageView) this.getChildAt(i)).setImageResource(lightGrayId);
 				if (!m_poison_mode) {
 					this.getChildAt(i).setAlpha(0.0f);
 				}
