@@ -104,8 +104,14 @@ public class LifeCount extends SlidingFragmentActivity implements
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.settings:
-			this.toggle();
-			this.mLogFragLeft.showOptions();
+			if (mLogFragLeft.getFragmentManager().getBackStackEntryCount()
+					+ mLogFragRight.getFragmentManager()
+							.getBackStackEntryCount() == 0) {
+				this.showMenu();
+				this.mLogFragLeft.showOptions();
+			} else {
+				this.showContent();
+			}
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -218,18 +224,17 @@ public class LifeCount extends SlidingFragmentActivity implements
 		mLogFragLeft = (SlidingMenuLogListFragment) getFragmentManager()
 				.findFragmentByTag("LEFT");
 
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		FragmentTransaction ft;
 
 		// Only create new fragments if they don't exist
 		if (mLogFragRight == null || mLogFragLeft == null) {
 			mLogFragRight = new SlidingMenuLogListFragment();
 			mLogFragLeft = new SlidingMenuLogListFragment();
+			ft = getFragmentManager().beginTransaction();
+			ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
+			ft = ft.replace(R.id.sliding_menu_frame, mLogFragLeft, "LEFT");
+			ft.commit();
 		}
-
-		ft = ft.replace(R.id.sliding_menu_frame2, mLogFragRight, "RIGHT");
-		ft = ft.replace(R.id.sliding_menu_frame, mLogFragLeft, "LEFT");
-
-		ft.commit();
 
 		ft = getFragmentManager().beginTransaction();
 		mLogFragRight.setControllers(p1Controller, p2Controller);
