@@ -1,0 +1,61 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Light Theme. -->
+    <style name="AppBaseThemeLight" parent="android:Theme.Holo.Light.NoActionBar.TranslucentDecor">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTitleSize">0dp</item>
+
+        <!-- Drawables -->
+
+        <item name="settings_button_drawable">@drawable/red_button_circle</item>
+        <item name="menu_separator">@drawable/gray_separator</item>
+        <item name="settings_tile_background">@drawable/gray_tile</item>
+        <item name="dice_button_drawable">@drawable/gray_button_circle</item>
+        <item name="action_undo">@drawable/ic_action_undo</item>
+
+        <!-- Colors -->
+        <item name="settings_background_color">@color/light_gray</item>
+        <item name="life_total_text_color">@color/darker_gray</item>
+        <item name="mod_by_5_color">@color/pretty_light_gray</item>
+    </style>
+
+    <!-- Dark Theme -->
+    <style name="AppBaseThemeDark" parent="android:Theme.Holo.NoActionBar.TranslucentDecor">
+        <item name="android:windowActionBar">false</item>
+        <item name="menu_separator">@drawable/dark_gray_separator</item>
+        <item name="android:windowTitleSize">0dp</item>
+        <item name="dice_button_drawable">@drawable/gray_button_circle</item>
+        <item name="action_undo">@drawable/ic_action_undo_dark</item>
+
+        <!-- Drawables -->
+
+        <item name="settings_button_drawable">@drawable/red_button_circle</item>
+        <item name="settings_tile_background">@drawable/dark_gray_tile</item>
+
+        <!-- Colors -->
+        <item name="settings_background_color">@color/black</item>
+        <item name="life_total_text_color">@color/pretty_light_gray</item>
+        <item name="mod_by_5_color">@color/darker_gray</item>
+    </style>
+
+    <!-- Black Theme -->
+    <style name="AppBaseThemeBlack" parent="android:Theme.Holo.NoActionBar.TranslucentDecor">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTitleSize">0dp</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="dice_button_drawable">@drawable/gray_black_button_circle</item>
+        <item name="action_undo">@drawable/ic_action_undo_dark</item>
+
+        <!-- Drawables -->
+
+        <item name="settings_button_drawable">@drawable/red_black_button_circle</item>
+        <item name="menu_separator">@drawable/black_separator</item>
+        <item name="settings_tile_background">@drawable/black_tile</item>
+
+        <!-- Colors -->
+        <item name="settings_background_color">@color/black</item>
+        <item name="life_total_text_color">@color/pretty_light_gray</item>
+        <item name="mod_by_5_color">@color/darker_gray</item>
+    </style>
+
+</resources>
