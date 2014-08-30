@@ -1,7 +1,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Light Theme. -->
-    <style name="AppBaseThemeLight" parent="android:Theme.Holo.Light.NoActionBar.TranslucentDecor">
+    <style name="AppBaseThemeLight" parent="android:Theme.Holo.Light">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowTitleSize">0dp</item>
 
@@ -20,7 +20,7 @@
     </style>
 
     <!-- Dark Theme -->
-    <style name="AppBaseThemeDark" parent="android:Theme.Holo.NoActionBar.TranslucentDecor">
+    <style name="AppBaseThemeDark" parent="android:Theme.Holo">
         <item name="android:windowActionBar">false</item>
         <item name="menu_separator">@drawable/dark_gray_separator</item>
         <item name="android:windowTitleSize">0dp</item>
@@ -39,7 +39,7 @@
     </style>
 
     <!-- Black Theme -->
-    <style name="AppBaseThemeBlack" parent="android:Theme.Holo.NoActionBar.TranslucentDecor">
+    <style name="AppBaseThemeBlack" parent="android:Theme">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowTitleSize">0dp</item>
         <item name="android:windowBackground">@color/black</item>
